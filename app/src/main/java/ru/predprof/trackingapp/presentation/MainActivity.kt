@@ -1,10 +1,8 @@
-package ru.predprof.trackingapp
+package ru.predprof.trackingapp.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
-import kotlinx.coroutines.coroutineScope
-import org.w3c.dom.Text
+import ru.predprof.trackingapp.R
 
 class MainActivity : AppCompatActivity() {
 

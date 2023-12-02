@@ -7,6 +7,11 @@ android {
     namespace 'ru.predprof.trackingapp'
     compileSdk 33
 
+    dataBinding {
+        //noinspection DataBindingWithoutKapt
+        enabled = true
+    }
+
     defaultConfig {
         applicationId "ru.predprof.trackingapp"
         minSdk 24

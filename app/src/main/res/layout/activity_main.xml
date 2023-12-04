@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Здесь длжна быть статистика"
-            android:textColor="@color/white"
+            android:textColor="@color/nedodel_nado_pravit"
             android:textSize="45sp"/>
 
         <TextView

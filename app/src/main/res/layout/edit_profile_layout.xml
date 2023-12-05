@@ -3,12 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/back">
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:gravity="center"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:gravity="center">
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="175dp"
@@ -19,13 +20,13 @@
             android:textSize="15sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_height="wrap_content"
             android:layout_width="175dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:background="@drawable/orange_button"
             android:text="Сохранить"
-            android:textSize="15sp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="15sp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

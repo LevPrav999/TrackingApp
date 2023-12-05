@@ -11,7 +11,8 @@ import java.util.ArrayList;
 public class Converters {
     @TypeConverter
     public static ArrayList<String> fromString(String value) {
-        Type listType = new TypeToken<ArrayList<String>>() {}.getType();
+        Type listType = new TypeToken<ArrayList<String>>() {
+        }.getType();
         return new Gson().fromJson(value, listType);
     }
 

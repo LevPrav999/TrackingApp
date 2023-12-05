@@ -4,53 +4,58 @@
     android:layout_height="match_parent"
     android:background="@color/back"
     android:orientation="vertical">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_gravity="top|left"
+        android:layout_marginTop="10dp"
         android:text="Поездка:"
         android:textColor="@color/white"
-        android:textSize="30sp"/>
+        android:textSize="30sp" />
+
     <TextView
+        android:id="@+id/route"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top|left"
         android:text="маршрут"
-        android:id="@+id/route"
         android:textColor="@color/white"
-        android:textSize="30sp"/>
+        android:textSize="30sp" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_gravity="bottom"
         android:gravity="center"
-        android:layout_gravity="bottom">
+        android:orientation="vertical">
+
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="@drawable/orange_button"
             android:text="Повторить Маршрут"
-            android:textSize="15sp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_marginTop="10dp"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@drawable/orange_button"
             android:text="Повторить Обратно"
-            android:textSize="15sp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_marginTop="10dp"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@drawable/grey_button"
             android:text="Удалить запись"
-            android:textSize="15sp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="15sp" />
     </LinearLayout>
 
 

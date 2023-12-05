@@ -13,32 +13,17 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|left"
-            android:layout_marginTop="10dp"
-            android:text="Здравствуйте, "
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            style="@style/title_fragment"
+            android:text="Здравствуйте, " />
 
         <TextView
+            style="@style/title_fragment"
             android:id="@+id/person_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|left"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/white"
-            android:text="имя"
-            android:textSize="20sp" />
+            android:text="имя"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|left"
-            android:layout_marginTop="10dp"
-            android:text="!"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            style="@style/title_fragment"
+            android:text="!" />
     </LinearLayout>
 
     <TextView

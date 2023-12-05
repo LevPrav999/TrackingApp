@@ -6,14 +6,8 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Редактор маршута"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:layout_marginLeft="10dp"
-        />
+        style="@style/title_fragment"
+        android:text="Редактор маршута" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -25,19 +19,15 @@
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="175dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/grey_button"
             android:text="Отмена"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
+            style="@style/grey_button"/>
 
         <androidx.appcompat.widget.AppCompatButton
+            style="@style/orange_button"
             android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/orange_button"
-            android:text="Сохранить"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:text="Сохранить" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

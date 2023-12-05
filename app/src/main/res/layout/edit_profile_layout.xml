@@ -6,14 +6,8 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Изменение данных профиля"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:layout_marginLeft="10dp"
-        />
+        style="@style/title_fragment"
+        android:text="Изменение данных профиля"/>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

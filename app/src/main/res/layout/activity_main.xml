@@ -19,7 +19,7 @@
             android:layout_marginTop="10dp"
             android:text="Здравствуйте, "
             android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/person_name"
@@ -28,7 +28,8 @@
             android:layout_gravity="top|left"
             android:layout_marginTop="10dp"
             android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:text="имя"
+            android:textSize="20sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -37,22 +38,23 @@
             android:layout_marginTop="10dp"
             android:text="!"
             android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Здесь длжна быть статистика"
+        android:layout_gravity="center"
+        android:text="Stats"
         android:textColor="@color/nedodel_nado_pravit"
-        android:textSize="45sp" />
+        android:textSize="30sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ваша последняя поездка:"
         android:textColor="@color/white"
-        android:textSize="25sp" />
+        android:textSize="18sp" />
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

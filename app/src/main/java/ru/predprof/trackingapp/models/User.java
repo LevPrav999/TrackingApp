@@ -7,5 +7,4 @@ public class User {
 
     int personalSkills = 0;
     int healthStatus = 0;
-
 }

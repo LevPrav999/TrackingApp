@@ -5,54 +5,16 @@
     android:layout_height="match_parent"
     android:background="@color/back"
     android:orientation="vertical"
-    tools:context=".presentation.MainActivity">
+    tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        tools:context=".MapsActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|left"
-            android:layout_marginTop="10dp"
-            android:text="Здравствуйте, "
-            android:textColor="@color/white"
-            android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/person_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|left"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/white"
-            android:textSize="30sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|left"
-            android:layout_marginTop="10dp"
-            android:text="!"
-            android:textColor="@color/white"
-            android:textSize="30sp" />
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Здесь длжна быть статистика"
-        android:textColor="@color/nedodel_nado_pravit"
-        android:textSize="45sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ваша последняя поездка:"
-        android:textColor="@color/white"
-        android:textSize="25sp" />
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

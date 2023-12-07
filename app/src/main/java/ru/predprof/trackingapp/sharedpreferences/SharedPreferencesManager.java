@@ -23,6 +23,15 @@ public class SharedPreferencesManager {
         return sharedPreferences.getString(key, defaultValue);
     }
 
+    public void saveFloat(String key, float value) {
+        editor.putFloat(key, value);
+        editor.apply();
+    }
+
+    public float getFloat(String key, float defaultValue) {
+        return sharedPreferences.getFloat(key, defaultValue);
+    }
+
     public void saveInt(String key, int value) {
         editor.putInt(key, value);
         editor.apply();

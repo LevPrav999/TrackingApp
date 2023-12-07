@@ -9,9 +9,8 @@ android {
     namespace 'ru.predprof.trackingapp'
     compileSdk 34
 
-    dataBinding {
-        //noinspection DataBindingWithoutKapt
-        enabled = true
+    buildFeatures {
+        viewBinding true
     }
 
     defaultConfig {

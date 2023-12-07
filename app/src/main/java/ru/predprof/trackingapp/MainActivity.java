@@ -3,16 +3,20 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
+
+import ru.predprof.trackingapp.databinding.ActivityMainBinding;
 import ru.predprof.trackingapp.models.Trip;
 import ru.predprof.trackingapp.room.RoomHandler;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
 
         Thread th2 = new Thread(() -> { // Тест работы БД

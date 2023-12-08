@@ -1,41 +1,27 @@
 package ru.predprof.trackingapp.fragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
+import androidx.fragment.app.Fragment;
 
 import ru.predprof.trackingapp.R;
-import ru.predprof.trackingapp.databinding.FragmentRegisterBinding;
-import ru.predprof.trackingapp.models.Trip;
-import ru.predprof.trackingapp.models.User;
-import ru.predprof.trackingapp.room.RoomHandler;
+import ru.predprof.trackingapp.databinding.EditProfileLayoutBinding;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 
-
-public class RegisterFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class EditProfileFragment extends Fragment  implements AdapterView.OnItemSelectedListener {
 
     private int level = -2;
     private int healthStatus = -3;
 
-    private FragmentRegisterBinding binding;
+    private EditProfileLayoutBinding binding;
     private SharedPreferencesManager preferenceManager;
 
-    public RegisterFragment() {
-
-    }
 
     private void initFields(){
         preferenceManager = new SharedPreferencesManager(requireActivity());
@@ -89,6 +75,7 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
         preferenceManager.saveString("imtString", imtString); // строка для отображения на экране
         preferenceManager.saveInt("level", level);
         preferenceManager.saveInt("healthStatus", healthStatus);
+        Log.d("eeeeeee", preferenceManager.getString("name", "lllll"));
 
     }
 
@@ -103,7 +90,7 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = FragmentRegisterBinding.inflate(getLayoutInflater());
+        binding = EditProfileLayoutBinding.inflate(getLayoutInflater());
 
         initFields();
         initFunc();

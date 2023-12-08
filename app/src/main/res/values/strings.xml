@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">TrackingApp</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="level_choice_array">
+        <item>Никогда не ездил</item>
+        <item>Изредка катаюсь</item>
+        <item>Ежедневно катаюсь</item>
+        <item>Занимаюсь профессионально</item>
+    </string-array>
+
+    <string-array name="health_choice_array">
+        <item>Сильные ограничения</item>
+        <item>Умеренные ограничения</item>
+        <item>Без ограничений</item>
+        <item>Идеальная физическая форма</item>
+    </string-array>
+
 </resources>

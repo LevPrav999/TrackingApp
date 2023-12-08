@@ -21,6 +21,32 @@
         android:layout_marginTop="0dp"
         android:id="@+id/user_location"
         android:text="geoposition"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:text="Пауза"
+        android:textSize="40sp"
+        android:layout_height="160dp"
+        style="@style/orange_button"
+        android:layout_width="match_parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:text="Завершить"
+        style="@style/orange_button"
+        android:textSize="40sp"
+        android:layout_height="160dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:text="Map"
+        android:textColor="@color/nedodel_nado_pravit"
+        android:textSize="30sp"/>
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

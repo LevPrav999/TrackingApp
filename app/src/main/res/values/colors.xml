@@ -6,4 +6,6 @@
     <color name="dark_orange">#AE5B0F</color>
     <color name="dark_grey">#242424</color>
     <color name="nedodel_nado_pravit">#FF0000</color>
+    <color name="very_dark_grey">#1E1E1E</color>
+    <color name="hint_text">#777777</color>
 </resources>

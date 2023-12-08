@@ -2,9 +2,25 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/back">
+    android:background="@color/back"
+    android:orientation="vertical">
     <TextView
         style="@style/title_fragment"
         android:text="Профиль"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/profile_photo"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Name, surname"
+        android:id="@+id/profile_name_surname"
+        android:textColor="@color/white"
+        />
+    
 
 </androidx.appcompat.widget.LinearLayoutCompat>

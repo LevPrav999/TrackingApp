@@ -74,7 +74,6 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
             }
         });
     }
-
     private void saveToDb(){
         float height = Float.parseFloat(binding.registerHeight.getText().toString());
         float weight = Float.parseFloat(binding.registerWeight.getText().toString());
@@ -83,10 +82,11 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
 
         preferenceManager.saveFloat("height", height);
         preferenceManager.saveFloat("weight", weight);
-        preferenceManager.saveFloat("imt", imt);
-        preferenceManager.saveString("imtString", imtString);
+        preferenceManager.saveFloat("imt", imt); // точное значение индекса массы тела
+        preferenceManager.saveString("imtString", imtString); // строка для отображения на экране
         preferenceManager.saveInt("level", level);
         preferenceManager.saveInt("healthStatus", healthStatus);
+
     }
 
 

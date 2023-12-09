@@ -4,7 +4,7 @@
 
     <meta-data
         android:name="com.google.android.geo.API_KEY"
-        android:value="ABQIAAAAgb5KEVTm54vkPcAkU9xOvBR30EG5jFWfUzfYJTWEkWk2p04CHxTGDNV791-cU95kOnweeZ0SsURYSA" />
+        android:value="AIzaSyCK4y3tSLqGJD2GG4lCkMCDf-Cc6D-jvKU" />
 
     <uses-permission android:name="android.permission.INTERNET" />
 

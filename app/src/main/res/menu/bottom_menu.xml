@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/statistic"
+        android:icon="@drawable/assignment_turned_in"
+        android:title="Статистика"
+        android:enabled="true"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/routes"
+        android:icon="@drawable/add_circle"
+        android:title="Маршруты"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/prof"
+        android:icon="@drawable/person"
+        android:title="Профиль"
+        app:showAsAction="ifRoom"/>
+
+</menu>

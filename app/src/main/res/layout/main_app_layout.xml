@@ -1,41 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/back"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         style="@style/title_fragment"
-        android:text="Поездка:"/>
+        android:text="Здравствуйте, ИМЯ!"
+        android:id="@+id/hello_and_name"/>
 
     <TextView
-        style="@style/title_fragment"
-        android:id="@+id/route"
-        android:layout_marginTop="35dp"
-        android:text="маршрут"/>
-
-    <TextView
-        android:layout_marginBottom="380dp"
-        android:layout_marginTop="100dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Map"
-        android:layout_gravity="bottom|center"
-        android:textSize="30dp"
-        android:textColor="@color/nedodel_nado_pravit"/>
+        android:textColor="@color/nedodel_nado_pravit"
+        android:layout_gravity="center"
+        android:text="stats"
+        android:textSize="30dp"/>
+
+    <TextView
+        style="@style/title_fragment"
+        android:textSize="18sp"
+        android:layout_marginTop="30dp"
+        android:text="Ваша последняя поездка:"/>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="200dp"
         android:background="@drawable/pres_info">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/text_for_stats"
+            android:text="Пункт А - Пункт В"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/last_route"/>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -52,14 +60,9 @@
                 android:text="Длина:"
                 tools:ignore="MissingConstraints" />
             <TextView
-                android:fontFamily="@font/moscowsansregular"
-                android:layout_marginTop="10dp"
-                android:textSize="15sp"
+                style="@style/text_for_stats"
                 android:layout_marginRight="15dp"
                 app:layout_constraintRight_toRightOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
                 android:text="0"
                 android:gravity="right"
                 android:id="@+id/route_length"
@@ -104,14 +107,9 @@
                 android:text="Оценочная сложность:"
                 tools:ignore="MissingConstraints" />
             <TextView
-                android:fontFamily="@font/moscowsansregular"
-                android:layout_marginTop="10dp"
-                android:textSize="15sp"
+                style="@style/text_for_stats"
                 android:layout_marginRight="15dp"
                 app:layout_constraintRight_toRightOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
                 android:text="0"
                 android:gravity="right"
                 android:id="@+id/route_estimated_complexity"
@@ -154,11 +152,10 @@
                 style="@style/text_for_stats"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginLeft="15dp"
-                android:text="Итоговая сложность:"
+                android:text="Итоговая сложность::"
                 tools:ignore="MissingConstraints" />
             <TextView
                 style="@style/text_for_stats"
-                android:layout_marginTop="10dp"
                 android:layout_marginRight="15dp"
                 app:layout_constraintRight_toRightOf="parent"
                 android:text="0"
@@ -170,35 +167,24 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_marginTop="30dp"
+        style="@style/title_fragment"
+        android:textSize="18sp"
+        android:text="Другие поездки:"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:orientation="vertical">
+        android:layout_below="@+id/search"
+        android:layout_above="@+id/add"
+        android:padding="5dp"
+        app:layoutManager="LinearLayoutManager" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            style="@style/orange_button"
-            android:text="Повторить Маршрут" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="200dp"
-            style="@style/orange_button"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Повторить Обратно" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            style="@style/grey_button"
-            android:text="Удалить запись"/>
-    </LinearLayout>
-
-
-</FrameLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

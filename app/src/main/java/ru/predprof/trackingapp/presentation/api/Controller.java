@@ -10,7 +10,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.predprof.trackingapp.presentation.api.models.AllJson;
-import ru.predprof.trackingapp.presentation.api.models.Data;
 
 public class Controller implements Runnable {
     public static final String BASE_URL = "https://dt.miet.ru/ppo_it/api/watch/";

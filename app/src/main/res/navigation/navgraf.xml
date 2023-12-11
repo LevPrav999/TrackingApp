@@ -126,6 +126,5 @@
     </fragment>
     <activity
         android:id="@+id/activity_main"
-        tools:layout="@layout/activity_main">
-    </activity>
+        tools:layout="@layout/activity_main"></activity>
 </navigation>

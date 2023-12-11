@@ -6,10 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+
 import ru.predprof.trackingapp.databinding.RoutesLayoutBinding;
 
 public class RoutesFragment extends Fragment {
     private RoutesLayoutBinding binding;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

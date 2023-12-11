@@ -4,23 +4,27 @@
     android:layout_height="match_parent"
     android:background="@color/back"
     android:orientation="vertical">
+
     <TextView
         style="@style/title_fragment"
-        android:text="Маршрут:"/>
+        android:text="Маршрут:" />
+
     <TextView
+        android:id="@+id/route_points"
         style="@style/title_fragment"
         android:layout_marginTop="0dp"
-        android:id="@+id/route_points"
-        android:text="пункт А - пункт Б"/>
+        android:text="пункт А - пункт Б" />
+
     <TextView
         style="@style/title_fragment"
         android:layout_marginTop="40dp"
-        android:text="Ваше Местоположение"/>
+        android:text="Ваше Местоположение" />
+
     <TextView
+        android:id="@+id/user_location"
         style="@style/title_fragment"
         android:layout_marginTop="0dp"
-        android:id="@+id/user_location"
-        android:text="geoposition"/>
+        android:text="geoposition" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,20 +32,19 @@
         android:layout_gravity="center|bottom"
         android:text="Map"
         android:textColor="@color/nedodel_nado_pravit"
-        android:textSize="30sp"/>
+        android:textSize="30sp" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:text="Пауза"
         style="@style/big_orange_button"
         android:layout_gravity="bottom|center"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="40dp"
+        android:text="Пауза" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:text="Завершить"
-        android:layout_gravity="bottom|center"
         style="@style/big_orange_button"
-        android:layout_marginTop="20dp" />
-
+        android:layout_gravity="bottom|center"
+        android:layout_marginTop="20dp"
+        android:text="Завершить" />
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

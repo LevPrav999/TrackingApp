@@ -7,35 +7,33 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_height="40dp"
         android:background="@drawable/grey_button"
         tools:ignore="MissingConstraints">
+
         <TextView
+            android:id="@+id/date_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="20sp"
-            android:gravity="left|center"
             android:layout_marginLeft="10dp"
-            android:textColor="@color/white"
+            android:gravity="left|center"
             android:text="Сложность"
-            android:id="@+id/date_recycler"
-            />
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
         <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="20sp"
-                android:gravity="right|center"
-                android:layout_marginRight="10dp"
-                android:textColor="@color/white"
-                android:text="Сложность"
-                android:id="@+id/achievement"
-                />
+            android:id="@+id/achievement"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:gravity="right|center"
+            android:text="Сложность"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
     </RelativeLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

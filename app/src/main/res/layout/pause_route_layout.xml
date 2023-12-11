@@ -4,24 +4,27 @@
     android:layout_height="match_parent"
     android:background="@color/back"
     android:orientation="vertical">
-    <TextView
-        style="@style/title_fragment"
-        android:text="Маршрут:"/>
-    <TextView
-        style="@style/title_fragment"
-        android:layout_marginTop="40dp"
-        android:id="@+id/route_points"
-        android:text="пункт А - пункт Б"/>
-    <TextView
-        style="@style/title_fragment"
-        android:layout_marginTop="80dp"
-        android:text="Ваше Местоположение"/>
 
     <TextView
         style="@style/title_fragment"
-        android:layout_marginTop="110dp"
+        android:text="Маршрут:" />
+
+    <TextView
+        android:id="@+id/route_points"
+        style="@style/title_fragment"
+        android:layout_marginTop="40dp"
+        android:text="пункт А - пункт Б" />
+
+    <TextView
+        style="@style/title_fragment"
+        android:layout_marginTop="80dp"
+        android:text="Ваше Местоположение" />
+
+    <TextView
         android:id="@+id/user_location"
-        android:text="geoposition"/>
+        style="@style/title_fragment"
+        android:layout_marginTop="110dp"
+        android:text="geoposition" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,21 +33,21 @@
         android:layout_marginBottom="400dp"
         android:text="Map"
         android:textColor="@color/nedodel_nado_pravit"
-        android:textSize="30sp"/>
+        android:textSize="30sp" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:text="Продолжить"
         android:id="@+id/resume_button"
         style="@style/big_orange_button"
         android:layout_gravity="bottom|center"
-        android:layout_marginBottom="200dp" />
+        android:layout_marginBottom="200dp"
+        android:text="Продолжить" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:text="Завершить"
         android:id="@+id/end_button"
         style="@style/big_orange_button"
         android:layout_gravity="bottom|center"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp"
+        android:text="Завершить" />
 
 
 </FrameLayout>

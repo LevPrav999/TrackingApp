@@ -1,27 +1,17 @@
 package ru.predprof.trackingapp.fragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
+import androidx.fragment.app.Fragment;
 
 import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.databinding.FragmentRegisterBinding;
-import ru.predprof.trackingapp.models.Trip;
-import ru.predprof.trackingapp.models.User;
-import ru.predprof.trackingapp.room.RoomHandler;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 
 
@@ -37,11 +27,11 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
 
     }
 
-    private void initFields(){
+    private void initFields() {
         preferenceManager = new SharedPreferencesManager(requireActivity());
     }
 
-    private void initFunc(){
+    private void initFunc() {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 requireContext(),
                 R.array.level_choice_array,
@@ -62,22 +52,23 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
 
 
         binding.sendFormButton.setOnClickListener(listener -> {
-            if (binding.registerHeight.length() != 3){
+            if (binding.registerHeight.length() != 3) {
                 Log.d("eeeeeee", "Введите рост трёхзначным числом");
-            }else if(binding.registerWeight.length() != 4){
+            } else if (binding.registerWeight.length() != 4) {
                 Log.d("eeeeeee", "Введите вес в формате 86.3 или 72.0");
-            }else if(level == -1){
+            } else if (level == -1) {
                 Log.d("eeeeeee", "Вы не выбрали уровень подготовки");
-            }else{
+            } else {
                 saveToDb();
                 // navigate to another screen
             }
         });
     }
-    private void saveToDb(){
+
+    private void saveToDb() {
         int height = Integer.parseInt(binding.registerHeight.getText().toString());
         float weight = Float.parseFloat(binding.registerWeight.getText().toString());
-        float imt = weight/ (float) (height*height);
+        float imt = weight / (float) (height * height);
         String name = binding.registerName.getText().toString();
         String tel_num = binding.registerPhoneNumber.getText().toString();
         String imtString = String.format("%.1g%n", imt);
@@ -113,9 +104,9 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        if(view.getId() == R.id.registerLevelSpinner){
-            level = i-1;
-        }else{
+        if (view.getId() == R.id.registerLevelSpinner) {
+            level = i - 1;
+        } else {
             healthStatus = i - 2;
         }
     }

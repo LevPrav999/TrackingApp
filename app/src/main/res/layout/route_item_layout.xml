@@ -1,169 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/back"
     android:orientation="vertical">
 
     <TextView
         style="@style/title_fragment"
-        android:text="Поездка:"/>
+        android:text="Поездка:" />
 
     <TextView
-        style="@style/title_fragment"
         android:id="@+id/route"
+        style="@style/title_fragment"
         android:layout_marginTop="35dp"
-        android:text="маршрут"/>
+        android:text="маршрут" />
 
     <TextView
-        android:layout_marginBottom="380dp"
-        android:layout_marginTop="100dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Map"
         android:layout_gravity="bottom|center"
-        android:textSize="30dp"
-        android:textColor="@color/nedodel_nado_pravit"/>
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="380dp"
+        android:text="Map"
+        android:textColor="@color/nedodel_nado_pravit"
+        android:textSize="30dp" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_gravity="bottom|center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="200dp"
-        android:background="@drawable/pres_info">
+        android:background="@drawable/pres_info"
+        android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
             android:layout_marginTop="10dp"
+            android:gravity="center"
             android:orientation="horizontal">
+
             <TextView
                 style="@style/text_for_stats"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginLeft="15dp"
                 android:text="Длина:"
+                app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
+
             <TextView
-                android:fontFamily="@font/moscowsansregular"
-                android:layout_marginTop="10dp"
-                android:textSize="15sp"
-                android:layout_marginRight="15dp"
-                app:layout_constraintRight_toRightOf="parent"
+                android:id="@+id/route_length"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:text="0"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:fontFamily="@font/moscowsansregular"
                 android:gravity="right"
-                android:id="@+id/route_length"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
             android:layout_marginTop="10dp"
+            android:gravity="center"
             android:orientation="horizontal">
+
             <TextView
                 style="@style/text_for_stats"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginLeft="15dp"
                 android:text="Длительность:"
+                app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
+
             <TextView
+                android:id="@+id/route_duration"
                 style="@style/text_for_stats"
                 android:layout_marginRight="15dp"
-                app:layout_constraintRight_toRightOf="parent"
-                android:text="0"
                 android:gravity="right"
-                android:id="@+id/route_duration"
+                android:text="0"
+                app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
             android:layout_marginTop="10dp"
+            android:gravity="center"
             android:orientation="horizontal">
+
             <TextView
                 style="@style/text_for_stats"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginLeft="15dp"
                 android:text="Оценочная сложность:"
+                app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
+
             <TextView
-                android:fontFamily="@font/moscowsansregular"
-                android:layout_marginTop="10dp"
-                android:textSize="15sp"
-                android:layout_marginRight="15dp"
-                app:layout_constraintRight_toRightOf="parent"
+                android:id="@+id/route_estimated_complexity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:text="0"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:fontFamily="@font/moscowsansregular"
                 android:gravity="right"
-                android:id="@+id/route_estimated_complexity"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
             android:layout_marginTop="10dp"
+            android:gravity="center"
             android:orientation="horizontal">
+
             <TextView
                 style="@style/text_for_stats"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginLeft="15dp"
                 android:text="Ваша оценка:"
+                app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
+
             <TextView
+                android:id="@+id/route_user_rating"
                 style="@style/text_for_stats"
                 android:layout_marginRight="15dp"
-                app:layout_constraintRight_toRightOf="parent"
-                android:text="0"
                 android:gravity="right"
-                android:id="@+id/route_user_rating"
+                android:text="0"
+                app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
             android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <TextView
                 style="@style/text_for_stats"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginLeft="15dp"
                 android:text="Итоговая сложность:"
+                app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
+
             <TextView
+                android:id="@+id/route_average_rating"
                 style="@style/text_for_stats"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="15dp"
-                app:layout_constraintRight_toRightOf="parent"
-                android:text="0"
                 android:gravity="right"
-                android:id="@+id/route_average_rating"
+                android:text="0"
+                app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -174,30 +181,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:gravity="center"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
+        android:gravity="center"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatButton
+            style="@style/orange_button"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            style="@style/orange_button"
             android:text="Повторить Маршрут" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="200dp"
             style="@style/orange_button"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Повторить Обратно" />
 
         <androidx.appcompat.widget.AppCompatButton
+            style="@style/grey_button"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            style="@style/grey_button"
-            android:text="Удалить запись"/>
+            android:text="Удалить запись" />
     </LinearLayout>
 
 

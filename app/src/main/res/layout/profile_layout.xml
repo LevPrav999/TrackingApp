@@ -1,92 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/back"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
+
     <TextView
         style="@style/title_fragment"
-        android:text="Профиль"/>
-
+        android:text="Профиль" />
 
 
     <TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-        android:layout_marginTop="90dp"
-    android:text="Name, surname"
+        android:id="@+id/profile_name_surname"
         style="@style/text_for_stats"
-        android:textSize="18sp"
-    android:id="@+id/profile_name_surname"
-    />
-    
-    
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:gravity="center"
+        android:text="Name, surname"
+        android:textSize="18sp" />
+
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp">
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Данные профиля"
-            android:layout_marginTop="0dp"
-            android:layout_gravity="center"
             style="@style/text_for_stats"
-            android:textSize="17sp"
-            />
-        <androidx.constraintlayout.utils.widget.ImageFilterButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/create"
+            android:layout_gravity="center"
+            android:layout_marginTop="0dp"
+            android:text="Данные профиля"
+            android:textSize="17sp" />
+
+        <androidx.constraintlayout.utils.widget.ImageFilterButton
             android:id="@+id/edit_profile_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginRight="25dp"/>
-        
-        
+            android:layout_marginRight="25dp"
+            android:background="@drawable/create" />
+
+
     </FrameLayout>
-
-
 
 
     <FrameLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/pres_info">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                style="@style/text_for_stats"
-                android:layout_marginLeft="16dp"
-                android:layout_gravity="left"
-                android:text="Номер телефона:" />
+        <TextView
+            style="@style/text_for_stats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="10dp"
+            android:text="Номер телефона:" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/moscowsansregular"
-                android:id="@+id/register_phone_number"
-                style="@style/text_for_stats"
-                android:layout_marginRight="15dp"
-                android:layout_gravity="right"
-                android:text="+7(916)639-88-99" />
+        <TextView
+            android:id="@+id/register_phone_number"
+            style="@style/text_for_stats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="15dp"
+            android:fontFamily="@font/moscowsansregular"
+            android:text="+7(916)639-88-99" />
     </FrameLayout>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/pres_info">
+        android:layout_marginRight="20dp"
+        android:background="@drawable/pres_info"
+        android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -96,25 +94,25 @@
             android:gravity="center">
 
             <TextView
+                style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/text_for_stats"
                 android:layout_marginLeft="15dp"
                 android:text="Рост:"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                style="@style/text_for_stats"
-                android:text="0"
                 android:id="@+id/registerHeight"
+                style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
+                android:text="0"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints"/>
+                tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -124,113 +122,110 @@
             android:gravity="center">
 
             <TextView
-                android:layout_width="wrap_content"
                 style="@style/text_for_stats"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:text="Вес:"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                style="@style/text_for_stats"
-                android:text="0"
                 android:id="@+id/registerWeight"
+                style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
+                android:text="0"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints"/>
+                tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center">
-
-        <TextView
-            style="@style/text_for_stats"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="Ваш уровень подготовки:"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:layout_gravity="center"
+            android:gravity="center">
 
             <TextView
                 style="@style/text_for_stats"
-                android:text="Низкий"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Ваш уровень подготовки:"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
                 android:id="@+id/registerLevel"
+                style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
+                android:text="Низкий"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints"/>
+                tools:ignore="MissingConstraints" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:gravity="center">
-
-        <TextView
-            style="@style/text_for_stats"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="Состояние вашего здоровья:"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-        <TextView
-            style="@style/text_for_stats"
-            android:text="Низкий"
-            android:id="@+id/registerHealth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:gravity="center">
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+            <TextView
+                style="@style/text_for_stats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Состояние вашего здоровья:"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/registerHealth"
+                style="@style/text_for_stats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:text="Низкий"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <TextView
+        style="@style/text_for_stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Личные рекорды"
-        android:layout_marginTop="70dp"
         android:layout_gravity="center"
-        style="@style/text_for_stats"
-        android:textSize="17sp"
-        />
+        android:layout_marginTop="70dp"
+        android:text="Личные рекорды"
+        android:textSize="17sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/add"
+        android:layout_below="@+id/search"
         android:layout_gravity="center"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/search"
-        android:layout_above="@+id/add"
         android:padding="5dp"
         app:layoutManager="LinearLayoutManager" />
 
-
-    
 
 </androidx.appcompat.widget.LinearLayoutCompat>

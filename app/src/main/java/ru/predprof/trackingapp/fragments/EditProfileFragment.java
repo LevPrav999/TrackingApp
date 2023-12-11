@@ -23,11 +23,11 @@ public class EditProfileFragment extends Fragment {
     private SharedPreferencesManager preferenceManager;
 
 
-    private void initFields(){
+    private void initFields() {
         preferenceManager = new SharedPreferencesManager(requireActivity());
     }
 
-    private void initFunc(){
+    private void initFunc() {
         binding.registerName.setText(preferenceManager.getString("name", "Имя отсутствует"));
         binding.registerPhoneNumber.setText(preferenceManager.getString("phonenumber", "Номер отсутствует"));
         binding.registerHeight.setText(Integer.toString(preferenceManager.getInt("height", 0)));
@@ -74,22 +74,23 @@ public class EditProfileFragment extends Fragment {
 
 
         binding.sendFormButton.setOnClickListener(listener -> {
-            if (binding.registerHeight.length() != 3){
+            if (binding.registerHeight.length() != 3) {
                 Log.d("eeeeeee", "Введите рост трёхзначным числом");
-            }else if(binding.registerWeight.length() != 4){
+            } else if (binding.registerWeight.length() != 4) {
                 Log.d("eeeeeee", "Введите вес в формате 86.3 или 72.0");
-            }else if(level == -1){
+            } else if (level == -1) {
                 Log.d("eeeeeee", "Вы не выбрали уровень подготовки");
-            }else{
+            } else {
                 saveToDb();
                 // navigate to another screen
             }
         });
     }
-    private void saveToDb(){
+
+    private void saveToDb() {
         int height = Integer.parseInt(binding.registerHeight.getText().toString());
         float weight = Float.parseFloat(binding.registerWeight.getText().toString());
-        float imt = weight/ (float) (height*height);
+        float imt = weight / (float) (height * height);
         String name = binding.registerName.getText().toString();
         String tel_num = binding.registerPhoneNumber.getText().toString();
         String imtString = String.format("%.1g%n", imt);

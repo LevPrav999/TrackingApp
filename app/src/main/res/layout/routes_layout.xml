@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/back">
+
     <TextView
         style="@style/title_fragment"
-        android:text="Тренировка"/>
+        android:text="Тренировка" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,102 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/back">
+
     <TextView
         style="@style/title_fragment"
-        android:text="Маршрут завершён"/>
+        android:text="Маршрут завершён" />
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="60dp"
         android:layout_marginRight="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/pres_info">
+        android:background="@drawable/pres_info"
+        android:orientation="vertical">
 
         <TextView
+            android:id="@+id/last_route"
+            style="@style/text_for_stats"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/text_for_stats"
-            android:text="Пункт А - Пункт В"
             android:layout_marginLeft="10dp"
-            android:id="@+id/last_route"/>
+            android:text="Пункт А - Пункт В" />
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
             android:layout_marginTop="10dp"
+            android:gravity="center"
             android:orientation="horizontal">
+
             <TextView
                 style="@style/text_for_stats"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginLeft="15dp"
                 android:text="Длина:"
-                tools:ignore="MissingConstraints" />
-            <TextView
-                style="@style/text_for_stats"
-                android:layout_marginRight="15dp"
-                app:layout_constraintRight_toRightOf="parent"
-                android:text="0"
-                android:gravity="right"
-                android:id="@+id/route_length"
-                tools:ignore="MissingConstraints" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-            <TextView
-                style="@style/text_for_stats"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginLeft="15dp"
-                android:text="Длительность:"
                 tools:ignore="MissingConstraints" />
+
             <TextView
+                android:id="@+id/route_length"
                 style="@style/text_for_stats"
                 android:layout_marginRight="15dp"
-                app:layout_constraintRight_toRightOf="parent"
-                android:text="0"
                 android:gravity="right"
-                android:id="@+id/route_duration"
+                android:text="0"
+                app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:gravity="center"
             android:orientation="horizontal">
+
             <TextView
                 style="@style/text_for_stats"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginLeft="15dp"
-                android:text="Оценочная сложность:"
+                android:text="Длительность:"
+                app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
+
             <TextView
+                android:id="@+id/route_duration"
                 style="@style/text_for_stats"
                 android:layout_marginRight="15dp"
-                app:layout_constraintRight_toRightOf="parent"
-                android:text="0"
                 android:gravity="right"
+                android:text="0"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:ignore="MissingConstraints" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/text_for_stats"
+                android:layout_marginLeft="15dp"
+                android:text="Оценочная сложность:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
                 android:id="@+id/route_estimated_complexity"
+                style="@style/text_for_stats"
+                android:layout_marginRight="15dp"
+                android:gravity="right"
+                android:text="0"
+                app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -104,43 +109,47 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="200dp"
         android:layout_marginRight="15dp"
         android:orientation="horizontal">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
+                style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                style="@style/text_for_stats"
                 android:layout_marginLeft="10dp"
-                android:text="Пожалуйста,"/>
+                android:layout_marginTop="0dp"
+                android:text="Пожалуйста," />
+
             <TextView
+                style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/text_for_stats"
-                android:layout_marginTop="0dp"
                 android:layout_marginLeft="10dp"
-                android:text="оцените уровень сложности"/>
+                android:layout_marginTop="0dp"
+                android:text="оцените уровень сложности" />
+
             <TextView
+                style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/text_for_stats"
-                android:layout_marginTop="0dp"
                 android:layout_marginLeft="10dp"
-                android:text="для вас:"/>
+                android:layout_marginTop="0dp"
+                android:text="для вас:" />
         </LinearLayout>
 
         <Spinner
-            android:gravity="right"
-            android:layout_gravity="center|right"
+            android:id="@+id/spinner_difficulty"
             android:layout_width="130dp"
             android:layout_height="30dp"
-            android:id="@+id/spinner_difficulty"/>
+            android:layout_gravity="center|right"
+            android:gravity="right" />
     </FrameLayout>
 
 
@@ -148,17 +157,17 @@
         style="@style/orange_button"
         android:layout_width="200dp"
         android:layout_height="40dp"
+        android:layout_gravity="bottom|center"
         android:layout_marginBottom="20dp"
-        android:text="На главную"
-        android:layout_gravity="bottom|center"/>
+        android:text="На главную" />
 
     <TextView
-        android:layout_marginBottom="100dp"
-        android:layout_marginTop="100dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Map"
         android:layout_gravity="bottom|center"
-        android:textSize="30dp"
-        android:textColor="@color/nedodel_nado_pravit"/>
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="100dp"
+        android:text="Map"
+        android:textColor="@color/nedodel_nado_pravit"
+        android:textSize="30dp" />
 </FrameLayout>

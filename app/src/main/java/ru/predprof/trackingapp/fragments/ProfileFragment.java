@@ -7,11 +7,11 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import ru.predprof.trackingapp.databinding.FragmentRegisterBinding;
 import ru.predprof.trackingapp.databinding.ProfileLayoutBinding;
 
 public class ProfileFragment extends Fragment {
     private ProfileLayoutBinding binding;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

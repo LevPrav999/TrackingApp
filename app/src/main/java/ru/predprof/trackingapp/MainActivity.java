@@ -1,13 +1,11 @@
 package ru.predprof.trackingapp;
+
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainer;
-import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -17,10 +15,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import java.util.ArrayList;
 
 import ru.predprof.trackingapp.databinding.ActivityMainBinding;
-import ru.predprof.trackingapp.fragments.EditProfileFragment;
-
 import ru.predprof.trackingapp.fragments.ProfileFragment;
-import ru.predprof.trackingapp.fragments.RegisterFragment;
 import ru.predprof.trackingapp.fragments.RoutesFragment;
 import ru.predprof.trackingapp.fragments.StatisticFragment;
 import ru.predprof.trackingapp.models.Trip;
@@ -68,11 +63,12 @@ public class MainActivity extends AppCompatActivity {
         th2.start();
 
     }
-    public void replace(Fragment fragment){
+
+    public void replace(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        transaction.add(R.id.map, fragment).commit();
+        transaction.replace(R.id.map, fragment).commit();
 
 
     }

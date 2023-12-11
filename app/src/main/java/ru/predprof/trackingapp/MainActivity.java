@@ -35,19 +35,16 @@ public class MainActivity extends AppCompatActivity {
         // transaction.addToBackStack("back");
         // transaction.add(R.id.map, new EditProfileFragment()).commit();
         BottomNavigationView bottomNavigationView = binding.getterNavigation;
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        bottomNavigationView.setOnItemSelectedListener(item -> {
 
-                if (item.getItemId() == R.id.prof) {
-                    replace(new ProfileFragment());
-                } else if (item.getItemId() == R.id.statistic) {
-                    replace(new RoutesFragment());
-                } else {
-                    replace(new StatisticFragment());
-                }
-                return true;
+            if (item.getItemId() == R.id.prof) {
+                replace(new ProfileFragment());
+            } else if (item.getItemId() == R.id.statistic) {
+                replace(new RoutesFragment());
+            } else {
+                replace(new StatisticFragment());
             }
+            return true;
         });
         Thread th2 = new Thread(() -> { // Тест работы БД
             Trip trip = new Trip();

@@ -13,18 +13,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/map"
+        android:background="@drawable/map_shape"
         tools:context=".MapsActivity"
 
          />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/getter_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black"
+        android:backgroundTint="@color/white"
+        app:itemPaddingBottom="20dp"
         app:itemRippleColor="@color/white"
         app:itemTextColor="@color/white"
-        android:backgroundTint="@color/white"
-        app:menu="@menu/bottom_menu"/>
+        app:menu="@menu/bottom_menu" />
 
 
 

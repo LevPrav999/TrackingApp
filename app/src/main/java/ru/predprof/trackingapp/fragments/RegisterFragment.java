@@ -75,15 +75,15 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
         });
     }
     private void saveToDb(){
-        float height = Float.parseFloat(binding.registerHeight.getText().toString());
+        int height = Integer.parseInt(binding.registerHeight.getText().toString());
         float weight = Float.parseFloat(binding.registerWeight.getText().toString());
-        float imt = weight/(height*height);
+        float imt = weight/ (float) (height*height);
         String name = binding.registerName.getText().toString();
         String tel_num = binding.registerPhoneNumber.getText().toString();
         String imtString = String.format("%.1g%n", imt);
         preferenceManager.saveString("name", name);
         preferenceManager.saveString("phonenumber", tel_num);
-        preferenceManager.saveFloat("height", height);
+        preferenceManager.saveInt("height", height);
         preferenceManager.saveFloat("weight", weight);
         preferenceManager.saveFloat("imt", imt); // точное значение индекса массы тела
         preferenceManager.saveString("imtString", imtString); // строка для отображения на экране

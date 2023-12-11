@@ -14,7 +14,7 @@ import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.databinding.EditProfileLayoutBinding;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 
-public class EditProfileFragment extends Fragment  implements AdapterView.OnItemSelectedListener {
+public class EditProfileFragment extends Fragment {
 
     private int level = -2;
     private int healthStatus = -3;
@@ -28,6 +28,10 @@ public class EditProfileFragment extends Fragment  implements AdapterView.OnItem
     }
 
     private void initFunc(){
+        binding.registerName.setText(preferenceManager.getString("name", "Имя отсутствует"));
+        binding.registerPhoneNumber.setText(preferenceManager.getString("phonenumber", "Номер отсутствует"));
+        binding.registerHeight.setText(Integer.toString(preferenceManager.getInt("height", 0)));
+        binding.registerWeight.setText(Float.toString(preferenceManager.getFloat("weight", 0)));
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 requireContext(),
                 R.array.level_choice_array,
@@ -35,7 +39,18 @@ public class EditProfileFragment extends Fragment  implements AdapterView.OnItem
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.registerLevelSpinner.setAdapter(adapter);
-        binding.registerLevelSpinner.setOnItemSelectedListener(this);
+        binding.registerLevelSpinner.setSelection(preferenceManager.getInt("level", 0));
+        binding.registerLevelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                level = i;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(
                 requireContext(),
@@ -44,7 +59,18 @@ public class EditProfileFragment extends Fragment  implements AdapterView.OnItem
         );
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.registerHealthSpinner.setAdapter(adapter2);
-        binding.registerHealthSpinner.setOnItemSelectedListener(this);
+        binding.registerHealthSpinner.setSelection(preferenceManager.getInt("healthStatus", 0));
+        binding.registerHealthSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                healthStatus = i;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
         binding.sendFormButton.setOnClickListener(listener -> {
@@ -61,21 +87,21 @@ public class EditProfileFragment extends Fragment  implements AdapterView.OnItem
         });
     }
     private void saveToDb(){
-        float height = Float.parseFloat(binding.registerHeight.getText().toString());
+        int height = Integer.parseInt(binding.registerHeight.getText().toString());
         float weight = Float.parseFloat(binding.registerWeight.getText().toString());
-        float imt = weight/(height*height);
+        float imt = weight/ (float) (height*height);
         String name = binding.registerName.getText().toString();
         String tel_num = binding.registerPhoneNumber.getText().toString();
         String imtString = String.format("%.1g%n", imt);
         preferenceManager.saveString("name", name);
         preferenceManager.saveString("phonenumber", tel_num);
-        preferenceManager.saveFloat("height", height);
+        preferenceManager.saveInt("height", height);
         preferenceManager.saveFloat("weight", weight);
         preferenceManager.saveFloat("imt", imt); // точное значение индекса массы тела
         preferenceManager.saveString("imtString", imtString); // строка для отображения на экране
         preferenceManager.saveInt("level", level);
         preferenceManager.saveInt("healthStatus", healthStatus);
-        Log.d("eeeeeee", preferenceManager.getString("name", "lllll"));
+        Log.d("eeeeeee", Integer.toString(preferenceManager.getInt("level", 0)));
 
     }
 
@@ -98,17 +124,5 @@ public class EditProfileFragment extends Fragment  implements AdapterView.OnItem
         return binding.getRoot();
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        if(view.getId() == R.id.registerLevelSpinner){
-            level = i-1;
-        }else{
-            healthStatus = i - 2;
-        }
-    }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
 }

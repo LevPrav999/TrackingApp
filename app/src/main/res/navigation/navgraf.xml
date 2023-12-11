@@ -3,294 +3,129 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navgraf1"
-    >
-    <activity
-        android:id="@+id/activity_main"
-        tools:layout="@layout/activity_main"
-        >
+    app:startDestination="@id/main_app_layout">
+    <fragment
+        android:id="@+id/fragment_register"
+        tools:layout="@layout/fragment_register">
         <action
-            android:id="@+id/action_activity_main_to_route_item_layout2"
-            app:destination="@id/route_item_layout" />
+            android:id="@+id/action_fragment_register_to_main_app_layout"
+            app:destination="@id/main_app_layout" />
+    </fragment>
+    <fragment
+        android:id="@+id/main_app_layout"
+        tools:layout="@layout/main_app_layout">
         <action
-            android:id="@+id/action_activity_main_self"
-            app:destination="@id/activity_main" />
-        <action
-            android:id="@+id/action_activity_main_to_start_route_layout"
-            app:destination="@id/start_route_layout" />
-        <action
-            android:id="@+id/action_activity_main_to_rioute_end_layout"
-            app:destination="@id/rioute_end_layout" />
-        <action
-            android:id="@+id/action_activity_main_to_edit_profile_layout"
-            app:destination="@id/edit_profile_layout" />
-        <action
-            android:id="@+id/action_activity_main_to_edit_route_layout"
-            app:destination="@id/edit_route_layout" />
-        <action
-            android:id="@+id/action_activity_main_to_on_route_layout"
-            app:destination="@id/on_route_layout" />
-        <action
-            android:id="@+id/action_activity_main_to_routes_layout2"
+            android:id="@+id/action_main_app_layout_to_routes_layout"
             app:destination="@id/routes_layout" />
         <action
-            android:id="@+id/action_activity_main_to_profile_layout2"
+            android:id="@+id/action_main_app_layout_to_profile_layout"
             app:destination="@id/profile_layout" />
-    </activity>
+        <action
+            android:id="@+id/action_main_app_layout_to_route_item_layout"
+            app:destination="@id/route_item_layout" />
+    </fragment>
     <fragment
         android:id="@+id/edit_profile_layout"
-        tools:layout="@layout/edit_profile_layout"
-        >
+        tools:layout="@layout/edit_profile_layout">
         <action
-            android:id="@+id/action_edit_profile_layout_self"
-            app:destination="@id/edit_profile_layout" />
-        <action
-            android:id="@+id/action_edit_profile_layout_to_edit_route_layout3"
-            app:destination="@id/edit_route_layout" />
-        <action
-            android:id="@+id/action_edit_profile_layout_to_on_route_layout3"
-            app:destination="@id/on_route_layout" />
-        <action
-            android:id="@+id/action_edit_profile_layout_to_routes_layout3"
-            app:destination="@id/routes_layout" />
-        <action
-            android:id="@+id/action_edit_profile_layout_to_profile_layout5"
+            android:id="@+id/action_edit_profile_layout_to_profile_layout"
             app:destination="@id/profile_layout" />
-        <action
-            android:id="@+id/action_edit_profile_layout_to_activity_main2"
-            app:destination="@id/activity_main" />
-        <action
-            android:id="@+id/action_edit_profile_layout_to_route_item_layout3"
-            app:destination="@id/route_item_layout" />
-        <action
-            android:id="@+id/action_edit_profile_layout_to_start_route_layout3"
-            app:destination="@id/start_route_layout" />
-        <action
-            android:id="@+id/action_edit_profile_layout_to_rioute_end_layout3"
-            app:destination="@id/rioute_end_layout" />
     </fragment>
     <fragment
         android:id="@+id/edit_route_layout"
-        tools:layout="@layout/edit_route_layout"
-        >
-        <action
-            android:id="@+id/action_edit_route_layout_self"
-            app:destination="@id/edit_route_layout" />
-        <action
-            android:id="@+id/action_edit_route_layout_to_on_route_layout"
-            app:destination="@id/on_route_layout" />
-        <action
-            android:id="@+id/action_edit_route_layout_to_routes_layout"
-            app:destination="@id/routes_layout" />
-        <action
-            android:id="@+id/action_edit_route_layout_to_profile_layout"
-            app:destination="@id/profile_layout" />
-        <action
-            android:id="@+id/action_edit_route_layout_to_activity_main"
-            app:destination="@id/activity_main" />
-        <action
-            android:id="@+id/action_edit_route_layout_to_route_item_layout"
-            app:destination="@id/route_item_layout" />
+        tools:layout="@layout/edit_route_layout">
         <action
             android:id="@+id/action_edit_route_layout_to_start_route_layout"
             app:destination="@id/start_route_layout" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/pause_route_layout"
+        tools:layout="@layout/pause_route_layout">
         <action
-            android:id="@+id/action_edit_route_layout_to_rioute_end_layout"
-            app:destination="@id/rioute_end_layout" />
+            android:id="@+id/action_pause_route_layout_to_on_route_layout"
+            app:destination="@id/on_route_layout" />
         <action
-            android:id="@+id/action_edit_route_layout_to_edit_profile_layout"
-            app:destination="@id/edit_profile_layout" />
+            android:id="@+id/action_pause_route_layout_to_route_end_layout"
+            app:destination="@id/route_end_layout" />
     </fragment>
     <fragment
         android:id="@+id/on_route_layout"
-        tools:layout="@layout/on_route_layout"
-        >
+        tools:layout="@layout/on_route_layout">
         <action
-            android:id="@+id/action_on_route_layout_self"
-            app:destination="@id/on_route_layout" />
+            android:id="@+id/action_on_route_layout_to_pause_route_layout"
+            app:destination="@id/pause_route_layout" />
         <action
-            android:id="@+id/action_on_route_layout_to_routes_layout"
-            app:destination="@id/routes_layout" />
-        <action
-            android:id="@+id/action_on_route_layout_to_profile_layout"
-            app:destination="@id/profile_layout" />
-        <action
-            android:id="@+id/action_on_route_layout_to_activity_main"
-            app:destination="@id/activity_main" />
-        <action
-            android:id="@+id/action_on_route_layout_to_route_item_layout"
-            app:destination="@id/route_item_layout" />
-        <action
-            android:id="@+id/action_on_route_layout_to_start_route_layout"
-            app:destination="@id/start_route_layout" />
-        <action
-            android:id="@+id/action_on_route_layout_to_rioute_end_layout"
-            app:destination="@id/rioute_end_layout" />
-        <action
-            android:id="@+id/action_on_route_layout_to_edit_profile_layout"
-            app:destination="@id/edit_profile_layout" />
-        <action
-            android:id="@+id/action_on_route_layout_to_edit_route_layout"
-            app:destination="@id/edit_route_layout" />
+            android:id="@+id/action_on_route_layout_to_route_end_layout"
+            app:destination="@id/route_end_layout" />
     </fragment>
     <fragment
         android:id="@+id/profile_layout"
-        tools:layout="@layout/profile_layout"
-        >
+        tools:layout="@layout/profile_layout">
         <action
-            android:id="@+id/action_profile_layout_self"
-            app:destination="@id/profile_layout" />
-        <action
-            android:id="@+id/action_profile_layout_to_activity_main4"
-            app:destination="@id/activity_main" />
-        <action
-            android:id="@+id/action_profile_layout_to_route_item_layout3"
-            app:destination="@id/route_item_layout" />
-        <action
-            android:id="@+id/action_profile_layout_to_start_route_layout3"
-            app:destination="@id/start_route_layout" />
-        <action
-            android:id="@+id/action_profile_layout_to_rioute_end_layout3"
-            app:destination="@id/rioute_end_layout" />
-        <action
-            android:id="@+id/action_profile_layout_to_edit_profile_layout5"
-            app:destination="@id/edit_profile_layout" />
-        <action
-            android:id="@+id/action_profile_layout_to_edit_route_layout3"
-            app:destination="@id/edit_route_layout" />
-        <action
-            android:id="@+id/action_profile_layout_to_on_route_layout3"
-            app:destination="@id/on_route_layout" />
-        <action
-            android:id="@+id/action_profile_layout_to_routes_layout4"
+            android:id="@+id/action_profile_layout_to_routes_layout"
             app:destination="@id/routes_layout" />
+        <action
+            android:id="@+id/action_profile_layout_to_main_app_layout"
+            app:destination="@id/main_app_layout" />
+        <action
+            android:id="@+id/action_profile_layout_to_edit_profile_layout"
+            app:destination="@id/edit_profile_layout" />
     </fragment>
     <fragment
-        android:id="@+id/rioute_end_layout"
-        tools:layout="@layout/rioute_end_layout"
-        >
+        android:id="@+id/route_end_layout"
+        tools:layout="@layout/route_end_layout">
         <action
-            android:id="@+id/action_rioute_end_layout_self"
-            app:destination="@id/rioute_end_layout" />
-        <action
-            android:id="@+id/action_rioute_end_layout_to_edit_profile_layout"
-            app:destination="@id/edit_profile_layout" />
-        <action
-            android:id="@+id/action_rioute_end_layout_to_edit_route_layout"
-            app:destination="@id/edit_route_layout" />
-        <action
-            android:id="@+id/action_rioute_end_layout_to_on_route_layout"
-            app:destination="@id/on_route_layout" />
-        <action
-            android:id="@+id/action_rioute_end_layout_to_routes_layout"
-            app:destination="@id/routes_layout" />
-        <action
-            android:id="@+id/action_rioute_end_layout_to_profile_layout"
-            app:destination="@id/profile_layout" />
-        <action
-            android:id="@+id/action_rioute_end_layout_to_activity_main"
-            app:destination="@id/activity_main" />
-        <action
-            android:id="@+id/action_rioute_end_layout_to_route_item_layout"
-            app:destination="@id/route_item_layout" />
-        <action
-            android:id="@+id/action_rioute_end_layout_to_start_route_layout"
-            app:destination="@id/start_route_layout" />
+            android:id="@+id/action_route_end_layout_to_main_app_layout2"
+            app:destination="@id/main_app_layout" />
     </fragment>
     <fragment
         android:id="@+id/route_item_layout"
-        tools:layout="@layout/route_item_layout"
-        >
+        tools:layout="@layout/route_item_layout">
         <action
-            android:id="@+id/action_route_item_layout_self"
-            app:destination="@id/route_item_layout" />
-        <action
-            android:id="@+id/action_route_item_layout_to_start_route_layout2"
-            app:destination="@id/start_route_layout" />
-        <action
-            android:id="@+id/action_route_item_layout_to_rioute_end_layout"
-            app:destination="@id/rioute_end_layout" />
-        <action
-            android:id="@+id/action_route_item_layout_to_edit_profile_layout"
-            app:destination="@id/edit_profile_layout" />
-        <action
-            android:id="@+id/action_route_item_layout_to_edit_route_layout"
-            app:destination="@id/edit_route_layout" />
-        <action
-            android:id="@+id/action_route_item_layout_to_on_route_layout"
-            app:destination="@id/on_route_layout" />
+            android:id="@+id/action_route_item_layout_to_main_app_layout"
+            app:destination="@id/main_app_layout" />
         <action
             android:id="@+id/action_route_item_layout_to_routes_layout"
             app:destination="@id/routes_layout" />
         <action
-            android:id="@+id/action_route_item_layout_to_profile_layout"
-            app:destination="@id/profile_layout" />
-        <action
-            android:id="@+id/action_route_item_layout_to_activity_main2"
-            app:destination="@id/activity_main" />
+            android:id="@+id/action_route_item_layout_to_start_route_layout"
+            app:destination="@id/start_route_layout" />
     </fragment>
     <fragment
         android:id="@+id/routes_layout"
-        tools:layout="@layout/routes_layout"
-        >
+        tools:layout="@layout/routes_layout">
         <action
-            android:id="@+id/action_routes_layout_self"
-            app:destination="@id/routes_layout" />
+            android:id="@+id/action_routes_layout_to_main_app_layout"
+            app:destination="@id/main_app_layout" />
         <action
-            android:id="@+id/action_routes_layout_to_profile_layout2"
+            android:id="@+id/action_routes_layout_to_profile_layout"
             app:destination="@id/profile_layout" />
         <action
             android:id="@+id/action_routes_layout_to_route_item_layout"
             app:destination="@id/route_item_layout" />
         <action
-            android:id="@+id/action_routes_layout_to_activity_main2"
-            app:destination="@id/activity_main" />
-        <action
-            android:id="@+id/action_routes_layout_to_start_route_layout2"
+            android:id="@+id/action_routes_layout_to_start_route_layout"
             app:destination="@id/start_route_layout" />
-        <action
-            android:id="@+id/action_routes_layout_to_rioute_end_layout"
-            app:destination="@id/rioute_end_layout" />
-        <action
-            android:id="@+id/action_routes_layout_to_edit_profile_layout"
-            app:destination="@id/edit_profile_layout" />
-        <action
-            android:id="@+id/action_routes_layout_to_edit_route_layout2"
-            app:destination="@id/edit_route_layout" />
-        <action
-            android:id="@+id/action_routes_layout_to_on_route_layout"
-            app:destination="@id/on_route_layout" />
     </fragment>
     <fragment
         android:id="@+id/start_route_layout"
-        tools:layout="@layout/start_route_layout"
-        >
+        tools:layout="@layout/start_route_layout">
         <action
-            android:id="@+id/action_start_route_layout_self"
-            app:destination="@id/start_route_layout" />
+            android:id="@+id/action_start_route_layout_to_route_item_layout"
+            app:destination="@id/route_item_layout" />
         <action
-            android:id="@+id/action_start_route_layout_to_rioute_end_layout5"
-            app:destination="@id/rioute_end_layout" />
-        <action
-            android:id="@+id/action_start_route_layout_to_edit_profile_layout4"
-            app:destination="@id/edit_profile_layout" />
-        <action
-            android:id="@+id/action_start_route_layout_to_edit_route_layout3"
+            android:id="@+id/action_start_route_layout_to_edit_route_layout"
             app:destination="@id/edit_route_layout" />
         <action
-            android:id="@+id/action_start_route_layout_to_on_route_layout3"
-            app:destination="@id/on_route_layout" />
-        <action
-            android:id="@+id/action_start_route_layout_to_routes_layout3"
+            android:id="@+id/action_start_route_layout_to_routes_layout"
             app:destination="@id/routes_layout" />
         <action
-            android:id="@+id/action_start_route_layout_to_profile_layout2"
-            app:destination="@id/profile_layout" />
-        <action
-            android:id="@+id/action_start_route_layout_to_activity_main4"
-            app:destination="@id/activity_main" />
-        <action
-            android:id="@+id/action_start_route_layout_to_route_item_layout3"
-            app:destination="@id/route_item_layout" />
+            android:id="@+id/action_start_route_layout_to_on_route_layout"
+            app:destination="@id/on_route_layout" />
     </fragment>
-
+    <activity
+        android:id="@+id/activity_main"
+        tools:layout="@layout/activity_main">
+    </activity>
 </navigation>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,13 +13,15 @@
         style="@style/title_fragment"
         android:id="@+id/route_points"
         android:text="пункт А - пункт Б"
-        android:layout_marginTop="0dp"/>
+        android:layout_marginTop="40dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Map"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="150dp"
         android:textColor="@color/nedodel_nado_pravit"
         android:textSize="35sp"/>
 
@@ -29,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="45dp"
         android:orientation="horizontal">
         <TextView
             app:layout_constraintLeft_toLeftOf="parent"
@@ -37,12 +39,12 @@
             android:layout_marginLeft="15dp"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:text="Расчётная сложность:"
             tools:ignore="MissingConstraints" />
         <TextView
             android:layout_marginTop="10dp"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:layout_marginRight="15dp"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_width="wrap_content"
@@ -54,5 +56,17 @@
             tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:text="Старт"
+        style="@style/big_orange_button"
+        android:layout_marginTop="70dp" />
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        style="@style/grey_button"
+        android:text="Редактировать маршрут"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="20dp"/>
+
+</FrameLayout>

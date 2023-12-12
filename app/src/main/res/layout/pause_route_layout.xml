@@ -1,53 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/back"
     android:orientation="vertical">
-
     <TextView
         style="@style/title_fragment"
-        android:text="Маршрут:" />
-
+        android:text="Маршрут:"/>
     <TextView
+        style="@style/title_fragment"
+        android:layout_marginTop="0dp"
         android:id="@+id/route_points"
+        android:text="пункт А - пункт Б"/>
+    <TextView
         style="@style/title_fragment"
         android:layout_marginTop="40dp"
-        android:text="пункт А - пункт Б" />
-
+        android:text="Ваше Местоположение"/>
     <TextView
         style="@style/title_fragment"
-        android:layout_marginTop="80dp"
-        android:text="Ваше Местоположение" />
-
-    <TextView
+        android:layout_marginTop="0dp"
         android:id="@+id/user_location"
-        style="@style/title_fragment"
-        android:layout_marginTop="110dp"
-        android:text="geoposition" />
+        android:text="geoposition"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
-        android:layout_marginBottom="400dp"
         android:text="Map"
         android:textColor="@color/nedodel_nado_pravit"
-        android:textSize="30sp" />
+        android:textSize="30sp"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/resume_button"
+        android:text="Продолжить"
         style="@style/big_orange_button"
+        android:id="@+id/resume_button"
         android:layout_gravity="bottom|center"
-        android:layout_marginBottom="200dp"
-        android:text="Продолжить" />
+        android:layout_marginTop="40dp" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:text="Завершить"
+        android:layout_gravity="bottom|center"
         android:id="@+id/end_button"
         style="@style/big_orange_button"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="20dp"
-        android:text="Завершить" />
+        android:layout_marginTop="20dp" />
 
 
-</FrameLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

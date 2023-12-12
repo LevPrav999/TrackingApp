@@ -38,12 +38,14 @@
         style="@style/big_orange_button"
         android:layout_gravity="bottom|center"
         android:layout_marginTop="40dp"
+        android:id="@+id/pause_button"
         android:text="Пауза" />
 
     <androidx.appcompat.widget.AppCompatButton
         style="@style/big_orange_button"
         android:layout_gravity="bottom|center"
         android:layout_marginTop="20dp"
+        android:id="@+id/end_button"
         android:text="Завершить" />
 
 

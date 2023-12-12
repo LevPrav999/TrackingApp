@@ -2,10 +2,57 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/back">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/back"
+    android:orientation="vertical">
 
     <TextView
         style="@style/title_fragment"
         android:text="Тренировка" />
+    <TextView
+        style="@style/title_fragment"
+        android:layout_marginTop="10dp"
+        android:text="Ваши маршруты:"
+        android:textSize="18sp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_user_s_routes"
+        android:layout_width="wrap_content"
+        android:layout_height="350dp"
+        android:layout_above="@+id/add"
+        android:layout_below="@+id/search"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="5dp"
+        app:layoutManager="LinearLayoutManager"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Создать новый маршрут"
+        android:layout_gravity="center"
+        style="@style/orange_button"/>
+
+
+    <TextView
+        style="@style/title_fragment"
+        android:layout_marginTop="30dp"
+        android:text="Или выберете один из наших маршрутов:"
+        android:textSize="18sp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_routes_of_app"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/add"
+        android:layout_below="@+id/search"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="5dp"
+        app:layoutManager="LinearLayoutManager"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

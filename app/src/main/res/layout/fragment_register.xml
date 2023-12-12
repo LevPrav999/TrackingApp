@@ -14,8 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:fontFamily="@font/moscowsansregular"
-        android:text="Регистрация" />
+        android:text="@string/registration" />
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -37,28 +36,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:fontFamily="@font/moscowsansregular"
-                android:gravity="center"
-                android:text="Ваше имя:"
-                android:textColor="@color/white"
-                android:textSize="15sp"
+                android:layout_marginStart="15dp"
+                style="@style/text_for_stats"
+                android:text="@string/your_name"
+                android:layout_marginTop="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
+                style="@style/edit_data"
                 android:id="@+id/registerName"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/very_grey_text"
-                android:fontFamily="@font/moscowsansregular"
-                android:gravity="center"
-                android:hint="Иван"
-                android:textColor="@color/white"
-                android:textColorHint="@color/hint_text"
-                android:textSize="15sp"
+                android:hint="@string/hint_name"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
@@ -74,30 +65,22 @@
             android:gravity="center">
 
             <TextView
+                style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:fontFamily="@font/moscowsansregular"
-                android:gravity="center"
-                android:text="Номер телефона:"
-                android:textColor="@color/white"
-                android:textSize="15sp"
+                android:layout_marginStart="15dp"
+                android:text="@string/phone_number"
+                android:layout_marginTop="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
+                style="@style/edit_data"
                 android:id="@+id/register_phone_number"
                 android:layout_width="135dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/very_grey_text"
-                android:fontFamily="@font/moscowsansregular"
-                android:gravity="center"
-                android:hint="+7(916)639-88-99"
-                android:textColor="@color/white"
-                android:textColorHint="@color/hint_text"
-                android:textSize="15sp"
+                android:hint="@string/hint_phone_number"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
@@ -121,30 +104,22 @@
             android:gravity="center">
 
             <TextView
+                style="@style/text_for_stats"
+                android:layout_marginTop="0dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:fontFamily="@font/moscowsansregular"
-                android:gravity="center"
-                android:text="Рост:"
-                android:textColor="@color/white"
-                android:textSize="15sp"
+                android:layout_marginStart="15dp"
+                android:text="@string/height"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
+                style="@style/edit_data"
                 android:id="@+id/registerHeight"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/very_grey_text"
-                android:fontFamily="@font/moscowsansregular"
-                android:gravity="center"
-                android:hint="0"
-                android:textColor="@color/white"
-                android:textColorHint="@color/hint_text"
-                android:textSize="15sp"
+                android:hint="@string/none_hint"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
@@ -158,30 +133,22 @@
             android:gravity="center">
 
             <TextView
+                style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:fontFamily="@font/moscowsansregular"
-                android:gravity="center"
-                android:text="Вес:"
-                android:textColor="@color/white"
-                android:textSize="15sp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="0dp"
+                android:text="@string/weight"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
+                style="@style/edit_data"
                 android:id="@+id/registerWeight"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/very_grey_text"
-                android:fontFamily="@font/moscowsansregular"
-                android:gravity="center"
-                android:hint="0"
-                android:textColor="@color/white"
-                android:textColorHint="@color/hint_text"
-                android:textSize="15sp"
+                android:hint="@string/none_hint"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
@@ -196,27 +163,22 @@
             android:gravity="center">
 
             <TextView
+                style="@style/text_for_stats"
+                android:layout_marginTop="0dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:fontFamily="@font/moscowsansregular"
-                android:gravity="center"
-                android:text="Ваш уровень подготовки:"
-                android:textColor="@color/white"
-                android:textSize="15sp"
+                android:layout_marginStart="15dp"
+                android:text="@string/level_of_training"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
+                style="@style/edit_data"
                 android:id="@+id/registerLevelSpinner"
                 android:layout_width="130dp"
                 android:layout_height="30dp"
-                android:background="@drawable/very_grey_text"
-                android:fontFamily="@font/moscowsansregular"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="15sp"
+                android:layout_marginEnd="5dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
@@ -228,47 +190,61 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="5dp"
             android:gravity="center">
 
             <TextView
+                style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:fontFamily="@font/moscowsansregular"
-                android:gravity="center"
-                android:text="Состояние вашего здоровья:"
-                android:textColor="@color/white"
-                android:textSize="15sp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="0dp"
+                android:text="@string/health_status"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
+                style="@style/edit_data"
                 android:id="@+id/registerHealthSpinner"
                 android:layout_width="130dp"
                 android:layout_height="30dp"
-                android:background="@drawable/very_grey_text"
-                android:fontFamily="@font/moscowsansregular"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="15sp"
+                android:layout_marginEnd="5dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints" />
+                tools:ignore="MissingConstraints"  />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/sendFormButton"
-        style="@style/orange_button"
-        android:layout_gravity="bottom|center"
-        android:layout_marginTop="130dp"
-        android:text="Готово"
-        app:layout_constraintTop_toBottomOf="@+id/registerHealthSpinner" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/grey_button"
+            android:text="@string/cancel"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/sendFormButton"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/orange_button"
+            android:text="@string/save"
+            android:textColor="@color/white"
+            android:textSize="15sp"/>
 
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>

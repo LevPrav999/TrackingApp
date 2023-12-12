@@ -17,9 +17,9 @@
             android:id="@+id/date_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:gravity="left|center"
-            android:text="Сложность"
+            android:text="@string/date"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
@@ -27,9 +27,9 @@
             android:id="@+id/achievement"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:gravity="right|center"
-            android:text="Сложность"
+            android:text="@string/complexity"
             android:textColor="@color/white"
             android:textSize="20sp" />
 

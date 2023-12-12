@@ -7,30 +7,30 @@
 
     <TextView
         style="@style/title_fragment"
-        android:text="Маршрут:" />
+        android:text="@string/route" />
 
     <TextView
         android:id="@+id/route_points"
         style="@style/title_fragment"
         android:layout_marginTop="0dp"
-        android:text="пункт А - пункт Б" />
+        android:text="@string/text_A_to_B_visiblehint" />
 
     <TextView
         style="@style/title_fragment"
         android:layout_marginTop="40dp"
-        android:text="Ваше Местоположение" />
+        android:text="@string/your_geopos" />
 
     <TextView
         android:id="@+id/user_location"
         style="@style/title_fragment"
         android:layout_marginTop="0dp"
-        android:text="geoposition" />
+        android:text="@string/text_geopos_visiblehint" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
-        android:text="Map"
+        android:text="@string/map"
         android:textColor="@color/nedodel_nado_pravit"
         android:textSize="30sp" />
 
@@ -39,14 +39,14 @@
         android:layout_gravity="bottom|center"
         android:layout_marginTop="40dp"
         android:id="@+id/pause_button"
-        android:text="Пауза" />
+        android:text="@string/pause" />
 
     <androidx.appcompat.widget.AppCompatButton
         style="@style/big_orange_button"
         android:layout_gravity="bottom|center"
         android:layout_marginTop="20dp"
         android:id="@+id/end_button"
-        android:text="Завершить" />
+        android:text="@string/end" />
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

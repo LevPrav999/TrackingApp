@@ -9,27 +9,24 @@
 
     <TextView
         style="@style/title_fragment"
-        android:text="Редактор маршута" />
+        android:text="@string/editor_route" />
 
 
 
     <EditText
         android:layout_marginTop="60dp"
         android:id="@+id/route_name"
+        style="@style/edit_data"
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:layout_gravity="center|top"
+        android:gravity="left|center"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/very_grey_text"
-        android:fontFamily="@font/moscowsansregular"
-        android:hint="Название маршрута"
-        android:textColor="@color/white"
-        android:textColorHint="@color/hint_text"
+        android:hint="@string/route_name"
         android:textSize="18sp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"/>
 
 
     <FrameLayout
@@ -40,7 +37,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/location_on"
             android:gravity="center" />
@@ -50,11 +47,11 @@
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_gravity="center|top"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="30dp"
             android:background="@drawable/very_grey_text"
             android:fontFamily="@font/moscowsansregular"
-            android:hint="Отправление"
+            android:hint="@string/departure"
             android:textColor="@color/white"
             android:textColorHint="@color/hint_text"
             android:textSize="18sp"
@@ -71,7 +68,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/location_on_orange" />
 
@@ -80,11 +77,11 @@
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_gravity="center|top"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="30dp"
             android:background="@drawable/very_grey_text"
             android:fontFamily="@font/moscowsansregular"
-            android:hint="Прибытие"
+            android:hint="@string/arrival"
             android:textColor="@color/white"
             android:textColorHint="@color/hint_text"
             android:textSize="18sp"
@@ -101,12 +98,12 @@
 
         android:layout_marginTop="100dp"
         android:layout_marginBottom="180dp"
-        android:text="Map"
+        android:text="@string/map"
         android:textColor="@color/nedodel_nado_pravit"
-        android:textSize="30dp" />
+        android:textSize="30sp" />
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -118,21 +115,20 @@
 
         <TextView
             style="@style/text_for_stats"
-            android:text="Длина:"
+            android:text="@string/length"
             android:textSize="20sp"
             tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/route_length"
             style="@style/text_for_stats"
-            android:gravity="right"
-            android:text="0"
+            android:text="@string/none_hint"
             android:textSize="25sp"
             app:layout_constraintRight_toRightOf="parent"
             tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -144,15 +140,14 @@
 
         <TextView
             style="@style/text_for_stats"
-            android:text="Сложность:"
+            android:text="@string/complexity"
             android:textSize="20sp"
             tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/route_complexity"
             style="@style/text_for_stats"
-            android:gravity="right"
-            android:text="0"
+            android:text="@string/none_hint"
             android:textSize="25sp"
             app:layout_constraintRight_toRightOf="parent"
             tools:ignore="MissingConstraints" />
@@ -169,14 +164,14 @@
             style="@style/grey_button"
             android:layout_width="175dp"
             android:layout_height="wrap_content"
-            android:text="Отмена" />
+            android:text="@string/cancel" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/orange_button"
             android:layout_width="175dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Сохранить" />
+            android:layout_marginStart="10dp"
+            android:text="@string/save" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

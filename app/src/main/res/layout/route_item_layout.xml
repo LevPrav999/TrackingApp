@@ -9,13 +9,13 @@
 
     <TextView
         style="@style/title_fragment"
-        android:text="Поездка:" />
+        android:text="@string/route" />
 
     <TextView
         android:id="@+id/route"
         style="@style/title_fragment"
         android:layout_marginTop="35dp"
-        android:text="маршрут" />
+        android:text="@string/route" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,9 +23,9 @@
         android:layout_gravity="bottom|center"
         android:layout_marginTop="100dp"
         android:layout_marginBottom="380dp"
-        android:text="Map"
+        android:text="@string/map"
         android:textColor="@color/nedodel_nado_pravit"
-        android:textSize="30dp" />
+        android:textSize="30sp" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
         android:background="@drawable/pres_info"
         android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -47,27 +47,23 @@
 
             <TextView
                 style="@style/text_for_stats"
-                android:layout_marginLeft="15dp"
-                android:text="Длина:"
+                android:layout_marginStart="15dp"
+                android:text="@string/long_"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
 
             <TextView
+                style="@style/text_for_stats"
                 android:id="@+id/route_length"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15dp"
-                android:fontFamily="@font/moscowsansregular"
-                android:gravity="right"
-                android:text="0"
-                android:textColor="@color/white"
-                android:textSize="15sp"
+                android:layout_marginEnd="15dp"
+                android:text="@string/none_hint"
                 app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -77,22 +73,21 @@
 
             <TextView
                 style="@style/text_for_stats"
-                android:layout_marginLeft="15dp"
-                android:text="Длительность:"
+                android:layout_marginStart="15dp"
+                android:text="@string/duration"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
 
             <TextView
                 android:id="@+id/route_duration"
                 style="@style/text_for_stats"
-                android:layout_marginRight="15dp"
-                android:gravity="right"
-                android:text="0"
+                android:layout_marginEnd="15dp"
+                android:text="@string/none_hint"
                 app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -102,27 +97,23 @@
 
             <TextView
                 style="@style/text_for_stats"
-                android:layout_marginLeft="15dp"
-                android:text="Оценочная сложность:"
+                android:layout_marginStart="15dp"
+                android:text="@string/estimated_complexity"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
 
             <TextView
+                style="@style/text_for_stats"
                 android:id="@+id/route_estimated_complexity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15dp"
-                android:fontFamily="@font/moscowsansregular"
-                android:gravity="right"
-                android:text="0"
-                android:textColor="@color/white"
-                android:textSize="15sp"
+                android:layout_marginEnd="15dp"
+                android:text="@string/none_hint"
                 app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -132,22 +123,21 @@
 
             <TextView
                 style="@style/text_for_stats"
-                android:layout_marginLeft="15dp"
-                android:text="Ваша оценка:"
+                android:layout_marginStart="15dp"
+                android:text="@string/your_assessment"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
 
             <TextView
                 android:id="@+id/route_user_rating"
                 style="@style/text_for_stats"
-                android:layout_marginRight="15dp"
-                android:gravity="right"
-                android:text="0"
+                android:layout_marginEnd="15dp"
+                android:text="@string/none_hint"
                 app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -158,8 +148,8 @@
 
             <TextView
                 style="@style/text_for_stats"
-                android:layout_marginLeft="15dp"
-                android:text="Итоговая сложность:"
+                android:layout_marginStart="15dp"
+                android:text="@string/final_difficulty"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
 
@@ -167,9 +157,8 @@
                 android:id="@+id/route_average_rating"
                 style="@style/text_for_stats"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="15dp"
-                android:gravity="right"
-                android:text="0"
+                android:layout_marginEnd="15dp"
+                android:text="@string/none_hint"
                 app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -190,21 +179,21 @@
             style="@style/orange_button"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="Повторить Маршрут" />
+            android:text="@string/repeat_route" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/orange_button"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Повторить Обратно" />
+            android:text="@string/repeat_back" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/grey_button"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Удалить запись" />
+            android:text="@string/delete_entry" />
     </LinearLayout>
 
 

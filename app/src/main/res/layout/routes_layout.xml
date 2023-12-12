@@ -8,11 +8,11 @@
 
     <TextView
         style="@style/title_fragment"
-        android:text="Тренировка" />
+        android:text="@string/workout" />
     <TextView
         style="@style/title_fragment"
         android:layout_marginTop="10dp"
-        android:text="Ваши маршруты:"
+        android:text="@string/your_routes"
         android:textSize="18sp"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -31,7 +31,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="Создать новый маршрут"
+        android:text="@string/create_new_route"
         android:layout_gravity="center"
         style="@style/orange_button"/>
 
@@ -39,7 +39,7 @@
     <TextView
         style="@style/title_fragment"
         android:layout_marginTop="30dp"
-        android:text="Или выберете один из наших маршрутов:"
+        android:text="@string/one_of_us"
         android:textSize="18sp"/>
 
     <androidx.recyclerview.widget.RecyclerView

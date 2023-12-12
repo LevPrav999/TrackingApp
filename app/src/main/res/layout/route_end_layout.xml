@@ -8,7 +8,7 @@
 
     <TextView
         style="@style/title_fragment"
-        android:text="Маршрут завершён" />
+        android:text="@string/route_end" />
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -25,11 +25,11 @@
             style="@style/text_for_stats"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Пункт А - Пункт В" />
+            android:layout_marginStart="10dp"
+            android:text="@string/text_A_to_B_visiblehint" />
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -39,22 +39,21 @@
 
             <TextView
                 style="@style/text_for_stats"
-                android:layout_marginLeft="15dp"
-                android:text="Длина:"
+                android:layout_marginStart="15dp"
+                android:text="@string/long_"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
 
             <TextView
                 android:id="@+id/route_length"
                 style="@style/text_for_stats"
-                android:layout_marginRight="15dp"
-                android:gravity="right"
-                android:text="0"
+                android:layout_marginEnd="15dp"
+                android:text="@string/none_hint"
                 app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -64,22 +63,21 @@
 
             <TextView
                 style="@style/text_for_stats"
-                android:layout_marginLeft="15dp"
-                android:text="Длительность:"
+                android:layout_marginStart="15dp"
+                android:text="@string/duration"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
 
             <TextView
                 android:id="@+id/route_duration"
                 style="@style/text_for_stats"
-                android:layout_marginRight="15dp"
-                android:gravity="right"
-                android:text="0"
+                android:layout_marginEnd="15dp"
+                android:text="@string/none_hint"
                 app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -90,17 +88,16 @@
 
             <TextView
                 style="@style/text_for_stats"
-                android:layout_marginLeft="15dp"
-                android:text="Оценочная сложность:"
+                android:layout_marginStart="15dp"
+                android:text="@string/estimated_complexity"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
 
             <TextView
                 android:id="@+id/route_estimated_complexity"
                 style="@style/text_for_stats"
-                android:layout_marginRight="15dp"
-                android:gravity="right"
-                android:text="0"
+                android:layout_marginEnd="15dp"
+                android:text="@string/none_hint"
                 app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -109,7 +106,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="200dp"
         android:layout_marginRight="15dp"
         android:orientation="horizontal">
@@ -123,25 +120,25 @@
                 style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:text="Пожалуйста," />
+                android:text="@string/please" />
 
             <TextView
                 style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:text="оцените уровень сложности" />
+                android:text="@string/rate_the_difficulty_level" />
 
             <TextView
                 style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:text="для вас:" />
+                android:text="@string/for_you" />
         </LinearLayout>
 
         <Spinner
@@ -149,7 +146,7 @@
             android:layout_width="130dp"
             android:layout_height="30dp"
             android:layout_gravity="center|right"
-            android:gravity="right" />
+            />
     </FrameLayout>
 
 
@@ -159,7 +156,7 @@
         android:layout_height="40dp"
         android:layout_gravity="bottom|center"
         android:layout_marginBottom="20dp"
-        android:text="На главную" />
+        android:text="@string/to_main" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -167,7 +164,7 @@
         android:layout_gravity="bottom|center"
         android:layout_marginTop="100dp"
         android:layout_marginBottom="100dp"
-        android:text="Map"
+        android:text="@string/map"
         android:textColor="@color/nedodel_nado_pravit"
-        android:textSize="30dp" />
+        android:textSize="30sp" />
 </FrameLayout>

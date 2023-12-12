@@ -9,7 +9,7 @@
 
     <TextView
         style="@style/title_fragment"
-        android:text="Профиль" />
+        android:text="@string/profile" />
 
 
     <TextView
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="90dp"
         android:gravity="center"
-        android:text="Name, surname"
+        android:text="@string/text_name_surname_visiblehint"
         android:textSize="18sp" />
 
 
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="0dp"
-            android:text="Данные профиля"
+            android:text="@string/profile_data"
             android:textSize="17sp" />
 
         <androidx.constraintlayout.utils.widget.ImageFilterButton
@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginRight="25dp"
+            android:layout_marginEnd="25dp"
             android:background="@drawable/create" />
 
 
@@ -61,10 +61,9 @@
             style="@style/text_for_stats"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginBottom="10dp"
-            android:text="Номер телефона:" />
+            android:text="@string/phone_number" />
 
         <TextView
             android:id="@+id/register_phone_number"
@@ -74,7 +73,7 @@
             android:layout_gravity="right"
             android:layout_marginRight="15dp"
             android:fontFamily="@font/moscowsansregular"
-            android:text="+7(916)639-88-99" />
+            android:text="@string/hint_phone_number" />
     </FrameLayout>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -97,8 +96,8 @@
                 style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:text="Рост:"
+                android:layout_marginStart="15dp"
+                android:text="@string/height"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -108,8 +107,8 @@
                 style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:text="0"
+                android:layout_marginEnd="15dp"
+                android:text="@string/none_hint"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
@@ -125,8 +124,8 @@
                 style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:text="Вес:"
+                android:layout_marginStart="15dp"
+                android:text="@string/weight"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -136,8 +135,8 @@
                 style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:text="0"
+                android:layout_marginEnd="15dp"
+                android:text="@string/none_hint"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
@@ -153,8 +152,8 @@
                 style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:text="Ваш уровень подготовки:"
+                android:layout_marginStart="15dp"
+                android:text="@string/level_of_training"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -164,8 +163,8 @@
                 style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:text="Низкий"
+                android:layout_marginEnd="15dp"
+                android:text="@string/text_down_visiblehint"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
@@ -185,8 +184,8 @@
                 style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:text="Состояние вашего здоровья:"
+                android:layout_marginStart="15dp"
+                android:text="@string/health_status"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -196,8 +195,8 @@
                 style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:text="Низкий"
+                android:layout_marginEnd="15dp"
+                android:text="@string/text_down_visiblehint"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
@@ -211,7 +210,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="70dp"
-        android:text="Личные рекорды"
+        android:text="@string/records"
         android:textSize="17sp" />
 
     <androidx.recyclerview.widget.RecyclerView

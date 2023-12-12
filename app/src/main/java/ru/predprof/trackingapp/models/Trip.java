@@ -33,6 +33,16 @@ public class Trip {
     @ColumnInfo(name = "dif_real")
     public String difficultReal; // Сложность реальная
 
+    @ColumnInfo(name = "day_week")
+    public String weekDay; // День недели
+
+    public String getWeekDay() {
+        return weekDay;
+    }
+
+    public void setWeekDay(String weekDay) {
+        this.weekDay = weekDay;
+    }
 
     public int getNumber() {
         return number;

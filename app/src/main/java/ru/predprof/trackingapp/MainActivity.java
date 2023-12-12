@@ -1,6 +1,7 @@
 package ru.predprof.trackingapp;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ru.predprof.trackingapp.databinding.ActivityMainBinding;
 import ru.predprof.trackingapp.fragments.ProfileFragment;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        replace(new StatisticFragment());
         // FragmentManager fragmentManager = getSupportFragmentManager();
         // FragmentTransaction transaction = fragmentManager.beginTransaction();
         // transaction.addToBackStack("back");
@@ -40,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
             if (item.getItemId() == R.id.prof) {
                 replace(new ProfileFragment());
             } else if (item.getItemId() == R.id.statistic) {
-                replace(new RoutesFragment());
-            } else {
                 replace(new StatisticFragment());
+            } else {
+                replace(new RoutesFragment());
             }
             return true;
         });
@@ -55,9 +58,13 @@ public class MainActivity extends AppCompatActivity {
             trip.setDifficultAuto("1");
             trip.setDifficultReal("1");
             trip.setMaxSpeed("14");
+            trip.setWeekDay("0");
             RoomHandler.getInstance(getApplicationContext()).getAppDatabase().tripDao().insertAll(trip);
+            List<Trip> lst = RoomHandler.getInstance(getApplicationContext()).getAppDatabase().tripDao().getAll();
+            Log.d("avgSpeed", lst.get(lst.size() - 1).weekDay);
         });
         th2.start();
+
 
     }
 

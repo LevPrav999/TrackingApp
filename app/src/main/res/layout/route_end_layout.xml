@@ -145,8 +145,7 @@
             android:id="@+id/spinner_difficulty"
             android:layout_width="130dp"
             android:layout_height="30dp"
-            android:layout_gravity="center|right"
-            />
+            android:layout_gravity="center|right" />
     </FrameLayout>
 
 

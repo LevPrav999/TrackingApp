@@ -34,19 +34,19 @@
             android:gravity="center">
 
             <TextView
+                style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                style="@style/text_for_stats"
-                android:text="@string/your_name"
                 android:layout_marginTop="0dp"
+                android:text="@string/your_name"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                style="@style/edit_data"
                 android:id="@+id/registerName"
+                style="@style/edit_data"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_name"
@@ -69,15 +69,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:text="@string/phone_number"
                 android:layout_marginTop="0dp"
+                android:text="@string/phone_number"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                style="@style/edit_data"
                 android:id="@+id/register_phone_number"
+                style="@style/edit_data"
                 android:layout_width="135dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_phone_number"
@@ -105,18 +105,18 @@
 
             <TextView
                 style="@style/text_for_stats"
-                android:layout_marginTop="0dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
+                android:layout_marginTop="0dp"
                 android:text="@string/height"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                style="@style/edit_data"
                 android:id="@+id/registerHeight"
+                style="@style/edit_data"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/none_hint"
@@ -144,8 +144,8 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                style="@style/edit_data"
                 android:id="@+id/registerWeight"
+                style="@style/edit_data"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/none_hint"
@@ -164,18 +164,18 @@
 
             <TextView
                 style="@style/text_for_stats"
-                android:layout_marginTop="0dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
+                android:layout_marginTop="0dp"
                 android:text="@string/level_of_training"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
-                style="@style/edit_data"
                 android:id="@+id/registerLevelSpinner"
+                style="@style/edit_data"
                 android:layout_width="130dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="5dp"
@@ -206,14 +206,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
-                style="@style/edit_data"
                 android:id="@+id/registerHealthSpinner"
+                style="@style/edit_data"
                 android:layout_width="130dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="5dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints"  />
+                tools:ignore="MissingConstraints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

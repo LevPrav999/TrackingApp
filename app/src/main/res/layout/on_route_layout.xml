@@ -35,17 +35,17 @@
         android:textSize="30sp" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/pause_button"
         style="@style/big_orange_button"
         android:layout_gravity="bottom|center"
         android:layout_marginTop="40dp"
-        android:id="@+id/pause_button"
         android:text="@string/pause" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/end_button"
         style="@style/big_orange_button"
         android:layout_gravity="bottom|center"
         android:layout_marginTop="20dp"
-        android:id="@+id/end_button"
         android:text="@string/end" />
 
 

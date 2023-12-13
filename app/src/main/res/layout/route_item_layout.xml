@@ -53,8 +53,8 @@
                 tools:ignore="MissingConstraints" />
 
             <TextView
-                style="@style/text_for_stats"
                 android:id="@+id/route_length"
+                style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
@@ -103,8 +103,8 @@
                 tools:ignore="MissingConstraints" />
 
             <TextView
-                style="@style/text_for_stats"
                 android:id="@+id/route_estimated_complexity"
+                style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"

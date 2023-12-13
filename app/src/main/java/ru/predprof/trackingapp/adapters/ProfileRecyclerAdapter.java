@@ -1,10 +1,6 @@
 package ru.predprof.trackingapp.adapters;
 
 
-
-
-import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,18 +10,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ru.predprof.trackingapp.R;
-import ru.predprof.trackingapp.databinding.ProfileRecyclerItemBinding;
 import ru.predprof.trackingapp.models.Trip;
 
 
 public class ProfileRecyclerAdapter extends RecyclerView.Adapter<ProfileRecyclerAdapter.TripsHolder> {
     List<Trip> trips;
 
-    public ProfileRecyclerAdapter(List<Trip> trips){
+    public ProfileRecyclerAdapter(List<Trip> trips) {
         this.trips = trips;
     }
 
@@ -58,6 +52,7 @@ public class ProfileRecyclerAdapter extends RecyclerView.Adapter<ProfileRecycler
     public static class TripsHolder extends RecyclerView.ViewHolder {
         TextView date;
         TextView achive;
+
         public TripsHolder(@NonNull View itemView) {
             super(itemView);
             date = itemView.findViewById(R.id.date_recycler);

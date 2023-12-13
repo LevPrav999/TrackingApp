@@ -4,23 +4,27 @@
     android:layout_height="match_parent"
     android:background="@color/back"
     android:orientation="vertical">
+
     <TextView
         style="@style/title_fragment"
-        android:text="@string/route"/>
+        android:text="@string/route" />
+
     <TextView
+        android:id="@+id/route_points"
         style="@style/title_fragment"
         android:layout_marginTop="0dp"
-        android:id="@+id/route_points"
-        android:text="@string/text_A_to_B_visiblehint"/>
+        android:text="@string/text_A_to_B_visiblehint" />
+
     <TextView
         style="@style/title_fragment"
         android:layout_marginTop="40dp"
-        android:text="@string/your_geopos"/>
+        android:text="@string/your_geopos" />
+
     <TextView
+        android:id="@+id/user_location"
         style="@style/title_fragment"
         android:layout_marginTop="0dp"
-        android:id="@+id/user_location"
-        android:text="@string/text_geopos_visiblehint"/>
+        android:text="@string/text_geopos_visiblehint" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,22 +32,21 @@
         android:layout_gravity="center|bottom"
         android:text="@string/map"
         android:textColor="@color/nedodel_nado_pravit"
-        android:textSize="30sp"/>
+        android:textSize="30sp" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:text="@string/resume"
-        style="@style/big_orange_button"
         android:id="@+id/resume_button"
+        style="@style/big_orange_button"
         android:layout_gravity="bottom|center"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="40dp"
+        android:text="@string/resume" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:text="@string/end"
-        android:layout_gravity="bottom|center"
         android:id="@+id/end_button"
         style="@style/big_orange_button"
-        android:layout_marginTop="20dp" />
-
+        android:layout_gravity="bottom|center"
+        android:layout_marginTop="20dp"
+        android:text="@string/end" />
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

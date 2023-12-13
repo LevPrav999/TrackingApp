@@ -17,7 +17,7 @@ import ru.predprof.trackingapp.models.Trip;
 public class StatisticRecyclerAdapter extends RecyclerView.Adapter<StatisticRecyclerAdapter.TripsStatHolder> {
     List<Trip> trips;
 
-    public StatisticRecyclerAdapter(List<Trip> trips){
+    public StatisticRecyclerAdapter(List<Trip> trips) {
         this.trips = trips;
     }
 
@@ -50,6 +50,7 @@ public class StatisticRecyclerAdapter extends RecyclerView.Adapter<StatisticRecy
     public static class TripsStatHolder extends RecyclerView.ViewHolder {
 
         TextView dificult;
+
         public TripsStatHolder(@NonNull View itemView) {
             super(itemView);
             dificult = itemView.findViewById(R.id.complexity);

@@ -23,6 +23,7 @@ public interface TripDao {
 
     @Delete
     void delete(Trip user);
+
     @Query("DELETE FROM trip")
     void delete_all();
 }

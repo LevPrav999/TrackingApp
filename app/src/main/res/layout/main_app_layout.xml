@@ -9,24 +9,24 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:text="@string/name_on_main"
         android:id="@+id/hello_and_name"
-        android:layout_height="wrap_content"
+        style="@style/title_fragment"
         android:layout_width="wrap_content"
-        style="@style/title_fragment"/>
+        android:layout_height="wrap_content"
+        android:text="@string/name_on_main" />
 
     <com.jjoe64.graphview.helper.GraphViewXML
         android:id="@+id/graph"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        app:seriesColor="#000000"
         app:seriesData="0=0"
-        app:seriesType="bar"
-        app:seriesColor="#000000" />
+        app:seriesType="bar" />
 
     <TextView
         style="@style/title_fragment"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="@string/last_trip"
         android:textSize="18sp" />
@@ -59,10 +59,10 @@
 
             <TextView
                 style="@style/text_for_stats"
-                android:layout_marginLeft="15dp"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
                 android:text="@string/long_"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
@@ -72,11 +72,11 @@
                 style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
                 android:gravity="right"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginEnd="15dp"
                 android:text="@string/none_hint"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -91,11 +91,11 @@
 
             <TextView
                 style="@style/text_for_stats"
-                android:layout_marginStart="15dp"
-                android:text="@string/duration"
-                android:layout_marginLeft="15dp"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:text="@string/duration"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
 
@@ -104,9 +104,9 @@
                 style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
                 android:gravity="right"
-                android:layout_marginEnd="15dp"
                 android:text="@string/none_hint"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -123,19 +123,19 @@
 
             <TextView
                 style="@style/text_for_stats"
-                android:layout_marginLeft="15dp"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
                 android:text="@string/estimated_complexity"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
 
             <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
                 android:id="@+id/route_estimated_complexity"
                 style="@style/text_for_stats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
                 android:text="@string/none_hint"
                 app:layout_constraintRight_toRightOf="parent"
@@ -151,19 +151,19 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
                 style="@style/text_for_stats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:text="@string/your_assessment"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
 
             <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
                 android:id="@+id/route_user_rating"
                 style="@style/text_for_stats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
                 android:text="@string/none_hint"
                 app:layout_constraintRight_toRightOf="parent"
@@ -180,9 +180,9 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
                 style="@style/text_for_stats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:text="@string/final_difficulty"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -190,9 +190,9 @@
 
             <TextView
                 android:id="@+id/route_average_rating"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
                 style="@style/text_for_stats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
                 android:text="@string/none_hint"
                 app:layout_constraintRight_toRightOf="parent"
@@ -203,9 +203,9 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
         style="@style/title_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="@string/other_routes"
         android:textSize="18sp" />

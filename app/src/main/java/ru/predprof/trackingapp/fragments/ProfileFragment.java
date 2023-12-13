@@ -2,16 +2,12 @@ package ru.predprof.trackingapp.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.room.Room;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,18 +16,17 @@ import java.util.List;
 import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.adapters.ProfileRecyclerAdapter;
 import ru.predprof.trackingapp.databinding.ProfileLayoutBinding;
-import ru.predprof.trackingapp.databinding.ProfileRecyclerItemBinding;
 import ru.predprof.trackingapp.models.Trip;
-import ru.predprof.trackingapp.room.AppDatabase;
 import ru.predprof.trackingapp.room.RoomHandler;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 
 public class ProfileFragment extends Fragment {
-    private ProfileLayoutBinding binding;
-    private SharedPreferencesManager preferenceManager;
     List<Trip> lst;
     List<Trip> bestTrips = new ArrayList<Trip>();
     ProfileRecyclerAdapter adapter;
+    private ProfileLayoutBinding binding;
+    private SharedPreferencesManager preferenceManager;
+
     private void initFields() {
         preferenceManager = new SharedPreferencesManager(requireActivity());
     }
@@ -70,9 +65,6 @@ public class ProfileFragment extends Fragment {
         });
 
         th2.start();
-
-
-
 
 
     }

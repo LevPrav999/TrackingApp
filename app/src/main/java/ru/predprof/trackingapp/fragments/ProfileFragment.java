@@ -1,5 +1,6 @@
 package ru.predprof.trackingapp.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,14 +10,28 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.room.Room;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import ru.predprof.trackingapp.R;
+import ru.predprof.trackingapp.adapters.ProfileRecyclerAdapter;
 import ru.predprof.trackingapp.databinding.ProfileLayoutBinding;
+import ru.predprof.trackingapp.databinding.ProfileRecyclerItemBinding;
+import ru.predprof.trackingapp.models.Trip;
+import ru.predprof.trackingapp.room.AppDatabase;
+import ru.predprof.trackingapp.room.RoomHandler;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 
 public class ProfileFragment extends Fragment {
     private ProfileLayoutBinding binding;
     private SharedPreferencesManager preferenceManager;
+    List<Trip> lst;
+    List<Trip> bestTrips = new ArrayList<Trip>();
+    ProfileRecyclerAdapter adapter;
     private void initFields() {
         preferenceManager = new SharedPreferencesManager(requireActivity());
     }
@@ -34,6 +49,31 @@ public class ProfileFragment extends Fragment {
         binding.editProfileData.setOnClickListener(view -> {
             // TODO переход на страницу редактирования профиля
         });
+        Thread th2 = new Thread(() -> { // Тест работы БД
+
+            lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
+            Collections.sort(lst);
+            bestTrips.add(lst.get(0));
+            bestTrips.add(lst.get(1));
+            bestTrips.add(lst.get(2));
+
+            binding.recycler.post(new Runnable() {
+                @Override
+                public void run() {
+                    adapter = new ProfileRecyclerAdapter(bestTrips);
+                    binding.recycler.setAdapter(adapter);
+                    binding.recycler.setLayoutManager(new LinearLayoutManager((Context) getActivity()));
+                    adapter.notifyDataSetChanged();
+                }
+            });
+//            Log.d("tyyyyyyyyyyyy", Integer.toString(lst.size()));
+        });
+
+        th2.start();
+
+
+
+
 
     }
 
@@ -52,4 +92,6 @@ public class ProfileFragment extends Fragment {
 
         return binding.getRoot();
     }
+
+
 }

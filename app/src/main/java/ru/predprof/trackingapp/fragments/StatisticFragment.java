@@ -1,6 +1,7 @@
 package ru.predprof.trackingapp.fragments;
 
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.ValueDependentColor;
@@ -16,8 +18,11 @@ import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import ru.predprof.trackingapp.adapters.ProfileRecyclerAdapter;
+import ru.predprof.trackingapp.adapters.StatisticRecyclerAdapter;
 import ru.predprof.trackingapp.databinding.EditProfileLayoutBinding;
 import ru.predprof.trackingapp.databinding.MainAppLayoutBinding;
 import ru.predprof.trackingapp.models.Trip;
@@ -25,6 +30,8 @@ import ru.predprof.trackingapp.room.RoomHandler;
 
 public class StatisticFragment extends Fragment {
     private MainAppLayoutBinding binding;
+    StatisticRecyclerAdapter adapter;
+    List<Trip> lst;
     private void initFunc() {
 //        Thread th2 = new Thread(() -> { // Тест работы БД
 //
@@ -77,20 +84,31 @@ public class StatisticFragment extends Fragment {
                     new DataPoint(6, 6)
             });
             binding.graph.addSeries(series);
-
-// styling
             series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
                 @Override
                 public int get(DataPoint data) {
                     return Color.rgb(174, 91, 15);
                 }
             });
-
             series.setSpacing(30);
-
-// draw values on top
             series.setDrawValuesOnTop(true);
             series.setValuesOnTopColor(Color.WHITE);
+        Thread th2 = new Thread(() -> { // Тест работы БД
+
+            lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
+
+            binding.recycler.post(new Runnable() {
+                @Override
+                public void run() {
+                    adapter = new StatisticRecyclerAdapter(lst);
+                    binding.recycler.setAdapter(adapter);
+                    binding.recycler.setLayoutManager(new LinearLayoutManager((Context) getActivity()));
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        });
+
+        th2.start();
 
 
     }

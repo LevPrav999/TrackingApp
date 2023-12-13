@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 import java.util.ArrayList;
 
 @Entity
-public class Trip {
+public class Trip implements Comparable<Trip> {
     @PrimaryKey(autoGenerate = true)
     public int number;
 
@@ -106,5 +106,10 @@ public class Trip {
 
     public void setDifficultReal(String difficultReal) {
         this.difficultReal = difficultReal;
+    }
+
+    @Override
+    public int compareTo(Trip o) {
+        return Integer.parseInt(this.getLenKm()) - Integer.parseInt(o.getLenKm());
     }
 }

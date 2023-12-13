@@ -1,11 +1,17 @@
 package ru.predprof.trackingapp;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.predprof.trackingapp.databinding.ActivityMainBinding;
+import ru.predprof.trackingapp.fragments.MapFragment;
 import ru.predprof.trackingapp.fragments.ProfileFragment;
 import ru.predprof.trackingapp.fragments.RoutesFragment;
 import ru.predprof.trackingapp.fragments.StatisticFragment;
@@ -26,6 +33,24 @@ import ru.predprof.trackingapp.room.RoomHandler;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+
+    ActivityResultLauncher<String[]> locationPermissionRequest =
+            registerForActivityResult(new ActivityResultContracts
+                            .RequestMultiplePermissions(), result -> {
+                        Boolean fineLocationGranted = result.getOrDefault(
+                                Manifest.permission.ACCESS_FINE_LOCATION, false);
+                        Boolean coarseLocationGranted = result.getOrDefault(
+                                Manifest.permission.ACCESS_COARSE_LOCATION,false);
+                        if (fineLocationGranted != null && fineLocationGranted) {
+                            Log.d("granted", "1");
+                        } else if (coarseLocationGranted != null && coarseLocationGranted) {
+                            Log.d("granted", "2");
+                        } else {
+                            Log.d("granted", "3");
+                        }
+                    }
+            );
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +62,23 @@ public class MainActivity extends AppCompatActivity {
         // FragmentTransaction transaction = fragmentManager.beginTransaction();
         // transaction.addToBackStack("back");
         // transaction.add(R.id.map, new EditProfileFragment()).commit();
+
+
+        locationPermissionRequest.launch(new String[] {
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+        });
+
+
+        Fragment fragment=new MapFragment();
+
+        // Open fragment
+        getSupportFragmentManager()
+                .beginTransaction().replace(R.id.map,fragment)
+                .commit();
+
+        /*
+
         BottomNavigationView bottomNavigationView = binding.getterNavigation;
         bottomNavigationView.setOnItemSelectedListener(item -> {
 
@@ -65,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
         });
         th2.start();
 
+
+         */
 
     }
 

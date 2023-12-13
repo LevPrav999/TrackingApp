@@ -69,9 +69,11 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
         int height = Integer.parseInt(binding.registerHeight.getText().toString());
         float weight = Float.parseFloat(binding.registerWeight.getText().toString());
         float imt = weight / (float) (height * height);
+
         String name = binding.registerName.getText().toString();
         String tel_num = binding.registerPhoneNumber.getText().toString();
         String imtString = String.format("%.1g%n", imt);
+
         preferenceManager.saveString("name", name);
         preferenceManager.saveString("phonenumber", tel_num);
         preferenceManager.saveInt("height", height);

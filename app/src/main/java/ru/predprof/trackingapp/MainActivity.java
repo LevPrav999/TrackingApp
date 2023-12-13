@@ -1,6 +1,7 @@
 package ru.predprof.trackingapp;
 
 import android.Manifest;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,15 +26,17 @@ import java.util.List;
 import ru.predprof.trackingapp.databinding.ActivityMainBinding;
 import ru.predprof.trackingapp.fragments.MapFragment;
 import ru.predprof.trackingapp.fragments.ProfileFragment;
+import ru.predprof.trackingapp.fragments.RegisterFragment;
 import ru.predprof.trackingapp.fragments.RoutesFragment;
 import ru.predprof.trackingapp.fragments.StatisticFragment;
 import ru.predprof.trackingapp.models.Trip;
 import ru.predprof.trackingapp.room.RoomHandler;
+import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-
+    private SharedPreferencesManager sharedPreferencesManager;
     ActivityResultLauncher<String[]> locationPermissionRequest =
             registerForActivityResult(new ActivityResultContracts
                             .RequestMultiplePermissions(), result -> {
@@ -55,13 +58,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferencesManager = new SharedPreferencesManager(this);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replace(new StatisticFragment());
-        // FragmentManager fragmentManager = getSupportFragmentManager();
-        // FragmentTransaction transaction = fragmentManager.beginTransaction();
-        // transaction.addToBackStack("back");
-        // transaction.add(R.id.map, new EditProfileFragment()).commit();
+
+        if (sharedPreferencesManager.getString("name", null) != null){
+            replace(new RegisterFragment());
+        } else {
+            replace(new StatisticFragment());
+        }
+
 
 
         locationPermissionRequest.launch(new String[] {

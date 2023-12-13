@@ -1,8 +1,9 @@
 package ru.predprof.trackingapp;
 
 import android.Manifest;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
+import android.content.Context;
+import android.location.LocationManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -13,17 +14,39 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.net.InetAddress;
+
 import ru.predprof.trackingapp.databinding.ActivityMainBinding;
 import ru.predprof.trackingapp.fragments.MapFragment;
-import ru.predprof.trackingapp.fragments.ProfileFragment;
 import ru.predprof.trackingapp.fragments.RegisterFragment;
-import ru.predprof.trackingapp.fragments.RoutesFragment;
 import ru.predprof.trackingapp.fragments.StatisticFragment;
-import ru.predprof.trackingapp.models.Trip;
-import ru.predprof.trackingapp.room.RoomHandler;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 
 public class MainActivity extends AppCompatActivity {
+
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+    }
+
+    public boolean isInternetAvailable() {
+        try {
+            InetAddress ipAddr = InetAddress.getByName("google.com");
+            return !ipAddr.equals("");
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    private boolean isGPS(){
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
+
+
 
     private ActivityMainBinding binding;
     private SharedPreferencesManager sharedPreferencesManager;
@@ -51,11 +74,14 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
         if (sharedPreferencesManager.getString("name", null) != null){
             replace(new RegisterFragment());
         } else {
             replace(new StatisticFragment());
         }
+
+
 
 
 

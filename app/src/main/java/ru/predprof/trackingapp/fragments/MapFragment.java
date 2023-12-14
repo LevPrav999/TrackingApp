@@ -28,6 +28,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -45,10 +47,12 @@ public class MapFragment extends Fragment
         implements
         OnMapReadyCallback, GoogleMap.OnMapClickListener, RoutingListener {
 
-    private static final int[] COLORS = new int[]{R.color.dark_grey};
+    private static final int[] COLORS = new int[]{R.color.dark_orange};
     Location mLastLocation;
     LocationRequest mLocationRequest;
     private FragmentMapBinding binding;
+
+    private Counter counter;
 
     private GoogleMap map;
     LocationCallback mLocationCallback = new LocationCallback() {
@@ -60,7 +64,7 @@ public class MapFragment extends Fragment
                     mLastLocation = location;
 
 
-                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                    //LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                     //map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                     //map.animateCamera(CameraUpdateFactory.zoomTo(15));
                 }
@@ -80,6 +84,7 @@ public class MapFragment extends Fragment
         super.onCreate(savedInstanceState);
 
         polylines = new ArrayList<>();
+        counter = new Counter();
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
 
@@ -120,6 +125,7 @@ public class MapFragment extends Fragment
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
         map.clear();
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
         getRouteToMarker(latLng);
@@ -178,7 +184,16 @@ public class MapFragment extends Fragment
             Polyline polyline = map.addPolyline(polyOptions);
             polylines.add(polyline);
 
-            Toast.makeText(getContext(), "Route " + (i + 1) + ": distance - " + route.get(i).getDistanceValue()/1000 + "."+ route.get(i).getDistanceText()+ " : duration - " + route.get(i).getDurationText(), Toast.LENGTH_SHORT).show();
+            float a = ((float)(route.get(i).getDistanceValue())) / 1000f / counter.countPersonalSpeed(1); // подставлять параметр из SP
+            int b = (int) a;
+            float c = a-b;
+
+            String cRound = String.format("%.2g", c).replace(",", ".");
+            float cRoundFloat = Float.parseFloat(cRound)*60f+5f;
+            int cRoundInt = (int) cRoundFloat;
+            String str = b+" Hours "+cRoundInt+" Mins";
+
+            Toast.makeText(getContext(), "Route " + (i + 1) + ": distance - " + route.get(i)    .getDistanceText()+ " : duration - " + str , Toast.LENGTH_SHORT).show();
         }
     }
 

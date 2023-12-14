@@ -35,23 +35,23 @@ public class Counter {
         return 5 + imtBall + level + healthStatus;
     }
 
-    public int countPersonalSpeed(int personalLevel) {
+    public float countPersonalSpeed(int personalLevel) {
         if (personalLevel == 0 || personalLevel == 1) {
-            return 7;
+            return 7f;
         }
         if (personalLevel >= 2 && personalLevel <= 4) {
-            return 12;
+            return 10f;
         }
         if (personalLevel >= 5 && personalLevel <= 7) {
-            return 17;
+            return 15f;
         }
         if (personalLevel >= 8 && personalLevel <= 9) {
-            return 24;
+            return 22f;
         }
         if (personalLevel == 10) {
-            return 30;
+            return 25f;
         }
-        return 17;
+        return 17f;
     }
 
     public int countTimeOfTravel(int lenOfTravel, int personalSpeed) {

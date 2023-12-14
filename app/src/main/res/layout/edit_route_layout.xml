@@ -12,15 +12,16 @@
         android:text="@string/editor_route" />
 
 
+
     <EditText
+        android:layout_marginTop="60dp"
         android:id="@+id/route_name"
         style="@style/edit_data"
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginRight="15dp"
         android:gravity="left|center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:hint="@string/route_name"
         android:textSize="18sp"
         app:layout_constraintRight_toRightOf="parent"
@@ -90,17 +91,17 @@
     </FrameLayout>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/google_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="bottom|center"
-
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="180dp"
-        android:text="@string/map"
-        android:textColor="@color/nedodel_nado_pravit"
-        android:textSize="30sp" />
-
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="190dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="170dp"
+        android:background="@drawable/map_shape" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

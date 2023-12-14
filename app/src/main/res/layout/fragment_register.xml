@@ -78,7 +78,7 @@
             <EditText
                 android:id="@+id/register_phone_number"
                 style="@style/edit_data"
-                android:layout_width="135dp"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_phone_number"
                 app:layout_constraintRight_toRightOf="parent"
@@ -228,13 +228,6 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="175dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/grey_button"
-            android:text="@string/cancel"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/sendFormButton"

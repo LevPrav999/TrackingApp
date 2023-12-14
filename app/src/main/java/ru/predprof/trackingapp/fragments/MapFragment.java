@@ -193,7 +193,7 @@ public class MapFragment extends Fragment
             int cRoundInt = (int) cRoundFloat;
             String str = b+" Hours "+cRoundInt+" Mins";
 
-            Toast.makeText(getContext(), "Route " + (i + 1) + ": distance - " + route.get(i)    .getDistanceText()+ " : duration - " + str , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Route " + (i + 1) + ": distance - " + route.get(i)    .getDistanceText()+ " : time - " + str , Toast.LENGTH_SHORT).show();
         }
     }
 

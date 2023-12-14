@@ -46,7 +46,7 @@ public class Counter {
             return 15f;
         }
         if (personalLevel >= 8 && personalLevel <= 9) {
-            return 22f;
+            return 20f;
         }
         if (personalLevel == 10) {
             return 25f;
@@ -58,7 +58,7 @@ public class Counter {
         return lenOfTravel / personalSpeed;
     }
 
-    public int countLevelOfTravelInt(int timeOfTravel) {
+    public int countLevelOfTravelInt(float timeOfTravel) {
         if (timeOfTravel <= 1) {
             return 2;
         }

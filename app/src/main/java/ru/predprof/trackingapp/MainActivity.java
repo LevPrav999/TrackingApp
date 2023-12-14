@@ -24,6 +24,7 @@ import java.net.InetAddress;
 import java.util.HashSet;
 import java.util.Set;
 
+import ru.predprof.trackingapp.activities.NoGpsActivity;
 import ru.predprof.trackingapp.activities.NoInternetActivity;
 import ru.predprof.trackingapp.databinding.ActivityMainBinding;
 import ru.predprof.trackingapp.fragments.MapFragment;
@@ -102,7 +103,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        isGPS();
+        if(!isGPS()){
+            Replace.replaceActivity(this, new NoGpsActivity(), false);
+        }
 
         if(!isNetworkConnected()){
             Replace.replaceActivity(this, new NoInternetActivity(), false);

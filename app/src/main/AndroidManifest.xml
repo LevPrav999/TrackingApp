@@ -18,6 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TrackingApp"
         tools:targetApi="31">
+
+
+        <activity
+            android:name=".activities.NoGpsActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.NoInternetActivity"
             android:exported="false" />
@@ -38,7 +43,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

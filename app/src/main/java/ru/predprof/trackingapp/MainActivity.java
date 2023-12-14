@@ -4,25 +4,37 @@ import android.Manifest;
 import android.content.Context;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkRequest;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.MutableLiveData;
 
 import java.net.InetAddress;
+import java.util.HashSet;
+import java.util.Set;
 
+import ru.predprof.trackingapp.activities.NoInternetActivity;
 import ru.predprof.trackingapp.databinding.ActivityMainBinding;
 import ru.predprof.trackingapp.fragments.MapFragment;
 import ru.predprof.trackingapp.fragments.RegisterFragment;
 import ru.predprof.trackingapp.fragments.StatisticFragment;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
+import ru.predprof.trackingapp.utils.Replace;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final MutableLiveData<Boolean> connection = new MutableLiveData<>();
 
 
     private boolean isNetworkConnected() {
@@ -31,15 +43,31 @@ public class MainActivity extends AppCompatActivity {
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
-    public boolean isInternetAvailable() {
-        try {
-            InetAddress ipAddr = InetAddress.getByName("google.com");
-            return !ipAddr.equals("");
 
-        } catch (Exception e) {
-            return false;
-        }
+
+    public void internetListener(){
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkRequest request = new NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build();
+
+        connectivityManager.registerNetworkCallback(request, new ConnectivityManager.NetworkCallback() {
+
+            public void onAvailable(@NonNull Network network) {
+
+            }
+
+            public void onLost(@NonNull Network network) {
+                connection.postValue(false);
+            }
+
+            public void onUnavailable() {
+                connection.postValue(false);
+            }
+        });
     }
+
     private boolean isGPS(){
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
@@ -73,6 +101,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        isGPS();
+
+        if(!isNetworkConnected()){
+            Replace.replaceActivity(this, new NoInternetActivity(), false);
+        }
+        internetListener();
+
+        connection.observe(this, con -> {
+            if(!con){
+                Replace.replaceActivity(this, new NoInternetActivity(), false);
+            }
+        });
+
         sharedPreferencesManager = new SharedPreferencesManager(this);
         preferenceManager = new SharedPreferencesManager(this);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -148,7 +190,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         transaction.replace(R.id.map, fragment).commit();
-
 
     }
 

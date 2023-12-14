@@ -50,7 +50,6 @@ public class MapFragment extends Fragment
     LocationRequest mLocationRequest;
     private FragmentMapBinding binding;
 
-    private Counter counter;
     private GoogleMap map;
     LocationCallback mLocationCallback = new LocationCallback() {
         @Override
@@ -81,7 +80,6 @@ public class MapFragment extends Fragment
         super.onCreate(savedInstanceState);
 
         polylines = new ArrayList<>();
-        counter = new Counter();
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
 

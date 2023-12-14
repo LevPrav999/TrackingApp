@@ -38,6 +38,7 @@ import java.util.List;
 
 import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.databinding.FragmentMapBinding;
+import ru.predprof.trackingapp.utils.Counter;
 
 
 public class MapFragment extends Fragment
@@ -48,6 +49,8 @@ public class MapFragment extends Fragment
     Location mLastLocation;
     LocationRequest mLocationRequest;
     private FragmentMapBinding binding;
+
+    private Counter counter;
     private GoogleMap map;
     LocationCallback mLocationCallback = new LocationCallback() {
         @Override
@@ -59,8 +62,8 @@ public class MapFragment extends Fragment
 
 
                     LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                    map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                    map.animateCamera(CameraUpdateFactory.zoomTo(15));
+                    //map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                    //map.animateCamera(CameraUpdateFactory.zoomTo(15));
                 }
             }
         }
@@ -78,6 +81,7 @@ public class MapFragment extends Fragment
         super.onCreate(savedInstanceState);
 
         polylines = new ArrayList<>();
+        counter = new Counter();
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
 
@@ -129,7 +133,7 @@ public class MapFragment extends Fragment
         if (pickupLatLng != null && mLastLocation != null) {
             Routing routing = new Routing.Builder()
                     .key("AIzaSyCK4y3tSLqGJD2GG4lCkMCDf-Cc6D-jvKU")
-                    .travelMode(AbstractRouting.TravelMode.DRIVING)
+                    .travelMode(AbstractRouting.TravelMode.WALKING)
                     .withListener(this)
                     .alternativeRoutes(false)
                     .waypoints(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), pickupLatLng)
@@ -176,7 +180,7 @@ public class MapFragment extends Fragment
             Polyline polyline = map.addPolyline(polyOptions);
             polylines.add(polyline);
 
-            Toast.makeText(getContext(), "Route " + (i + 1) + ": distance - " + route.get(i).getDistanceValue() + ": duration - " + route.get(i).getDurationValue(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Route " + (i + 1) + ": distance - " + route.get(i).getDistanceValue()/1000 + "."+ route.get(i).getDistanceText()+ " : duration - " + route.get(i).getDurationText(), Toast.LENGTH_SHORT).show();
         }
     }
 

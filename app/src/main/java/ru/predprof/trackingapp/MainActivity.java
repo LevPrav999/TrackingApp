@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import ru.predprof.trackingapp.databinding.ActivityMainBinding;
 import ru.predprof.trackingapp.fragments.MapFragment;
 import ru.predprof.trackingapp.fragments.StatisticFragment;
+import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,16 +36,20 @@ public class MainActivity extends AppCompatActivity {
             );
     private ActivityMainBinding binding;
 
+    private SharedPreferencesManager preferenceManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        preferenceManager = new SharedPreferencesManager(this);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        if(preferenceManager.getString("name", null) != null ){
+
+        }
         replace(new StatisticFragment());
-        // FragmentManager fragmentManager = getSupportFragmentManager();
-        // FragmentTransaction transaction = fragmentManager.beginTransaction();
-        // transaction.addToBackStack("back");
-        // transaction.add(R.id.map, new EditProfileFragment()).commit();
+
 
 
         locationPermissionRequest.launch(new String[]{

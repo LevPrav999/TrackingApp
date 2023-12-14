@@ -1,11 +1,18 @@
 package ru.predprof.trackingapp.utils;
 
 public class Counter {
-    static int countImt(int height, int weight) {
+
+    public Counter(){
+
+    }
+
+    public int countImt(int height, int weight) {
         return weight / (height * height);
     }
 
-    static int countImtBall(int imt) {
+
+
+    public int countImtBall(int imt) {
         if (imt < 16) {
             return -2;
         }
@@ -24,11 +31,11 @@ public class Counter {
         return -2;
     }
 
-    static int countPersonalLevel(int imtBall, int level, int healthStatus) {
+    public int countPersonalLevel(int imtBall, int level, int healthStatus) {
         return 5 + imtBall + level + healthStatus;
     }
 
-    static int countPersonalSpeed(int personalLevel) {
+    public int countPersonalSpeed(int personalLevel) {
         if (personalLevel == 0 || personalLevel == 1) {
             return 7;
         }
@@ -47,11 +54,11 @@ public class Counter {
         return 17;
     }
 
-    static int countTimeOfTravel(int lenOfTravel, int personalSpeed) {
+    public int countTimeOfTravel(int lenOfTravel, int personalSpeed) {
         return lenOfTravel / personalSpeed;
     }
 
-    static int countLevelOfTravelInt(int timeOfTravel) {
+    public int countLevelOfTravelInt(int timeOfTravel) {
         if (timeOfTravel <= 1) {
             return 2;
         }
@@ -64,7 +71,7 @@ public class Counter {
         return 5;
     }
 
-    static String countLevelOfTravelStr(int timeOfTravel) {
+    public String countLevelOfTravelStr(int timeOfTravel) {
         if (timeOfTravel <= 1) {
             return "Easy";
         }
@@ -77,11 +84,11 @@ public class Counter {
         return "Medium";
     }
 
-    static int countFinalLevelOfTravelInt(int realLevelOfTravel, int levelOfTravelInt) {
+    public int countFinalLevelOfTravelInt(int realLevelOfTravel, int levelOfTravelInt) {
         return (realLevelOfTravel + levelOfTravelInt) / 2;
     }
 
-    static String countFinalLevelOfTravelStr(int realLevelOfTravel, int levelOfTravelInt) {
+    public String countFinalLevelOfTravelStr(int realLevelOfTravel, int levelOfTravelInt) {
         if (((realLevelOfTravel + levelOfTravelInt) / 2) <= 3) {
             return "Easy";
         }
@@ -94,11 +101,11 @@ public class Counter {
         return "Medium";
     }
 
-    static int createProposedLevelOfTravel(int personalLevel) {
+    public int createProposedLevelOfTravel(int personalLevel) {
         return personalLevel;
     }
 
-    static int updateProposedLevelOfTravel(int proposedLevelOfTravel, int levelOfTravelInt, int realLevelOfTravelInt) {
+    public int updateProposedLevelOfTravel(int proposedLevelOfTravel, int levelOfTravelInt, int realLevelOfTravelInt) {
         return proposedLevelOfTravel + ((realLevelOfTravelInt - levelOfTravelInt) / 2);
     }
 }

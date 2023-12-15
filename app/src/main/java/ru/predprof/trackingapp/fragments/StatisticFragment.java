@@ -29,17 +29,24 @@ public class StatisticFragment extends Fragment {
     private MainAppLayoutBinding binding;
 
     private void initFunc() {
-//        Thread th2 = new Thread(() -> { // Тест работы БД
-//
-//            List<Trip> lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
-//            binding.routeLength.setText(lst.get(lst.size() - 1).lenKm);
-//            binding.routeDuration.setText(lst.get(lst.size() - 1).time);
-//            binding.routeEstimatedComplexity.setText(lst.get(lst.size() - 1).difficultAuto);
-//            binding.routeUserRating.setText(lst.get(lst.size() - 1).difficultReal);
-////            binding.routeAverageRating.setText(); TODO итоговый рейтинг (нет в БД)
-////            Log.d("time", lst.get(lst.size() - 1).avgSpeed);
-//        });
-//        th2.start();
+        Thread th1 = new Thread(() -> { // Тест работы БД
+
+            List<Trip> lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
+            binding.routeLength.post(new Runnable() {
+                @Override
+                public void run() {
+                    binding.routeLength.setText(lst.get(lst.size() - 1).lenKm);
+                    binding.routeDuration.setText(lst.get(lst.size() - 1).time);
+                    binding.routeEstimatedComplexity.setText(lst.get(lst.size() - 1).difficultAuto);
+                    binding.routeUserRating.setText(lst.get(lst.size() - 1).difficultReal);
+
+                }
+            });
+
+//            binding.routeAverageRating.setText(); // TODO итоговый рейтинг (нет в БД)
+
+        });
+        th1.start();
         binding.graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value, boolean isValueX) {
@@ -47,8 +54,6 @@ public class StatisticFragment extends Fragment {
                     // show normal x values
                     String day;
                     switch ((int) value) {
-                        case 0:
-                            return "Пн";
                         case 1:
                             return "Вт";
                         case 2:

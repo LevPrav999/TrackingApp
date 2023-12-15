@@ -20,16 +20,23 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import ru.predprof.trackingapp.activities.NoGpsActivity;
 import ru.predprof.trackingapp.activities.NoInternetActivity;
 import ru.predprof.trackingapp.databinding.ActivityMainBinding;
 import ru.predprof.trackingapp.fragments.MapFragment;
+import ru.predprof.trackingapp.fragments.ProfileFragment;
 import ru.predprof.trackingapp.fragments.RegisterFragment;
 import ru.predprof.trackingapp.fragments.StatisticFragment;
+import ru.predprof.trackingapp.models.Trip;
+import ru.predprof.trackingapp.room.RoomHandler;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 import ru.predprof.trackingapp.utils.Replace;
 
@@ -146,14 +153,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        Fragment fragment = new MapFragment();
+//        Fragment fragment = new MapFragment();
 
-        // Open fragment
-        getSupportFragmentManager()
-                .beginTransaction().replace(R.id.map, fragment)
-                .commit();
+//        // Open fragment
+//        getSupportFragmentManager()
+//                .beginTransaction().replace(R.id.map, fragment)
+//                .commit();
 
-        /*
+
 
         BottomNavigationView bottomNavigationView = binding.getterNavigation;
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -163,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.statistic) {
                 replace(new StatisticFragment());
             } else {
-                replace(new RoutesFragment());
+                replace(new MapFragment());
             }
             return true;
         });
@@ -184,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
         th2.start();
 
 
-         */
+
 
     }
 

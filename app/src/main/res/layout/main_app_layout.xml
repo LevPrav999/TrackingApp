@@ -20,7 +20,7 @@
         android:id="@+id/graph"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        app:seriesData="0=0"
+        app:seriesData="1=0"
         app:seriesType="bar"
         app:seriesColor="#000000" />
 

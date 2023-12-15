@@ -14,11 +14,13 @@ import java.util.Collections;
 import java.util.List;
 
 import ru.predprof.trackingapp.R;
+import ru.predprof.trackingapp.activities.EditProfileActivity;
 import ru.predprof.trackingapp.adapters.ProfileRecyclerAdapter;
 import ru.predprof.trackingapp.databinding.ProfileLayoutBinding;
 import ru.predprof.trackingapp.models.Trip;
 import ru.predprof.trackingapp.room.RoomHandler;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
+import ru.predprof.trackingapp.utils.Replace;
 
 public class ProfileFragment extends Fragment {
     List<Trip> lst;
@@ -65,6 +67,9 @@ public class ProfileFragment extends Fragment {
         });
 
         th2.start();
+        binding.editProfileData.setOnClickListener(view -> {
+            Replace.replaceActivity(getActivity(), new EditProfileActivity(), false);
+        });
 
 
     }

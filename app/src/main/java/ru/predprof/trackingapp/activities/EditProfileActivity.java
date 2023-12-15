@@ -1,4 +1,4 @@
-package ru.predprof.trackingapp.fragments;
+package ru.predprof.trackingapp.activities;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -8,47 +8,73 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import ru.predprof.trackingapp.MainActivity;
 import ru.predprof.trackingapp.R;
+import ru.predprof.trackingapp.databinding.EditProfileLayoutBinding;
 import ru.predprof.trackingapp.databinding.FragmentRegisterBinding;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
+import ru.predprof.trackingapp.utils.Replace;
 
-
-public class RegisterFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class EditProfileActivity extends AppCompatActivity {
 
     private int level = -2;
     private int healthStatus = -3;
 
-    private FragmentRegisterBinding binding;
+    private EditProfileLayoutBinding binding;
     private SharedPreferencesManager preferenceManager;
 
-    public RegisterFragment() {
-
-    }
 
     private void initFields() {
-        preferenceManager = new SharedPreferencesManager(requireActivity());
+        preferenceManager = new SharedPreferencesManager(this);
     }
 
     private void initFunc() {
+        binding.registerName.setText(preferenceManager.getString("name", "Имя отсутствует"));
+        binding.registerPhoneNumber.setText(preferenceManager.getString("phonenumber", "Номер отсутствует"));
+        binding.registerHeight.setText(Integer.toString(preferenceManager.getInt("height", 0)));
+        binding.registerWeight.setText(Float.toString(preferenceManager.getFloat("weight", 0)));
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                requireContext(),
+                this,
                 R.array.level_choice_array,
                 android.R.layout.simple_spinner_item
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.registerLevelSpinner.setAdapter(adapter);
-        binding.registerLevelSpinner.setOnItemSelectedListener(this);
+        binding.registerLevelSpinner.setSelection(preferenceManager.getInt("level", 0));
+        binding.registerLevelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                level = i;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(
-                requireContext(),
+                this,
                 R.array.health_choice_array,
                 android.R.layout.simple_spinner_item
         );
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.registerHealthSpinner.setAdapter(adapter2);
-        binding.registerHealthSpinner.setOnItemSelectedListener(this);
+        binding.registerHealthSpinner.setSelection(preferenceManager.getInt("healthStatus", 0));
+        binding.registerHealthSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                healthStatus = i;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
         binding.sendFormButton.setOnClickListener(listener -> {
@@ -60,6 +86,7 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
                 Log.d("eeeeeee", "Вы не выбрали уровень подготовки");
             } else {
                 saveToDb();
+                Replace.replaceActivity(this, new MainActivity(), false);
                 // navigate to another screen
             }
         });
@@ -69,11 +96,9 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
         int height = Integer.parseInt(binding.registerHeight.getText().toString());
         float weight = Float.parseFloat(binding.registerWeight.getText().toString());
         float imt = weight / (float) (height * height);
-
         String name = binding.registerName.getText().toString();
         String tel_num = binding.registerPhoneNumber.getText().toString();
         String imtString = String.format("%.1g%n", imt);
-
         preferenceManager.saveString("name", name);
         preferenceManager.saveString("phonenumber", tel_num);
         preferenceManager.saveInt("height", height);
@@ -82,6 +107,7 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
         preferenceManager.saveString("imtString", imtString); // строка для отображения на экране
         preferenceManager.saveInt("level", level);
         preferenceManager.saveInt("healthStatus", healthStatus);
+        Log.d("eeeeeee", Integer.toString(preferenceManager.getInt("level", 0)));
 
     }
 
@@ -89,32 +115,12 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        binding = FragmentRegisterBinding.inflate(getLayoutInflater());
-
+        binding = EditProfileLayoutBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         initFields();
         initFunc();
 
-        return binding.getRoot();
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        if (view.getId() == R.id.registerLevelSpinner) {
-            level = i - 1;
-        } else {
-            healthStatus = i - 2;
-        }
-    }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
 }

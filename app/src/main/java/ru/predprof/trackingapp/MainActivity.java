@@ -2,12 +2,12 @@ package ru.predprof.trackingapp;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -22,18 +22,15 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.net.InetAddress;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import ru.predprof.trackingapp.activities.NoGpsActivity;
 import ru.predprof.trackingapp.activities.NoInternetActivity;
 import ru.predprof.trackingapp.databinding.ActivityMainBinding;
 import ru.predprof.trackingapp.fragments.MapFragment;
 import ru.predprof.trackingapp.fragments.ProfileFragment;
-import ru.predprof.trackingapp.fragments.RegisterFragment;
+import ru.predprof.trackingapp.activities.RegisterActivity;
 import ru.predprof.trackingapp.fragments.StatisticFragment;
 import ru.predprof.trackingapp.models.Trip;
 import ru.predprof.trackingapp.room.RoomHandler;
@@ -131,8 +128,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-        if (sharedPreferencesManager.getString("name", null) != null){
-            replace(new RegisterFragment());
+        if (sharedPreferencesManager.getString("name", null) == null){
+            Replace.replaceActivity(this, new RegisterActivity(), false);
         } else {
             replace(new StatisticFragment());
         }
@@ -152,13 +149,6 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.ACCESS_COARSE_LOCATION
         });
 
-
-//        Fragment fragment = new MapFragment();
-
-//        // Open fragment
-//        getSupportFragmentManager()
-//                .beginTransaction().replace(R.id.map, fragment)
-//                .commit();
 
 
 

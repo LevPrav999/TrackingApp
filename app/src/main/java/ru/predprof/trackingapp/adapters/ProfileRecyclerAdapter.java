@@ -45,7 +45,6 @@ public class ProfileRecyclerAdapter extends RecyclerView.Adapter<ProfileRecycler
 
     @Override
     public int getItemCount() {
-        Log.d("tyyyyyyyyyyyy", Integer.toString(trips.size()));
         return trips.size();
     }
 

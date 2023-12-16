@@ -23,7 +23,7 @@ import ru.predprof.trackingapp.databinding.MainAppLayoutBinding;
 import ru.predprof.trackingapp.models.Trip;
 import ru.predprof.trackingapp.room.RoomHandler;
 
-public class StatisticFragment extends Fragment {
+public class MainAppFragment extends Fragment {
     StatisticRecyclerAdapter adapter;
     List<Trip> lst;
     private MainAppLayoutBinding binding;

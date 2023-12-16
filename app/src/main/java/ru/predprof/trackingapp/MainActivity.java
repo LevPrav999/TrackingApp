@@ -2,7 +2,6 @@ package ru.predprof.trackingapp;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
@@ -31,7 +30,7 @@ import ru.predprof.trackingapp.databinding.ActivityMainBinding;
 import ru.predprof.trackingapp.fragments.MapFragment;
 import ru.predprof.trackingapp.fragments.ProfileFragment;
 import ru.predprof.trackingapp.activities.RegisterActivity;
-import ru.predprof.trackingapp.fragments.StatisticFragment;
+import ru.predprof.trackingapp.fragments.MainAppFragment;
 import ru.predprof.trackingapp.models.Trip;
 import ru.predprof.trackingapp.room.RoomHandler;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
@@ -131,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         if (sharedPreferencesManager.getString("name", null) == null){
             Replace.replaceActivity(this, new RegisterActivity(), false);
         } else {
-            replace(new StatisticFragment());
+            replace(new MainAppFragment());
         }
 
 
@@ -140,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         if(preferenceManager.getString("name", null) != null ){
 
         }
-        replace(new StatisticFragment());
+        replace(new MainAppFragment());
 
 
 
@@ -158,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
             if (item.getItemId() == R.id.prof) {
                 replace(new ProfileFragment());
             } else if (item.getItemId() == R.id.statistic) {
-                replace(new StatisticFragment());
+                replace(new MainAppFragment());
             } else {
                 replace(new MapFragment());
             }

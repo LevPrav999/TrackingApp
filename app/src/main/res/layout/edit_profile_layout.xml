@@ -78,7 +78,7 @@
             <EditText
                 android:id="@+id/register_phone_number"
                 style="@style/edit_data"
-                android:layout_width="135dp"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_phone_number"
                 app:layout_constraintRight_toRightOf="parent"

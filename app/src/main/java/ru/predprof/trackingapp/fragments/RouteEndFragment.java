@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import ru.predprof.trackingapp.MainActivity;
 import ru.predprof.trackingapp.databinding.RouteEndLayoutBinding;
 
 public class RouteEndFragment extends Fragment {
@@ -21,6 +22,7 @@ public class RouteEndFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = RouteEndLayoutBinding.inflate(getLayoutInflater());
+        MainActivity.RouteActivityStatus = 0;
 
         return binding.getRoot();
     }

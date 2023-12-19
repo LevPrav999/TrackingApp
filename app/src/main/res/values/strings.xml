@@ -60,6 +60,8 @@
     <string name="title">Название</string>
     <string name="start">Старт</string>
     <string name="edit_route">Редактировать маршрут</string>
+    <string name="time_on_route">Примерное время в пути:</string>
+    <string name="end_point_mark">Укажите конечную точку маршрута на карте</string>
 
     <string-array name="level_choice_array">
         <item>Никогда не ездил</item>

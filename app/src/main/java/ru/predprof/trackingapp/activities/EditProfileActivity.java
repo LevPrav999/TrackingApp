@@ -76,7 +76,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
-
+        binding.cancel.setOnClickListener(l -> Replace.replaceActivity(this, new MainActivity(), true));
         binding.sendFormButton.setOnClickListener(listener -> {
             if (binding.registerHeight.length() != 3) {
                 Log.d("eeeeeee", "Введите рост трёхзначным числом");
@@ -86,7 +86,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 Log.d("eeeeeee", "Вы не выбрали уровень подготовки");
             } else {
                 saveToDb();
-                Replace.replaceActivity(this, new MainActivity(), false);
+                Replace.replaceActivity(this, new MainActivity(), true);
                 // navigate to another screen
             }
         });

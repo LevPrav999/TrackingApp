@@ -229,6 +229,7 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancel"
             android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:background="@drawable/grey_button"

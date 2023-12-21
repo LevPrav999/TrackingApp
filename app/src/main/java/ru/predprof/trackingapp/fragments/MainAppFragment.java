@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.jjoe64.graphview.DefaultLabelFormatter;
@@ -18,6 +20,7 @@ import com.jjoe64.graphview.series.DataPoint;
 
 import java.util.List;
 
+import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.adapters.StatisticRecyclerAdapter;
 import ru.predprof.trackingapp.databinding.MainAppLayoutBinding;
 import ru.predprof.trackingapp.models.Trip;
@@ -114,6 +117,7 @@ public class MainAppFragment extends Fragment {
 
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,5 +131,12 @@ public class MainAppFragment extends Fragment {
         binding = MainAppLayoutBinding.inflate(getLayoutInflater());
         initFunc();
         return binding.getRoot();
+    }
+    public void replace(Fragment fragment) {
+        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        transaction.replace(R.id.map, fragment).commit();
+
     }
 }

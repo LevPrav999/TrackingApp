@@ -30,6 +30,7 @@
         app:layoutManager="LinearLayoutManager" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/createNewWay"
         style="@style/orange_button"
         android:layout_width="300dp"
         android:layout_height="wrap_content"

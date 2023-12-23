@@ -43,9 +43,6 @@ public class ProfileFragment extends Fragment {
         binding.registerLevel.setText(stringLavels[preferenceManager.getInt("level", 0)]);
         String[] stringHealth = getResources().getStringArray(R.array.health_choice_array);
         binding.registerHealth.setText(stringHealth[preferenceManager.getInt("healthStatus", 0)]);
-        binding.editProfileData.setOnClickListener(view -> {
-            // TODO переход на страницу редактирования профиля
-        });
         Thread th2 = new Thread(() -> { // Тест работы БД
 
             lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();

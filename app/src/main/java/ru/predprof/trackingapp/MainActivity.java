@@ -178,6 +178,9 @@ public class MainActivity extends AppCompatActivity {
             trip.setDifficultReal("1");
             trip.setMaxSpeed("14");
             trip.setWeekDay("0");
+            trip.setDuration("15");
+            trip.setStartPoint("Люблино");
+            trip.setEndPoint("Подольск");
             RoomHandler.getInstance(getApplicationContext()).getAppDatabase().tripDao().insertAll(trip);
             List<Trip> lst = RoomHandler.getInstance(getApplicationContext()).getAppDatabase().tripDao().getAll();
             Log.d("avgSpeed", lst.get(lst.size() - 1).weekDay);

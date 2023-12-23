@@ -34,11 +34,9 @@ public class StatisticRecyclerAdapter extends RecyclerView.Adapter<StatisticRecy
     @Override
     public void onBindViewHolder(@NonNull TripsStatHolder holder, int position) {
         Trip trip = trips.get(position);
-        holder.dificult.setText(trip.difficultReal); // TODO add startpoint and endpoint to DB
-
-//        holder.tv.setText(gr.name);
-//        holder.tv1.setText(gr.id);
-
+        holder.dificult.setText(trip.difficultReal);
+        holder.startPoint.setText(trip.getStartPoint());
+        holder.endPoint.setText(trip.endPoint);
     }
 
     @Override
@@ -50,10 +48,14 @@ public class StatisticRecyclerAdapter extends RecyclerView.Adapter<StatisticRecy
     public static class TripsStatHolder extends RecyclerView.ViewHolder {
 
         TextView dificult;
+        TextView startPoint;
+        TextView endPoint;
 
         public TripsStatHolder(@NonNull View itemView) {
             super(itemView);
             dificult = itemView.findViewById(R.id.complexity);
+            startPoint = itemView.findViewById(R.id.departure_point);
+            endPoint = itemView.findViewById(R.id.arrivals_point);
 
 
         }

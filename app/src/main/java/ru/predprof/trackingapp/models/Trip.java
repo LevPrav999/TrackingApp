@@ -36,6 +36,39 @@ public class Trip implements Comparable<Trip> {
     @ColumnInfo(name = "day_week")
     public String weekDay; // День недели
 
+    @ColumnInfo(name = "duration")
+    public String duration; // Длительность по времени
+
+    @ColumnInfo(name = "startPoint")
+    public String startPoint; // стсартовая точка маршрута
+
+    @ColumnInfo(name = "endPoint")
+    public String endPoint; // Конечная точка маршрута
+
+    public String getEndPoint() {
+        return endPoint;
+    }
+
+    public void setEndPoint(String endPoint) {
+        this.endPoint = endPoint;
+    }
+
+    public String getStartPoint() {
+        return startPoint;
+    }
+
+    public void setStartPoint(String startPoint) {
+        this.startPoint = startPoint;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
     public String getWeekDay() {
         return weekDay;
     }

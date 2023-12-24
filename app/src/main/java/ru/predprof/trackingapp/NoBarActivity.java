@@ -22,7 +22,7 @@ public class NoBarActivity  extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        transaction.replace(R.id.map, fragment).commit();
+        transaction.replace(R.id.fragment, fragment).commit();
 
     }
 }

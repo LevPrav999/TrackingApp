@@ -41,6 +41,7 @@ import java.util.List;
 import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.databinding.FragmentMapBinding;
 import ru.predprof.trackingapp.utils.Counter;
+import ru.predprof.trackingapp.utils.MapUtils;
 
 
 public class MapFragment extends Fragment
@@ -53,6 +54,9 @@ public class MapFragment extends Fragment
     private FragmentMapBinding binding;
 
     private Counter counter;
+    private MapUtils mapUtils;
+
+    private LatLng markerLatLng = null;
 
     private GoogleMap map;
     LocationCallback mLocationCallback = new LocationCallback() {
@@ -62,8 +66,12 @@ public class MapFragment extends Fragment
                 if (getContext() != null) {
 
                     mLastLocation = location;
-
-
+                    if(markerLatLng != null){
+                        double distance = mapUtils.countDistanceBetweenToPoints(location.getLatitude(), location.getLongitude(), markerLatLng.latitude, markerLatLng.longitude);
+                        if (distance < 0.0017d){
+                            Toast.makeText(getContext(), "Вы приехали", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                     //LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                     //map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                     //map.animateCamera(CameraUpdateFactory.zoomTo(15));
@@ -85,6 +93,7 @@ public class MapFragment extends Fragment
 
         polylines = new ArrayList<>();
         counter = new Counter();
+        mapUtils = new MapUtils();
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
 
@@ -122,6 +131,8 @@ public class MapFragment extends Fragment
 
     @Override
     public void onMapClick(@NonNull LatLng latLng) {
+        markerLatLng = latLng;
+
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title(latLng.latitude + " : " + latLng.longitude);

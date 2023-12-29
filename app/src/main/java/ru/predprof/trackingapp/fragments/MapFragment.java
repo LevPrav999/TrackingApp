@@ -59,6 +59,7 @@ public class MapFragment extends Fragment
 
     private LatLng markerLatLng = null;
     private LatLng startLatLng = null;
+    private List<LatLng> arrayLatLng = null;
 
     private GoogleMap map;
     LocationCallback mLocationCallback = new LocationCallback() {
@@ -68,10 +69,12 @@ public class MapFragment extends Fragment
                 if (getContext() != null) {
 
                     mLastLocation = location;
-                    if(startLatLng != null){
+                    if(arrayLatLng != null){
                         // мне было лень создавать переменную, по этому держите легаси код
-                        addStepPolyline(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), startLatLng);
-                        startLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+                        arrayLatLng.remove(findNearestLatLng(arrayLatLng, new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude())));
+                        renderPolylineNew(arrayLatLng);
+                        //addStepPolyline(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), startLatLng);
+                        //startLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
                     }
                     if(markerLatLng != null){
                         double distance = mapUtils.countDistanceBetweenToPoints(location.getLatitude(), location.getLongitude(), markerLatLng.latitude, markerLatLng.longitude);
@@ -187,23 +190,61 @@ public class MapFragment extends Fragment
         polylines = new ArrayList<>();
         for (int i = 0; i < route.size(); i++) {
 
-            List<Segment> segments = route.get(i).getSegments();
-            for (Segment s : segments) {
-                Log.d("route", s.getInstruction());
-                Log.d("route", String.valueOf(s.getDistance()));
-            }
 
             startLatLng = route.get(i).getPoints().get(0);
+            arrayLatLng = route.get(i).getPoints();
 
             int colorIndex = i % 4;
             PolylineOptions polyOptions = new PolylineOptions();
             polyOptions.color(getResources().getColor(COLORS[colorIndex]));
-            polyOptions.width(10 + i * 3);
+            polyOptions.width(10);
             polyOptions.addAll(route.get(i).getPoints());
             Polyline polyline = map.addPolyline(polyOptions);
             polylines.add(polyline);
     }
     }
+
+    public void renderPolylineNew(List<LatLng> list){
+        if (polylines.size() > 0) {
+            for (Polyline poly : polylines) {
+                poly.remove();
+            }
+        }
+
+        polylines = new ArrayList<>();
+        PolylineOptions polyOptions = new PolylineOptions();
+        polyOptions.color(getResources().getColor(COLORS[0]));
+        polyOptions.width(10);
+        polyOptions.addAll(list);
+        Polyline polyline = map.addPolyline(polyOptions);
+        polylines.add(polyline);
+    }
+
+    public static LatLng findNearestLatLng(List<LatLng> latLngArray, LatLng targetPoint) {
+        double minDistance = 0.01d;
+        LatLng nearestLatLng = null;
+
+        for (LatLng latLng : latLngArray) {
+            double distance = haversineDistance(latLng.latitude, latLng.longitude, targetPoint.latitude, targetPoint.longitude);
+            if (distance < minDistance) {
+                minDistance = distance;
+                nearestLatLng = latLng;
+            }
+        }
+
+        return nearestLatLng;
+    }
+
+    public static double haversineDistance(double lat1, double lon1, double lat2, double lon2) {
+        double R = 6371;
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+    }
+
 
     public void addStepPolyline(LatLng first, LatLng second){
 

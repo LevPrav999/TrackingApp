@@ -26,6 +26,7 @@ import java.util.List;
 
 import ru.predprof.trackingapp.activities.NoGpsActivity;
 import ru.predprof.trackingapp.activities.NoInternetActivity;
+import ru.predprof.trackingapp.activities.NoPermissionsActivity;
 import ru.predprof.trackingapp.databinding.ActivityMainBinding;
 import ru.predprof.trackingapp.fragments.MapFragment;
 import ru.predprof.trackingapp.fragments.ProfileFragment;
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                         } else if (coarseLocationGranted != null && coarseLocationGranted) {
                             Log.d("granted", "2");
                         } else {
-                            Log.d("granted", "3");
+                            Replace.replaceActivity(this, new NoPermissionsActivity(), true);
                         }
                     }
             );
@@ -112,17 +113,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         if(!isGPS()){
-            Replace.replaceActivity(this, new NoGpsActivity(), false);
+            Replace.replaceActivity(this, new NoGpsActivity(), true);
         }
 
         if(!isNetworkConnected()){
-            Replace.replaceActivity(this, new NoInternetActivity(), false);
+            Replace.replaceActivity(this, new NoInternetActivity(), true);
         }
         internetListener();
 
         connection.observe(this, con -> {
             if(!con){
-                Replace.replaceActivity(this, new NoInternetActivity(), false);
+                Replace.replaceActivity(this, new NoInternetActivity(), true);
             }
         });
 
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (sharedPreferencesManager.getString("name", null) == null){
-            Replace.replaceActivity(this, new RegisterActivity(), false);
+            Replace.replaceActivity(this, new RegisterActivity(), true);
         } else {
             replace(new MainAppFragment());
         }

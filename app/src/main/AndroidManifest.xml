@@ -18,8 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TrackingApp"
         tools:targetApi="31">
-
-
+        <activity
+            android:name=".activities.NoPermissionsActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.NoGpsActivity"
             android:exported="false" />
@@ -45,12 +46,10 @@
         </activity>
         <activity
             android:name=".activities.RegisterActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".activities.EditProfileActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>

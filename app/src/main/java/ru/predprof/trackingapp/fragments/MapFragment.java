@@ -1,6 +1,7 @@
 package ru.predprof.trackingapp.fragments;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
@@ -57,6 +58,7 @@ public class MapFragment extends Fragment
     private MapUtils mapUtils;
 
     private LatLng markerLatLng = null;
+    private LatLng startLatLng = null;
 
     private GoogleMap map;
     LocationCallback mLocationCallback = new LocationCallback() {
@@ -66,6 +68,11 @@ public class MapFragment extends Fragment
                 if (getContext() != null) {
 
                     mLastLocation = location;
+                    if(startLatLng != null){
+                        // мне было лень создавать переменную, по этому держите легаси код
+                        addStepPolyline(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), startLatLng);
+                        startLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+                    }
                     if(markerLatLng != null){
                         double distance = mapUtils.countDistanceBetweenToPoints(location.getLatitude(), location.getLongitude(), markerLatLng.latitude, markerLatLng.longitude);
                         if (distance < 0.0017d){
@@ -170,8 +177,7 @@ public class MapFragment extends Fragment
     public void onRoutingStart() {
     }
 
-    @Override
-    public void onRoutingSuccess(ArrayList<Route> route, int shortestRouteIndex) {
+    public void renderPolyline(ArrayList<Route> route){
         if (polylines.size() > 0) {
             for (Polyline poly : polylines) {
                 poly.remove();
@@ -187,6 +193,8 @@ public class MapFragment extends Fragment
                 Log.d("route", String.valueOf(s.getDistance()));
             }
 
+            startLatLng = route.get(i).getPoints().get(0);
+
             int colorIndex = i % 4;
             PolylineOptions polyOptions = new PolylineOptions();
             polyOptions.color(getResources().getColor(COLORS[colorIndex]));
@@ -194,18 +202,37 @@ public class MapFragment extends Fragment
             polyOptions.addAll(route.get(i).getPoints());
             Polyline polyline = map.addPolyline(polyOptions);
             polylines.add(polyline);
+    }
+    }
 
-            float a = ((float)(route.get(i).getDistanceValue())) / 1000f / counter.countPersonalSpeed(1); // подставлять параметр из SP
-            int b = (int) a;
-            float c = a-b;
+    public void addStepPolyline(LatLng first, LatLng second){
 
-            String cRound = String.format("%.2g", c).replace(",", ".");
-            float cRoundFloat = Float.parseFloat(cRound)*60f+5f;
-            int cRoundInt = (int) cRoundFloat;
-            String str = b+" Hours "+cRoundInt+" Mins";
 
-            Toast.makeText(getContext(), "Route " + (i + 1) + ": distance - " + route.get(i)    .getDistanceText()+ " : time - " + str , Toast.LENGTH_SHORT).show();
-        }
+        PolylineOptions polyOptions = new PolylineOptions();
+        polyOptions.width(10);
+        polyOptions.color(Color.GREEN);
+        polyOptions.add(first);
+        polyOptions.add(second);
+        Polyline polyline = map.addPolyline(polyOptions);
+        polylines.add(polyline);
+    }
+
+    @Override
+    public void onRoutingSuccess(ArrayList<Route> route, int shortestRouteIndex) {
+
+        renderPolyline(route);
+
+        float a = ((float)(route.get(route.size()-1).getDistanceValue())) / 1000f / counter.countPersonalSpeed(1); // подставлять параметр из SP
+        int b = (int) a;
+        float c = a-b;
+
+        String cRound = String.format("%.2g", c).replace(",", ".");
+        float cRoundFloat = Float.parseFloat(cRound)*60f+5f;
+        int cRoundInt = (int) cRoundFloat;
+        String str = b+" Hours "+cRoundInt+" Mins";
+
+        Toast.makeText(getContext(), "Distance - " + route.get(route.size()-1).getDistanceText()+ " : time - " + str , Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

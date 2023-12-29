@@ -22,7 +22,6 @@ public class NoPermissionsActivity extends AppCompatActivity {
 
     private ActivityNoPermissionsBinding binding;
 
-    private boolean isGranted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,6 @@ public class NoPermissionsActivity extends AppCompatActivity {
                 intent.setData(uri);
                 startActivity(intent);
         });
-
     }
 
     @Override

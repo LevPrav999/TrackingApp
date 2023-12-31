@@ -71,7 +71,7 @@ public class MapFragment extends Fragment
                     mLastLocation = location;
                     if(arrayLatLng != null){
                         // мне было лень создавать переменную, по этому держите легаси код
-                        arrayLatLng.remove(findNearestLatLng(arrayLatLng, new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude())));
+                        arrayLatLng.remove(mapUtils.findNearestLatLng(arrayLatLng, new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude())));
                         renderPolylineNew(arrayLatLng);
                         //addStepPolyline(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), startLatLng);
                         //startLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
@@ -82,9 +82,6 @@ public class MapFragment extends Fragment
                             Toast.makeText(getContext(), "Вы приехали", Toast.LENGTH_SHORT).show();
                         }
                     }
-                    //LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                    //map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                    //map.animateCamera(CameraUpdateFactory.zoomTo(15));
                 }
             }
         }
@@ -201,7 +198,7 @@ public class MapFragment extends Fragment
             polyOptions.addAll(route.get(i).getPoints());
             Polyline polyline = map.addPolyline(polyOptions);
             polylines.add(polyline);
-    }
+        }
     }
 
     public void renderPolylineNew(List<LatLng> list){
@@ -220,30 +217,7 @@ public class MapFragment extends Fragment
         polylines.add(polyline);
     }
 
-    public static LatLng findNearestLatLng(List<LatLng> latLngArray, LatLng targetPoint) {
-        double minDistance = 0.01d;
-        LatLng nearestLatLng = null;
 
-        for (LatLng latLng : latLngArray) {
-            double distance = haversineDistance(latLng.latitude, latLng.longitude, targetPoint.latitude, targetPoint.longitude);
-            if (distance < minDistance) {
-                minDistance = distance;
-                nearestLatLng = latLng;
-            }
-        }
-
-        return nearestLatLng;
-    }
-
-    public static double haversineDistance(double lat1, double lon1, double lat2, double lon2) {
-        double R = 6371;
-        double dLat = Math.toRadians(lat2 - lat1);
-        double dLon = Math.toRadians(lon2 - lon1);
-        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return R * c;
-    }
 
 
     public void addStepPolyline(LatLng first, LatLng second){

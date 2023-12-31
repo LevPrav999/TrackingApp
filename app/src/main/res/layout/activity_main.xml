@@ -27,6 +27,8 @@
         app:itemPaddingBottom="20dp"
         app:itemRippleColor="@color/white"
         app:itemTextColor="@color/white"
+        app:itemIconTint="@color/white"
+        app:itemActiveIndicatorStyle="@style/BottomNavigation.ActiveItemTextAppearance"
         app:menu="@menu/bottom_menu" />
 
 

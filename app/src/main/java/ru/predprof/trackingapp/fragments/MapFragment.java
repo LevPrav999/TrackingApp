@@ -59,6 +59,7 @@ public class MapFragment extends Fragment
 
     private LatLng markerLatLng = null;
     private LatLng startLatLng = null;
+    private LatLng lastNearest = null;
     private List<LatLng> arrayLatLng = null;
 
     private GoogleMap map;
@@ -67,17 +68,29 @@ public class MapFragment extends Fragment
         public void onLocationResult(LocationResult locationResult) {
             for (Location location : locationResult.getLocations()) {
                 if (getContext() != null) {
-
                     mLastLocation = location;
                     if(arrayLatLng != null){
-                        // мне было лень создавать переменную, по этому держите легаси код
-                        int index = arrayLatLng.indexOf(mapUtils.findNearestLatLng(arrayLatLng, new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude())));
-                        List<LatLng> elementsToDelete = new ArrayList<>();
-                        for(int i = 0; i <= index; i++){
-                            elementsToDelete.add(arrayLatLng.get(i));
+                        LatLng current = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+                        LatLng nearest = mapUtils.findNearestLatLng(arrayLatLng, current);
+                        if(nearest != null){
+                            lastNearest = nearest;
+                            int index = arrayLatLng.indexOf(nearest);
+                            List<LatLng> elementsToDelete = new ArrayList<>();
+                            for(int i = 0; i <= index; i++){
+                                elementsToDelete.add(arrayLatLng.get(i));
+                            }
+                            arrayLatLng.removeAll(elementsToDelete);
+                            renderPolylineNew(arrayLatLng);
+
+                            if (mapUtils.haversineDistance(nearest.latitude, nearest.longitude, current.latitude, current.longitude) > 0.3d){
+                                getRouteToMarker(markerLatLng, current);
+                            }
+                        }else if(lastNearest != null){
+                            if (mapUtils.haversineDistance(lastNearest.latitude, lastNearest.longitude, current.latitude, current.longitude) > 0.3d){
+                                getRouteToMarker(markerLatLng, current);
+                            }
                         }
-                        arrayLatLng.removeAll(elementsToDelete);
-                        renderPolylineNew(arrayLatLng);
+
                         //addStepPolyline(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), startLatLng);
                         //startLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
                     }
@@ -151,19 +164,19 @@ public class MapFragment extends Fragment
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
         map.clear();
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-        getRouteToMarker(latLng);
+        getRouteToMarker(latLng, new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()));
         map.addMarker(markerOptions);
 
     }
 
-    private void getRouteToMarker(LatLng pickupLatLng) {
+    private void getRouteToMarker(LatLng pickupLatLng, LatLng locationLatLng) {
         if (pickupLatLng != null && mLastLocation != null) {
             Routing routing = new Routing.Builder()
                     .key("AIzaSyCK4y3tSLqGJD2GG4lCkMCDf-Cc6D-jvKU")
                     .travelMode(AbstractRouting.TravelMode.WALKING)
                     .withListener(this)
                     .alternativeRoutes(false)
-                    .waypoints(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), pickupLatLng)
+                    .waypoints(locationLatLng, pickupLatLng)
                     .build();
             routing.execute();
         }

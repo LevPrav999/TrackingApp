@@ -2,7 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="40dp"
+    android:layout_marginBottom="3dp"
+    >
 
 
     <RelativeLayout
@@ -10,6 +12,7 @@
         android:layout_height="40dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_margin="10dp"
         android:background="@drawable/grey_button"
         tools:ignore="MissingConstraints">
 

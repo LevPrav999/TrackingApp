@@ -12,7 +12,7 @@
         android:text="@string/route" />
 
     <TextView
-        android:id="@+id/route"
+        android:id="@+id/route_a_b"
         style="@style/title_fragment"
         android:layout_marginTop="35dp"
         android:text="@string/route" />

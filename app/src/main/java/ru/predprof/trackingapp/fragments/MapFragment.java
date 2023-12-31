@@ -71,14 +71,19 @@ public class MapFragment extends Fragment
                     mLastLocation = location;
                     if(arrayLatLng != null){
                         // мне было лень создавать переменную, по этому держите легаси код
-                        arrayLatLng.remove(mapUtils.findNearestLatLng(arrayLatLng, new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude())));
+                        int index = arrayLatLng.indexOf(mapUtils.findNearestLatLng(arrayLatLng, new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude())));
+                        List<LatLng> elementsToDelete = new ArrayList<>();
+                        for(int i = 0; i <= index; i++){
+                            elementsToDelete.add(arrayLatLng.get(i));
+                        }
+                        arrayLatLng.removeAll(elementsToDelete);
                         renderPolylineNew(arrayLatLng);
                         //addStepPolyline(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), startLatLng);
                         //startLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
                     }
                     if(markerLatLng != null){
                         double distance = mapUtils.countDistanceBetweenToPoints(location.getLatitude(), location.getLongitude(), markerLatLng.latitude, markerLatLng.longitude);
-                        if (distance < 0.0017d){
+                        if (distance < 0.0009d){
                             Toast.makeText(getContext(), "Вы приехали", Toast.LENGTH_SHORT).show();
                         }
                     }

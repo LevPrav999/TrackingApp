@@ -26,6 +26,7 @@
         <EditText
             android:id="@+id/route_name"
             style="@style/edit_data"
+            android:maxLines="1"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginStart="10dp"

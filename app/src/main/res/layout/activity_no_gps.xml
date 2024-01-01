@@ -12,6 +12,7 @@
         android:background="@drawable/no_gps_connection"/>
 
     <TextView
+        android:fontFamily="@font/moscowsansregular"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

@@ -57,13 +57,14 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 style="@style/text_for_stats"
@@ -72,6 +73,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="0dp"
                 android:text="@string/phone_number"
+                android:layout_gravity="left"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -81,12 +83,13 @@
                 android:id="@+id/register_phone_number"
                 style="@style/edit_data"
                 android:layout_width="140dp"
+                android:layout_gravity="right"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_phone_number"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -159,12 +162,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:gravity="center">
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 style="@style/text_for_stats"
@@ -172,6 +176,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="0dp"
+                android:layout_gravity="left"
                 android:text="@string/level_of_training"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -180,21 +185,23 @@
             <Spinner
                 android:id="@+id/registerLevelSpinner"
                 style="@style/edit_data"
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="30dp"
-                android:layout_marginEnd="5dp"
+                android:layout_gravity="right"
+                android:layout_marginEnd="15dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
             android:layout_marginBottom="5dp"
             android:gravity="center">
 
@@ -204,6 +211,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="0dp"
+                android:layout_gravity="left"
                 android:text="@string/health_status"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -212,14 +220,15 @@
             <Spinner
                 android:id="@+id/registerHealthSpinner"
                 style="@style/edit_data"
-                android:layout_width="130dp"
+                android:layout_width="150dp"
+                android:layout_gravity="right"
                 android:layout_height="30dp"
-                android:layout_marginEnd="5dp"
+                android:layout_marginEnd="15dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -234,22 +243,24 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cancel"
-            android:layout_width="175dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:background="@drawable/grey_button"
             android:text="@string/cancel"
             android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:layout_width="wrap_content"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/sendFormButton"
-            android:layout_width="175dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:background="@drawable/orange_button"
             android:text="@string/save"
             android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:layout_width="wrap_content"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>

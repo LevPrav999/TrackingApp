@@ -91,8 +91,8 @@ public class MapFragment extends Fragment
                             }
                         }
 
-                        //addStepPolyline(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), startLatLng);
-                        //startLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+                        addStepPolyline(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), startLatLng);
+                        startLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
                     }
                     if(markerLatLng != null){
                         double distance = mapUtils.countDistanceBetweenToPoints(location.getLatitude(), location.getLongitude(), markerLatLng.latitude, markerLatLng.longitude);
@@ -166,7 +166,6 @@ public class MapFragment extends Fragment
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
         getRouteToMarker(latLng, new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()));
         map.addMarker(markerOptions);
-
     }
 
     private void getRouteToMarker(LatLng pickupLatLng, LatLng locationLatLng) {

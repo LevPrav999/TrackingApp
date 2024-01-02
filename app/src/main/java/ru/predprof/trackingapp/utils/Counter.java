@@ -31,8 +31,8 @@ public class Counter {
         return -2;
     }
 
-    public int countPersonalLevel(int imtBall, int level, int healthStatus) {
-        return 5 + imtBall + level + healthStatus;
+    public int countPersonalLevel(float imtBall, int level, int healthStatus) {
+        return (int) (5 + imtBall + level + healthStatus);
     }
 
     public float countPersonalSpeed(int personalLevel) {
@@ -71,7 +71,7 @@ public class Counter {
         return 5;
     }
 
-    public String countLevelOfTravelStr(int timeOfTravel) {
+    public String countLevelOfTravelStr(float timeOfTravel) {
         if (timeOfTravel <= 1) {
             return "Easy";
         }

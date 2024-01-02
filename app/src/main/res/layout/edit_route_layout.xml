@@ -77,13 +77,17 @@
             style="@style/text_for_stats"
             android:text="@string/length"
             android:textSize="20sp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/route_length"
             style="@style/text_for_stats"
             android:text="@string/none_hint"
-            android:textSize="25sp"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             app:layout_constraintRight_toRightOf="parent"
             tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -102,13 +106,17 @@
             style="@style/text_for_stats"
             android:text="@string/time_on_route"
             android:textSize="20sp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/route_time"
             style="@style/text_for_stats"
             android:text="@string/none_hint"
-            android:textSize="25sp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="20sp"
             app:layout_constraintRight_toRightOf="parent"
             tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -126,14 +134,18 @@
         <TextView
             style="@style/text_for_stats"
             android:text="@string/complexity"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:textSize="20sp"
             tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/route_complexity"
             style="@style/text_for_stats"
-            android:text="@string/none_hint"
-            android:textSize="25sp"
+            android:text="@string/complexity_none"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="20sp"
             app:layout_constraintRight_toRightOf="parent"
             tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:fontFamily="@font/moscowsansregular"
         android:layout_marginBottom="250dp"
         android:text="Отсутствует подключение к интернету!"
         android:textSize="25sp"

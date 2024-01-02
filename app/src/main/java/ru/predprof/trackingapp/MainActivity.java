@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
             trip.setDifficultAuto("1");
             trip.setDifficultReal("1");
             trip.setMaxSpeed("14");
-            trip.setWeekDay("0");
+            trip.setWeekDay("01.01.2024");
             trip.setDuration("15");
             trip.setStartPoint("Люблино");
             trip.setEndPoint("Подольск");

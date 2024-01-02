@@ -34,7 +34,7 @@ public class Trip implements Comparable<Trip> {
     public String difficultReal; // Сложность реальная
 
     @ColumnInfo(name = "day_week")
-    public String weekDay; // День недели
+    public String weekDay; // Дата в формате dd.MM.yyyy
 
     @ColumnInfo(name = "duration")
     public String duration; // Длительность по времени

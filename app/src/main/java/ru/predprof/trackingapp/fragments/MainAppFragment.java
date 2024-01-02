@@ -4,6 +4,7 @@ package ru.predprof.trackingapp.fragments;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,12 @@ import com.jjoe64.graphview.ValueDependentColor;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.adapters.StatisticRecyclerAdapter;
@@ -55,50 +61,97 @@ public class MainAppFragment extends Fragment {
             @Override
             public String formatLabel(double value, boolean isValueX) {
                 if (isValueX) {
-                    // show normal x values
                     String day;
                     switch ((int) value) {
                         case 1:
-                            return "Вт";
-                        case 2:
-                            return "Ср";
-                        case 3:
-                            return "Чт";
-                        case 4:
-                            return "Пт";
-                        case 5:
-                            return "Сб";
-                        case 6:
                             return "Вс";
-                        default:
+                        case 2:
                             return "Пн";
+                        case 3:
+                            return "Вт";
+                        case 4:
+                            return "Ср";
+                        case 5:
+                            return "Чт";
+                        case 6:
+                            return "Пт";
+                        case 7:
+                            return "Сб";
+                        default:
+                            return null;
+
                     }
                 } else {
-                    // show currency for y values
                     return super.formatLabel(value, isValueX);
                 }
             }
         });
-        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[]{
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6),
-                new DataPoint(5, 6),
-                new DataPoint(6, 6)
+
+        Thread th_gr = new Thread(() -> {
+
+            List<Trip> lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
+            Calendar calendar = Calendar.getInstance();
+
+            String date = new SimpleDateFormat("dd.MM.yyyy").format(calendar.getTime());
+
+
+            int day_week = calendar.get(Calendar.DAY_OF_WEEK);
+            calendar.add(Calendar.DAY_OF_MONTH, -day_week);
+            Date start_date = calendar.getTime();
+            calendar.add(Calendar.DAY_OF_MONTH, 7);
+            Date end_date = calendar.getTime();
+            int[] hj = {0, 0, 0, 0, 0, 0, 0};
+            binding.graph.post(new Runnable() {
+                @Override
+                public void run() {
+
+                    for(Trip tr : lst) {
+                        Date thedate = null;
+                        try {
+                            try {
+                                thedate = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH).parse(tr.getWeekDay());
+                            } catch (ParseException e) {
+                                throw new RuntimeException(e);
+                            }
+
+
+                            if (thedate.compareTo(start_date) >= 0 && thedate.compareTo(end_date) <= 0) {
+                                Calendar cd = Calendar.getInstance();
+                                cd.setTime(thedate);
+                                hj[cd.get(Calendar.DAY_OF_WEEK) - 1] = hj[cd.get(Calendar.DAY_OF_WEEK)- 1] + 1;
+
+                            }
+                        } catch (Exception e) {
+                            Log.d("ghjkl", tr.getWeekDay());
+                        }
+                    }
+                    BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[]{
+                            new DataPoint(1, hj[0]),
+                            new DataPoint(2, hj[1]),
+                            new DataPoint(3, hj[2]),
+                            new DataPoint(4, hj[3]),
+                            new DataPoint(5, hj[4]),
+                            new DataPoint(6, hj[5]),
+                            new DataPoint(7, hj[6])
+                    });
+                    binding.graph.addSeries(series);
+                    series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
+                        @Override
+                        public int get(DataPoint data) {
+                            return Color.rgb(174, 91, 15);
+                        }
+                    });
+                    series.setSpacing(30);
+                    series.setDrawValuesOnTop(true);
+                    series.setValuesOnTopColor(Color.WHITE);
+
+                }
+            });
         });
-        binding.graph.addSeries(series);
-        series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
-            @Override
-            public int get(DataPoint data) {
-                return Color.rgb(174, 91, 15);
-            }
-        });
-        series.setSpacing(30);
-        series.setDrawValuesOnTop(true);
-        series.setValuesOnTopColor(Color.WHITE);
-        Thread th2 = new Thread(() -> { // Тест работы БД
+        th_gr.start();
+
+
+        Thread th2 = new Thread(() -> {
 
             lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
 

@@ -31,13 +31,17 @@ import ru.predprof.trackingapp.adapters.StatisticRecyclerAdapter;
 import ru.predprof.trackingapp.databinding.MainAppLayoutBinding;
 import ru.predprof.trackingapp.models.Trip;
 import ru.predprof.trackingapp.room.RoomHandler;
+import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 
 public class MainAppFragment extends Fragment {
     StatisticRecyclerAdapter adapter;
     List<Trip> lst;
+    SharedPreferencesManager sharedPreferencesManager;
     private MainAppLayoutBinding binding;
 
     private void initFunc() {
+        sharedPreferencesManager = new SharedPreferencesManager(getContext());
+        binding.helloAndName.setText("Здравствуйте, " + sharedPreferencesManager.getString("name", "inkognito"));
         Thread th1 = new Thread(() -> {
 
             List<Trip> lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();

@@ -75,12 +75,16 @@
 
         <TextView
             style="@style/text_for_stats"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:text="@string/length"
             android:textSize="20sp"
             tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/route_length"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             style="@style/text_for_stats"
             android:text="@string/none_hint"
             android:textSize="25sp"
@@ -100,12 +104,16 @@
 
         <TextView
             style="@style/text_for_stats"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:text="@string/time_on_route"
             android:textSize="20sp"
             tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/route_time"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             style="@style/text_for_stats"
             android:text="@string/none_hint"
             android:textSize="25sp"
@@ -125,6 +133,8 @@
 
         <TextView
             style="@style/text_for_stats"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:text="@string/complexity"
             android:textSize="20sp"
             tools:ignore="MissingConstraints" />
@@ -132,6 +142,8 @@
         <TextView
             android:id="@+id/route_complexity"
             style="@style/text_for_stats"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:text="@string/none_hint"
             android:textSize="25sp"
             app:layout_constraintRight_toRightOf="parent"
@@ -150,6 +162,7 @@
         <androidx.appcompat.widget.AppCompatButton
             style="@style/grey_button"
             android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:layout_weight="1"
             android:text="@string/cancel" />
 
@@ -157,6 +170,7 @@
             style="@style/orange_button"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:layout_marginStart="10dp"
             android:text="@string/save" />
 

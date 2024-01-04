@@ -48,14 +48,16 @@ public class MainAppFragment extends Fragment {
             binding.routeLength.post(new Runnable() {
                 @Override
                 public void run() {
-                    binding.lastRoute.setText(lst.get(lst.size() - 1).getStartPoint() + " - " + lst.get(lst.size() - 1).endPoint);
-                    binding.routeLength.setText(lst.get(lst.size() - 1).lenKm);
-                    binding.routeDuration.setText(lst.get(lst.size() - 1).time);
-                    binding.routeEstimatedComplexity.setText(lst.get(lst.size() - 1).difficultAuto);
-                    binding.routeUserRating.setText(lst.get(lst.size() - 1).difficultReal);
-                    binding.routeAverageRating.setText(Integer.toString(
-                            Integer.parseInt(lst.get(lst.size() - 1).difficultReal)
-                    + Integer.parseInt(lst.get(lst.size() - 1).difficultAuto) / 2));
+                    if (!lst.isEmpty()) {
+                        binding.lastRoute.setText(lst.get(lst.size() - 1).getStartPoint() + " - " + lst.get(lst.size() - 1).endPoint);
+                        binding.routeLength.setText(lst.get(lst.size() - 1).lenKm);
+                        binding.routeDuration.setText(lst.get(lst.size() - 1).time);
+                        binding.routeEstimatedComplexity.setText(lst.get(lst.size() - 1).difficultAuto);
+                        binding.routeUserRating.setText(lst.get(lst.size() - 1).difficultReal);
+                        binding.routeAverageRating.setText(Integer.toString(
+                                Integer.parseInt(lst.get(lst.size() - 1).difficultReal)
+                                        + Integer.parseInt(lst.get(lst.size() - 1).difficultAuto) / 2));
+                    }
 
                 }
             });
@@ -165,10 +167,12 @@ public class MainAppFragment extends Fragment {
             binding.recycler.post(new Runnable() {
                 @Override
                 public void run() {
-                    adapter = new StatisticRecyclerAdapter(lst);
-                    binding.recycler.setAdapter(adapter);
-                    binding.recycler.setLayoutManager(new LinearLayoutManager((Context) getActivity()));
-                    adapter.notifyDataSetChanged();
+                    if (!lst.isEmpty()) {
+                        adapter = new StatisticRecyclerAdapter(lst);
+                        binding.recycler.setAdapter(adapter);
+                        binding.recycler.setLayoutManager(new LinearLayoutManager((Context) getActivity()));
+                        adapter.notifyDataSetChanged();
+                    }
                 }
             });
         });

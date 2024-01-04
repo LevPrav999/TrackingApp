@@ -43,21 +43,29 @@ public class ProfileFragment extends Fragment {
         binding.registerLevel.setText(stringLavels[preferenceManager.getInt("level", 0)]);
         String[] stringHealth = getResources().getStringArray(R.array.health_choice_array);
         binding.registerHealth.setText(stringHealth[preferenceManager.getInt("healthStatus", 0)]);
-        Thread th2 = new Thread(() -> { // Тест работы БД
+        Thread th2 = new Thread(() -> {
 
             lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
             Collections.sort(lst);
-            bestTrips.add(lst.get(0));
-            bestTrips.add(lst.get(1));
-            bestTrips.add(lst.get(2));
+            if (!lst.isEmpty()) {
+                bestTrips.add(lst.get(0));
+            }
+            if (lst.size() > 1) {
+                bestTrips.add(lst.get(1));
+            }
+            if (lst.size() > 2) {
+                bestTrips.add(lst.get(2));
+            }
 
             binding.recycler.post(new Runnable() {
                 @Override
                 public void run() {
-                    adapter = new ProfileRecyclerAdapter(bestTrips);
-                    binding.recycler.setAdapter(adapter);
-                    binding.recycler.setLayoutManager(new LinearLayoutManager((Context) getActivity()));
-                    adapter.notifyDataSetChanged();
+                    if (!bestTrips.isEmpty()) {
+                        adapter = new ProfileRecyclerAdapter(bestTrips);
+                        binding.recycler.setAdapter(adapter);
+                        binding.recycler.setLayoutManager(new LinearLayoutManager((Context) getActivity()));
+                        adapter.notifyDataSetChanged();
+                    }
                 }
             });
         });

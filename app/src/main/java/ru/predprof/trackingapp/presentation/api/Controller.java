@@ -26,7 +26,7 @@ public class Controller implements Runnable {
             @Override
             public void onResponse(@NonNull Call<AllJson> call, @NonNull Response<AllJson> response) {
                 assert response.body() != null;
-                Log.d(Integer.toString(response.body().getAll().getPulse().getMin()), call.toString());
+                Log.d("alksjfdhsjkfdvlb", Integer.toString(response.body().getAll().getPulse().getMin()));
             }
 
             @Override

@@ -122,7 +122,7 @@ public class MainAppFragment extends Fragment {
                             if (thedate.compareTo(start_date) >= 0 && thedate.compareTo(end_date) <= 0) {
                                 Calendar cd = Calendar.getInstance();
                                 cd.setTime(thedate);
-                                hj[cd.get(Calendar.DAY_OF_WEEK) - 1] = hj[cd.get(Calendar.DAY_OF_WEEK)- 1] + 1;
+                                hj[cd.get(Calendar.DAY_OF_WEEK) - 1] = hj[cd.get(Calendar.DAY_OF_WEEK)- 1] + Integer.parseInt(tr.getLenKm());
 
                             }
                         } catch (Exception e) {

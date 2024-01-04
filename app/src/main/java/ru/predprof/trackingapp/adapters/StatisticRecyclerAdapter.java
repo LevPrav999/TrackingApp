@@ -41,7 +41,6 @@ public class StatisticRecyclerAdapter extends RecyclerView.Adapter<StatisticRecy
 
     @Override
     public int getItemCount() {
-        Log.d("tyyyyyyyyyyyy", Integer.toString(trips.size()));
         return trips.size();
     }
 

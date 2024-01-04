@@ -60,7 +60,6 @@ public class ProfileFragment extends Fragment {
                     adapter.notifyDataSetChanged();
                 }
             });
-//            Log.d("tyyyyyyyyyyyy", Integer.toString(lst.size()));
         });
 
         th2.start();

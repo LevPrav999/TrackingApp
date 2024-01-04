@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
+import android.view.View;
 import android.widget.Toast;
 
 import com.directions.route.AbstractRouting;
@@ -34,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import ru.predprof.trackingapp.NoBarActivity;
 import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.databinding.ActivityMainBinding;
 import ru.predprof.trackingapp.databinding.ActivityOnRouteBinding;
@@ -142,6 +145,13 @@ public class OnRouteActivity extends AppCompatActivity
 
 
         supportMapFragment.getMapAsync(this);
+
+        binding.pauseButton.setOnClickListener(view -> {
+            replaceActivity(routeName, polylines, 1);
+        });
+        binding.endButton.setOnClickListener(view -> {
+            replaceActivity(routeName, polylines, 2);
+        });
 
     }
 
@@ -278,5 +288,18 @@ public class OnRouteActivity extends AppCompatActivity
         map.setMyLocationEnabled(true);
 
         renderPolylineFirst();
+    }
+
+    private void replaceActivity(String routeName, List<Polyline> polylines, int frag){
+        ArrayList<LatLng> polylinePoints = new ArrayList<>(polylines.get(0).getPoints());
+
+        Intent intent = new Intent(this, NoBarActivity.class);
+        Bundle b = new Bundle();
+        b.putString("routeName", routeName);
+        b.putInt("fragment", frag);
+        b.putSerializable("polylines", polylinePoints);
+        intent.putExtras(b);
+        startActivity(intent);
+        this.finish();
     }
 }

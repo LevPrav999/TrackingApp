@@ -213,7 +213,7 @@ public class EditRouteFragment extends Fragment implements
     private void replaceActivity(String routeName, List<Polyline> polylines){
         ArrayList<LatLng> polylinePoints = new ArrayList<>(polylines.get(0).getPoints());
 
-        Intent intent = new Intent(getContext(), OnRouteActivity.class);
+        Intent intent = new Intent(this.getActivity(), OnRouteActivity.class);
         Bundle b = new Bundle();
         b.putString("routeName", routeName);
         b.putSerializable("polylines", polylinePoints);

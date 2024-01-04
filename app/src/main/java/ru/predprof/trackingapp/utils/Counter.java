@@ -71,17 +71,14 @@ public class Counter {
         return 5;
     }
 
-    public String countLevelOfTravelStr(float timeOfTravel) {
-        if (timeOfTravel <= 1) {
+    public String countLevelOfTravelStr(int timeOfTravel) {
+        if (timeOfTravel <= 0) {
             return "Easy";
         }
-        if (timeOfTravel <= 2.5) {
+        if (timeOfTravel <= 2) {
             return "Medium";
         }
-        if (timeOfTravel > 2.5) {
-            return "Hard";
-        }
-        return "Medium";
+        return "Hard";
     }
 
     public int countFinalLevelOfTravelInt(int realLevelOfTravel, int levelOfTravelInt) {

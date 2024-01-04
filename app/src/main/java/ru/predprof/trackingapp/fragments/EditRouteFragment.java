@@ -152,12 +152,15 @@ public class EditRouteFragment extends Fragment implements
 
         String cRound = String.format("%.2g", c).replace(",", ".");
         float cRoundFloat = Float.parseFloat(cRound)*60f+5f;
+        if (cRoundFloat >= 60) {
+            cRoundFloat -= 60;
+            b += 1;
+        }
         int cRoundInt = (int) cRoundFloat;
         String str = b+":"+cRoundInt;
-
         binding.routeLength.setText(route.get(route.size()-1).getDistanceText());
         binding.routeTime.setText(str);
-        binding.routeComplexity.setText(counter.countLevelOfTravelStr(Float.parseFloat(cRound)));
+        binding.routeComplexity.setText(counter.countLevelOfTravelStr(b));
 
 
     }

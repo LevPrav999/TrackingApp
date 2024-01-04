@@ -31,13 +31,17 @@ import ru.predprof.trackingapp.adapters.StatisticRecyclerAdapter;
 import ru.predprof.trackingapp.databinding.MainAppLayoutBinding;
 import ru.predprof.trackingapp.models.Trip;
 import ru.predprof.trackingapp.room.RoomHandler;
+import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 
 public class MainAppFragment extends Fragment {
     StatisticRecyclerAdapter adapter;
     List<Trip> lst;
+    SharedPreferencesManager sharedPreferencesManager;
     private MainAppLayoutBinding binding;
 
     private void initFunc() {
+        sharedPreferencesManager = new SharedPreferencesManager(getContext());
+        binding.helloAndName.setText("Здравствуйте, " + sharedPreferencesManager.getString("name", "inkognito"));
         Thread th1 = new Thread(() -> {
 
             List<Trip> lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
@@ -63,19 +67,19 @@ public class MainAppFragment extends Fragment {
                 if (isValueX) {
                     String day;
                     switch ((int) value) {
-                        case 1:
+                        case 0:
                             return "Вс";
                         case 2:
                             return "Пн";
-                        case 3:
-                            return "Вт";
                         case 4:
-                            return "Ср";
-                        case 5:
-                            return "Чт";
+                            return "Вт";
                         case 6:
+                            return "Ср";
+                        case 8:
+                            return "Чт";
+                        case 10:
                             return "Пт";
-                        case 7:
+                        case 12:
                             return "Сб";
                         default:
                             return null;
@@ -126,14 +130,17 @@ public class MainAppFragment extends Fragment {
                         }
                     }
                     BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[]{
-                            new DataPoint(1, hj[0]),
+                            new DataPoint(0, hj[0]),
                             new DataPoint(2, hj[1]),
-                            new DataPoint(3, hj[2]),
-                            new DataPoint(4, hj[3]),
-                            new DataPoint(5, hj[4]),
-                            new DataPoint(6, hj[5]),
-                            new DataPoint(7, hj[6])
+                            new DataPoint(4, hj[2]),
+                            new DataPoint(6, hj[3]),
+                            new DataPoint(8, hj[4]),
+                            new DataPoint(10, hj[5]),
+                            new DataPoint(12, hj[6])
                     });
+                    binding.graph.getViewport().setXAxisBoundsManual(true);
+                    binding.graph.getViewport().setMinX(0.0);
+                    binding.graph.getViewport().setMaxX(12.0);
                     binding.graph.addSeries(series);
                     series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
                         @Override

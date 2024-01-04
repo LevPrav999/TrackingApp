@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/back"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activities.OnRouteActivity">
 
     <TextView
         style="@style/title_fragment"
-        android:text="@string/route"
-        />
+        android:text="@string/route" />
 
     <TextView
         android:id="@+id/route_points"
         style="@style/title_fragment"
         android:layout_marginTop="38dp"
-        android:text="@string/text_A_to_B_visiblehint" />
+        android:text="@string/route_name" />
 
     <TextView
         style="@style/title_fragment"
@@ -32,11 +34,11 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="160dp"
-        android:layout_marginBottom="380dp"
         android:layout_gravity="bottom"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="380dp"
         android:background="@drawable/map_shape" />
 
 

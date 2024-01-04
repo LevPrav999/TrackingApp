@@ -21,7 +21,7 @@
         android:text="@string/your_geopos" />
 
     <TextView
-        android:id="@+id/user_location"
+        android:id="@+id/user_speed"
         style="@style/title_fragment"
         android:layout_marginTop="110dp"
         android:text="@string/text_geopos_visiblehint" />

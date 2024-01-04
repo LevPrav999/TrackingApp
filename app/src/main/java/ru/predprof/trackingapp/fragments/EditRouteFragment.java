@@ -1,6 +1,7 @@
 package ru.predprof.trackingapp.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.directions.route.AbstractRouting;
 import com.directions.route.Route;
@@ -33,10 +36,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.predprof.trackingapp.MainActivity;
 import ru.predprof.trackingapp.R;
+import ru.predprof.trackingapp.activities.OnRouteActivity;
 import ru.predprof.trackingapp.databinding.EditRouteLayoutBinding;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 import ru.predprof.trackingapp.utils.Counter;
@@ -88,6 +94,13 @@ public class EditRouteFragment extends Fragment implements
 
 
         supportMapFragment.getMapAsync(this);
+
+        binding.buttonSave.setOnClickListener(l -> {
+            replaceActivity(
+                    binding.routeName.getText().toString(),
+                    polylines
+            );
+        });
 
         return binding.getRoot();
     }
@@ -193,5 +206,16 @@ public class EditRouteFragment extends Fragment implements
         mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
         map.setMyLocationEnabled(true);
         map.setOnMapClickListener(this);
+    }
+    private void replaceActivity(String routeName, List<Polyline> polylines){
+        ArrayList<LatLng> polylinePoints = new ArrayList<>(polylines.get(0).getPoints());
+
+        Intent intent = new Intent(getContext(), OnRouteActivity.class);
+        Bundle b = new Bundle();
+        b.putString("routeName", routeName);
+        b.putSerializable("polylines", polylinePoints);
+        intent.putExtras(b);
+        startActivity(intent);
+        getActivity().finish();
     }
 }

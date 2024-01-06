@@ -62,6 +62,7 @@ public class EditRouteFragment extends Fragment implements
     private List<Polyline> polylines;
     private GoogleMap map;
     private Counter counter;
+    private int complexity = 0;
 
     private SharedPreferencesManager preferenceManager;
 
@@ -105,9 +106,9 @@ public class EditRouteFragment extends Fragment implements
                     Trip trip = new Trip();
                     trip.setAvgSpeed("0");
                     trip.setTime("0");
-                    trip.setLenKm(binding.routeLength.getText().toString().substring(0, binding.routeLength.getText().toString().length() - 2));
+                    trip.setLenKm(binding.routeLength.getText().toString().substring(0, binding.routeLength.getText().toString().length() - 3));
                     trip.setDataPulse(new ArrayList<>());
-                    trip.setDifficultAuto(binding.routeComplexity.getText().toString());
+                    trip.setDifficultAuto(Integer.toString(complexity));
                     trip.setDifficultReal("0");
                     trip.setMaxSpeed("0");
                     Calendar calendar = Calendar.getInstance();
@@ -188,6 +189,7 @@ public class EditRouteFragment extends Fragment implements
         String str = b+":"+cRoundInt;
         binding.routeLength.setText(route.get(route.size()-1).getDistanceText());
         binding.routeTime.setText(str);
+        complexity = b;
         binding.routeComplexity.setText(counter.countLevelOfTravelStr(b));
 
 

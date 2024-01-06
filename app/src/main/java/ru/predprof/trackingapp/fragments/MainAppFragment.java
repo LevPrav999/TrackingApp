@@ -111,7 +111,7 @@ public class MainAppFragment extends Fragment {
             Date start_date = calendar.getTime();
             calendar.add(Calendar.DAY_OF_MONTH, 7);
             Date end_date = calendar.getTime();
-            int[] hj = {0, 0, 0, 0, 0, 0, 0};
+            double[] hj = {0, 0, 0, 0, 0, 0, 0};
             binding.graph.post(new Runnable() {
                 @Override
                 public void run() {
@@ -125,11 +125,11 @@ public class MainAppFragment extends Fragment {
                                 throw new RuntimeException(e);
                             }
 
-
+                            Log.d("hvhgdjfk", end_date.toString());
                             if (thedate.compareTo(start_date) >= 0 && thedate.compareTo(end_date) <= 0) {
                                 Calendar cd = Calendar.getInstance();
                                 cd.setTime(thedate);
-                                hj[cd.get(Calendar.DAY_OF_WEEK) - 1] = hj[cd.get(Calendar.DAY_OF_WEEK)- 1] + Integer.parseInt(tr.getLenKm());
+                                hj[cd.get(Calendar.DAY_OF_WEEK) - 1] = hj[cd.get(Calendar.DAY_OF_WEEK)- 1] + Double.parseDouble(tr.getLenKm());
 
                             }
                         } catch (Exception e) {
@@ -147,7 +147,7 @@ public class MainAppFragment extends Fragment {
                     });
                     binding.graph.getViewport().setXAxisBoundsManual(true);
                     binding.graph.getViewport().setMinX(0.0);
-                    binding.graph.getViewport().setMaxX(12.0);
+                    binding.graph.getViewport().setMaxX(14.0);
                     binding.graph.addSeries(series);
                     series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
                         @Override

@@ -136,6 +136,7 @@ public class Trip implements Comparable<Trip> {
 
     @Override
     public int compareTo(Trip o) {
-        return Integer.parseInt(this.getLenKm()) - Integer.parseInt(o.getLenKm());
+        int k = (int) ((int) Double.parseDouble(this.getLenKm()) - Double.parseDouble(o.getLenKm()));
+        return k;
     }
 }

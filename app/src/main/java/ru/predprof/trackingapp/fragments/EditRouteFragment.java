@@ -37,13 +37,17 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import ru.predprof.trackingapp.MainActivity;
 import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.activities.OnRouteActivity;
 import ru.predprof.trackingapp.databinding.EditRouteLayoutBinding;
+import ru.predprof.trackingapp.models.Trip;
+import ru.predprof.trackingapp.room.RoomHandler;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 import ru.predprof.trackingapp.utils.Counter;
 
@@ -96,6 +100,30 @@ public class EditRouteFragment extends Fragment implements
         supportMapFragment.getMapAsync(this);
 
         binding.buttonSave.setOnClickListener(l -> {
+            if (binding.routeName.getText().toString().length() > 0) {
+                Thread th = new Thread(() -> {
+                    Trip trip = new Trip();
+                    trip.setAvgSpeed("0");
+                    trip.setTime("0");
+                    trip.setLenKm(binding.routeLength.getText().toString().substring(0, binding.routeLength.getText().toString().length() - 2));
+                    trip.setDataPulse(new ArrayList<>());
+                    trip.setDifficultAuto(binding.routeComplexity.getText().toString());
+                    trip.setDifficultReal("0");
+                    trip.setMaxSpeed("0");
+                    Calendar calendar = Calendar.getInstance();
+                    String date = new SimpleDateFormat("dd.MM.yyyy").format(calendar.getTime());
+                    trip.setWeekDay(date);
+                    trip.setDuration("0");
+                    trip.setName(binding.routeName.getText().toString());
+
+                    RoomHandler.getInstance(this.getContext()).getAppDatabase().tripDao().insertAll(trip);
+
+                });
+                th.start();
+            } else {
+                Toast.makeText(getContext(), "Введите название", Toast.LENGTH_SHORT).show();
+            }
+
             replaceActivity(
                     binding.routeName.getText().toString(),
                     polylines

@@ -39,26 +39,19 @@ public class Trip implements Comparable<Trip> {
     @ColumnInfo(name = "duration")
     public String duration; // Длительность по времени
 
-    @ColumnInfo(name = "startPoint")
-    public String startPoint; // стсартовая точка маршрута
+    @ColumnInfo(name = "name")
+    public String name; // название маршрута
 
-    @ColumnInfo(name = "endPoint")
-    public String endPoint; // Конечная точка маршрута
 
-    public String getEndPoint() {
-        return endPoint;
+
+
+
+    public String getName() {
+        return name;
     }
 
-    public void setEndPoint(String endPoint) {
-        this.endPoint = endPoint;
-    }
-
-    public String getStartPoint() {
-        return startPoint;
-    }
-
-    public void setStartPoint(String startPoint) {
-        this.startPoint = startPoint;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDuration() {

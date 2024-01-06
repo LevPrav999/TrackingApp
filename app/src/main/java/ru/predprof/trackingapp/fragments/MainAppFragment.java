@@ -49,14 +49,19 @@ public class MainAppFragment extends Fragment {
                 @Override
                 public void run() {
                     if (!lst.isEmpty()) {
-                        binding.lastRoute.setText(lst.get(lst.size() - 1).getStartPoint() + " - " + lst.get(lst.size() - 1).endPoint);
+                        binding.lastRoute.setText(lst.get(lst.size() - 1).getName());
                         binding.routeLength.setText(lst.get(lst.size() - 1).lenKm);
                         binding.routeDuration.setText(lst.get(lst.size() - 1).time);
                         binding.routeEstimatedComplexity.setText(lst.get(lst.size() - 1).difficultAuto);
                         binding.routeUserRating.setText(lst.get(lst.size() - 1).difficultReal);
-                        binding.routeAverageRating.setText(Integer.toString(
-                                Integer.parseInt(lst.get(lst.size() - 1).difficultReal)
-                                        + Integer.parseInt(lst.get(lst.size() - 1).difficultAuto) / 2));
+                        try {
+                            binding.routeAverageRating.setText(Integer.toString(
+                                    Integer.parseInt(lst.get(lst.size() - 1).difficultReal)
+                                            + Integer.parseInt(lst.get(lst.size() - 1).difficultAuto) / 2));
+                        } catch (Exception e) {
+                            binding.routeAverageRating.setText("0");
+                        }
+
                     }
 
                 }

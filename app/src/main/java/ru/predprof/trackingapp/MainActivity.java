@@ -21,21 +21,15 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ru.predprof.trackingapp.activities.NoGpsActivity;
 import ru.predprof.trackingapp.activities.NoInternetActivity;
 import ru.predprof.trackingapp.activities.NoPermissionsActivity;
 import ru.predprof.trackingapp.databinding.ActivityMainBinding;
-import ru.predprof.trackingapp.fragments.MapFragment;
 import ru.predprof.trackingapp.fragments.ProfileFragment;
 import ru.predprof.trackingapp.activities.RegisterActivity;
 import ru.predprof.trackingapp.fragments.MainAppFragment;
 import ru.predprof.trackingapp.fragments.RoutesFragment;
-import ru.predprof.trackingapp.models.Trip;
 import ru.predprof.trackingapp.presentation.api.Controller;
-import ru.predprof.trackingapp.room.RoomHandler;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 import ru.predprof.trackingapp.utils.Replace;
 

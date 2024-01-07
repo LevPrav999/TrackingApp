@@ -155,7 +155,7 @@ public class MainAppFragment extends Fragment {
                             return Color.rgb(174, 91, 15);
                         }
                     });
-                    series.setSpacing(30);
+
                     series.setDrawValuesOnTop(true);
                     series.setValuesOnTopColor(Color.WHITE);
 

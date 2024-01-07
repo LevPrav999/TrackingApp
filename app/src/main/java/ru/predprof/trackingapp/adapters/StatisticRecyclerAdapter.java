@@ -34,7 +34,7 @@ public class StatisticRecyclerAdapter extends RecyclerView.Adapter<StatisticRecy
     @Override
     public void onBindViewHolder(@NonNull TripsStatHolder holder, int position) {
         Trip trip = trips.get(position);
-        holder.dificult.setText(trip.difficultReal);
+        holder.dificult.setText(trip.difficultAuto);
         holder.startPoint.setText(trip.getName());
 
     }

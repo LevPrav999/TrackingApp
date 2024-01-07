@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,7 @@ public class EditRouteFragment extends Fragment implements
     private List<Polyline> polylines;
     private GoogleMap map;
     private Counter counter;
-    private int complexity = 0;
+    int complexity = 0;
 
     private SharedPreferencesManager preferenceManager;
 
@@ -121,14 +122,15 @@ public class EditRouteFragment extends Fragment implements
 
                 });
                 th.start();
+                replaceActivity(
+                        binding.routeName.getText().toString(),
+                        polylines
+                );
             } else {
                 Toast.makeText(getContext(), "Введите название", Toast.LENGTH_SHORT).show();
             }
 
-            replaceActivity(
-                    binding.routeName.getText().toString(),
-                    polylines
-            );
+
         });
 
         return binding.getRoot();
@@ -190,6 +192,7 @@ public class EditRouteFragment extends Fragment implements
         binding.routeLength.setText(route.get(route.size()-1).getDistanceText());
         binding.routeTime.setText(str);
         complexity = b;
+        Log.d("fghjkl", Integer.toString(complexity));
         binding.routeComplexity.setText(counter.countLevelOfTravelStr(b));
 
 

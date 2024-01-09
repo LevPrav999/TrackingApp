@@ -123,6 +123,7 @@ public class EditRouteFragment extends Fragment implements
                     String date = new SimpleDateFormat("dd.MM.yyyy").format(calendar.getTime());
                     trip.setWeekDay(date);
                     trip.setDuration("0");
+                    trip.setEnded("0");
                     trip.setName(binding.routeName.getText().toString());
 
                     RoomHandler.getInstance(this.getContext()).getAppDatabase().tripDao().insertAll(trip);

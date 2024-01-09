@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.activities.EditProfileActivity;
@@ -46,15 +47,21 @@ public class ProfileFragment extends Fragment {
         Thread th2 = new Thread(() -> {
 
             lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
-            Collections.sort(lst);
-            if (!lst.isEmpty()) {
-                bestTrips.add(lst.get(0));
+            List<Trip> ended = new ArrayList<>();
+            for (Trip el : lst) {
+                if (Objects.equals(el.ended, "1")) {
+                    ended.add(el);
+                }
             }
-            if (lst.size() > 1) {
-                bestTrips.add(lst.get(1));
+            Collections.sort(ended);
+            if (!ended.isEmpty()) {
+                bestTrips.add(ended.get(0));
             }
-            if (lst.size() > 2) {
-                bestTrips.add(lst.get(2));
+            if (ended.size() > 1) {
+                bestTrips.add(ended.get(1));
+            }
+            if (ended.size() > 2) {
+                bestTrips.add(ended.get(2));
             }
 
             binding.recycler.post(new Runnable() {

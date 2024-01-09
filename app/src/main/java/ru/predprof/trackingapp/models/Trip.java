@@ -47,7 +47,17 @@ public class Trip implements Comparable<Trip> {
     @ColumnInfo(name = "polylinePoints")
     public ArrayList<LatLng> polylinePoints;
 
+    @ColumnInfo(name = "ended")
+    public String ended; // Закончил ли юзер маршрут 1 - закончил, 0 - нет
 
+
+    public String getEnded() {
+        return ended;
+    }
+
+    public void setEnded(String ended) {
+        this.ended = ended;
+    }
 
     public ArrayList<LatLng> getPolylinePoints() {
         return polylinePoints;

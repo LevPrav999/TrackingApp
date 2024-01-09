@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Objects;
 
 import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.models.Trip;
@@ -34,7 +35,11 @@ public class StatisticRecyclerAdapter extends RecyclerView.Adapter<StatisticRecy
     @Override
     public void onBindViewHolder(@NonNull TripsStatHolder holder, int position) {
         Trip trip = trips.get(position);
-        holder.dificult.setText(trip.difficultAuto);
+        if (Objects.equals(trip.difficultReal, "0")) {
+            holder.dificult.setText(trip.difficultAuto);
+        } else {
+            holder.dificult.setText(trip.difficultReal);
+        }
         holder.startPoint.setText(trip.getName());
 
     }

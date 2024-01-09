@@ -1,6 +1,6 @@
 package ru.predprof.trackingapp.adapters;
 
-import android.util.Log;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +17,14 @@ import ru.predprof.trackingapp.models.Trip;
 
 public class StatisticRecyclerAdapter extends RecyclerView.Adapter<StatisticRecyclerAdapter.TripsStatHolder> {
     List<Trip> trips;
+    Context context;
+    OnClickShowListener onClickShowListener;
+
+    public StatisticRecyclerAdapter(OnClickShowListener onClickShowListener) {
+        this.onClickShowListener = onClickShowListener;
+        this.context = context;
+
+    }
 
     public StatisticRecyclerAdapter(List<Trip> trips) {
         this.trips = trips;
@@ -63,6 +71,10 @@ public class StatisticRecyclerAdapter extends RecyclerView.Adapter<StatisticRecy
 
 
         }
+
+    }
+    public interface OnClickShowListener {
+        void onClickShowListener(int position);
 
     }
 }

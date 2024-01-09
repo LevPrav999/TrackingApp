@@ -43,7 +43,7 @@ public class MainAppFragment extends Fragment {
 
     private void initFunc() {
         sharedPreferencesManager = new SharedPreferencesManager(getContext());
-        binding.helloAndName.setText("Здравствуйте, " + sharedPreferencesManager.getString("name", "inkognito"));
+        binding.helloAndName.setText("Здравствуйте, " + sharedPreferencesManager.getString("name", "inkognito") +"!");
         Thread th1 = new Thread(() -> {
 
             List<Trip> lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();

@@ -10,9 +10,12 @@ import androidx.fragment.app.Fragment;
 
 import ru.predprof.trackingapp.MainActivity;
 import ru.predprof.trackingapp.databinding.StartRouteLayoutBinding;
+import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 
 public class StartRouteLayout extends Fragment {
     private StartRouteLayoutBinding binding;
+    private SharedPreferencesManager sharedPreferencesManager;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +25,9 @@ public class StartRouteLayout extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = StartRouteLayoutBinding.inflate(getLayoutInflater());
-        MainActivity.RouteActivityStatus = 1;
+
+        sharedPreferencesManager = new SharedPreferencesManager(getContext());
+        sharedPreferencesManager.saveInt("lastRouteStatus", 1);
 
         return binding.getRoot();
     }

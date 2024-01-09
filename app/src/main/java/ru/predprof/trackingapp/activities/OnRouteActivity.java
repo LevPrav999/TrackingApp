@@ -41,6 +41,7 @@ import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.databinding.ActivityMainBinding;
 import ru.predprof.trackingapp.databinding.ActivityOnRouteBinding;
 import ru.predprof.trackingapp.databinding.FragmentMapBinding;
+import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 import ru.predprof.trackingapp.utils.Counter;
 import ru.predprof.trackingapp.utils.MapUtils;
 
@@ -49,6 +50,7 @@ public class OnRouteActivity extends AppCompatActivity
         OnMapReadyCallback, RoutingListener {
 
     private ActivityOnRouteBinding binding;
+    private SharedPreferencesManager sharedPreferencesManager;
 
     private List<LatLng> arrayLatLng;
     private String routeName = "Название маршрута не задано";
@@ -125,6 +127,9 @@ public class OnRouteActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         binding = ActivityOnRouteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        sharedPreferencesManager = new SharedPreferencesManager(this);
+
+        sharedPreferencesManager.saveInt("lastRouteStatus", 1);
 
         Bundle b = getIntent().getExtras();
         if(b != null){
@@ -147,10 +152,10 @@ public class OnRouteActivity extends AppCompatActivity
         supportMapFragment.getMapAsync(this);
 
         binding.pauseButton.setOnClickListener(view -> {
-            replaceActivity(routeName, polylines, 1);
+            replaceActivity(1);
         });
         binding.endButton.setOnClickListener(view -> {
-            replaceActivity(routeName, polylines, 2);
+            replaceActivity(2);
         });
 
     }
@@ -290,16 +295,12 @@ public class OnRouteActivity extends AppCompatActivity
         renderPolylineFirst();
     }
 
-    private void replaceActivity(String routeName, List<Polyline> polylines, int frag){
-        ArrayList<LatLng> polylinePoints = new ArrayList<>(polylines.get(0).getPoints());
+    private void replaceActivity(int frag){
 
         Intent intent = new Intent(this, NoBarActivity.class);
         Bundle b = new Bundle();
-        b.putString("routeName", routeName);
         b.putInt("fragment", frag);
-        b.putSerializable("polylines", polylinePoints);
         intent.putExtras(b);
         startActivity(intent);
-        this.finish();
     }
 }

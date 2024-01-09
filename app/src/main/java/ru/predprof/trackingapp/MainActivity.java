@@ -35,7 +35,6 @@ import ru.predprof.trackingapp.utils.Replace;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static int RouteActivityStatus = 0;
     // 0 - нет маршрута
     // 1 - на маршруте
     // 2- маршрут на паузе
@@ -102,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
             );
 
 
-    private SharedPreferencesManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,9 +122,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         sharedPreferencesManager = new SharedPreferencesManager(this);
-        preferenceManager = new SharedPreferencesManager(this);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        sharedPreferencesManager.saveInt("lastRouteStatus", 0);
 
 
         if (sharedPreferencesManager.getString("name", null) == null){
@@ -138,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        if(preferenceManager.getString("name", null) != null ){
+        if(sharedPreferencesManager.getString("name", null) != null ){
 
         }
         replace(new MainAppFragment());

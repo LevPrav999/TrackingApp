@@ -2,6 +2,7 @@ package ru.predprof.trackingapp.room;
 
 import androidx.room.TypeConverter;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
@@ -18,6 +19,20 @@ public class Converters {
 
     @TypeConverter
     public static String fromArrayList(ArrayList<String> list) {
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        return json;
+    }
+
+    @TypeConverter
+    public static ArrayList<LatLng> fromLatLng(String value) {
+        Type listType = new TypeToken<ArrayList<LatLng>>() {
+        }.getType();
+        return new Gson().fromJson(value, listType);
+    }
+
+    @TypeConverter
+    public static String fromArrayListLatLng(ArrayList<LatLng> list) {
         Gson gson = new Gson();
         String json = gson.toJson(list);
         return json;

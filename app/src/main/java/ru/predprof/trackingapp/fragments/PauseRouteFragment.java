@@ -14,7 +14,6 @@ import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 
 public class PauseRouteFragment extends Fragment {
     private PauseRouteLayoutBinding binding;
-    private SharedPreferencesManager sharedPreferencesManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,9 +24,7 @@ public class PauseRouteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = PauseRouteLayoutBinding.inflate(getLayoutInflater());
-        sharedPreferencesManager = new SharedPreferencesManager(getContext());
 
-        sharedPreferencesManager.saveInt("lastRouteStatus", 2);
         return binding.getRoot();
     }
 }

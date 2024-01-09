@@ -1,10 +1,14 @@
 package ru.predprof.trackingapp.fragments;
 
+import static android.content.Intent.getIntent;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,6 +69,8 @@ public class EditRouteFragment extends Fragment implements
     private Counter counter;
     int complexity = 0;
 
+    private boolean isRouteFromDb = false;
+
     private SharedPreferencesManager preferenceManager;
 
 
@@ -88,6 +94,7 @@ public class EditRouteFragment extends Fragment implements
         preferenceManager = new SharedPreferencesManager(getContext());
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+
     }
 
     @Override
@@ -133,6 +140,7 @@ public class EditRouteFragment extends Fragment implements
 
         });
 
+
         return binding.getRoot();
     }
 
@@ -165,6 +173,21 @@ public class EditRouteFragment extends Fragment implements
             Polyline polyline = map.addPolyline(polyOptions);
             polylines.add(polyline);
         }
+    }
+    public void renderPolylineNew(List<LatLng> list){
+        if (polylines.size() > 0) {
+            for (Polyline poly : polylines) {
+                poly.remove();
+            }
+        }
+
+        polylines = new ArrayList<>();
+        PolylineOptions polyOptions = new PolylineOptions();
+        polyOptions.color(getResources().getColor(R.color.dark_orange));
+        polyOptions.width(10);
+        polyOptions.addAll(list);
+        Polyline polyline = map.addPolyline(polyOptions);
+        polylines.add(polyline);
     }
 
     @Override
@@ -242,9 +265,57 @@ public class EditRouteFragment extends Fragment implements
         mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
         map.setMyLocationEnabled(true);
         map.setOnMapClickListener(this);
+
+        Bundle b = getArguments();
+        if(b != null){
+            boolean isTripActive = b.getBoolean("isTripActive", false);
+            if (isTripActive){
+                Handler h = new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+                        super.handleMessage(msg);
+                    }
+                };
+
+                Thread th = new Thread(()->{
+                    Trip t = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getlastTrip();
+                    h.post(() -> {
+                        binding.routeTime.setText(t.time);
+                        binding.routeName.setText(t.name);
+                        binding.routeComplexity.setText(t.difficultAuto);
+                        binding.routeLength.setText(t.lenKm);
+                        renderPolylineNew(t.polylinePoints);
+                    });
+                });
+                th.start();
+            }
+        }
     }
     private void replaceActivity(String routeName, List<Polyline> polylines){
         ArrayList<LatLng> polylinePoints = new ArrayList<>(polylines.get(0).getPoints());
+
+        Thread th2 = new Thread(() -> { // Тест работы БД
+            Trip trip = new Trip();
+            trip.setAvgSpeed("10");
+            trip.setTime("12:00");
+            trip.setLenKm("1");
+            trip.setDataPulse(new ArrayList<>());
+            trip.setDifficultAuto("1");
+            trip.setDifficultReal("1");
+            trip.setMaxSpeed("14");
+            trip.setName("1233333");
+            trip.setWeekDay("02.01.2024");
+            trip.setDuration("15");
+            trip.setPolylinePoints(polylinePoints);
+            RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().insertAll(trip);
+            List<Trip> lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
+            Log.d("points", polylinePoints.toString());
+
+            Trip a = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getTripById("1233333");
+            Log.d("points2", a.polylinePoints.toString());
+        });
+        th2.start();
+
 
         Intent intent = new Intent(this.getActivity(), OnRouteActivity.class);
         Bundle b = new Bundle();

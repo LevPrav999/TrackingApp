@@ -25,6 +25,7 @@ import ru.predprof.trackingapp.activities.NoGpsActivity;
 import ru.predprof.trackingapp.activities.NoInternetActivity;
 import ru.predprof.trackingapp.activities.NoPermissionsActivity;
 import ru.predprof.trackingapp.databinding.ActivityMainBinding;
+import ru.predprof.trackingapp.fragments.EditRouteFragment;
 import ru.predprof.trackingapp.fragments.ProfileFragment;
 import ru.predprof.trackingapp.activities.RegisterActivity;
 import ru.predprof.trackingapp.fragments.MainAppFragment;
@@ -125,22 +126,24 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        sharedPreferencesManager.saveInt("lastRouteStatus", 0);
 
-
-        if (sharedPreferencesManager.getString("name", null) == null){
-            Replace.replaceActivity(this, new RegisterActivity(), true);
-        } else {
+        int a = sharedPreferencesManager.getInt("lastRouteStatus", 0);
+        if(sharedPreferencesManager.getInt("lastRouteStatus", 0) == 1){
+            Fragment f = new EditRouteFragment();
+            Bundle b = new Bundle();
+            b.putBoolean("isTripActive", true);
+            f.setArguments(b);
+            replace(f);
+        }else{
             replace(new MainAppFragment());
+            if (sharedPreferencesManager.getString("name", null) == null){
+                Replace.replaceActivity(this, new RegisterActivity(), true);
+            } else {
+                replace(new MainAppFragment());
+            }
         }
 
 
-
-
-        if(sharedPreferencesManager.getString("name", null) != null ){
-
-        }
-        replace(new MainAppFragment());
 
 
 

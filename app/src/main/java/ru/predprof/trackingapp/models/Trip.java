@@ -5,6 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 
 @Entity
@@ -42,9 +44,18 @@ public class Trip implements Comparable<Trip> {
     @ColumnInfo(name = "name")
     public String name; // название маршрута
 
+    @ColumnInfo(name = "polylinePoints")
+    public ArrayList<LatLng> polylinePoints;
 
 
 
+    public ArrayList<LatLng> getPolylinePoints() {
+        return polylinePoints;
+    }
+
+    public void setPolylinePoints(ArrayList<LatLng> polylinePoints) {
+        this.polylinePoints = polylinePoints;
+    }
 
     public String getName() {
         return name;

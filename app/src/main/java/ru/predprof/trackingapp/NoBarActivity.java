@@ -1,6 +1,7 @@
 package ru.predprof.trackingapp;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -26,7 +27,16 @@ public class NoBarActivity  extends AppCompatActivity {
         if(b != null && b.getInt("fragment") == 1){
             replace(new PauseRouteFragment());
         } else if (b != null && b.getInt("fragment") == 2) {
-            replace(new RouteEndFragment());
+            Bundle b1 = new Bundle();
+            Log.d("qwertyuiop", b.getString("len"));
+            b1.putString("routeName", b.getString("routeName"));
+            b1.putInt("route_id", b.getInt("route_id"));
+            b1.putString("len", b.getString("len"));
+            b1.putString("dif_aut", b.getString("dif_aut"));
+            b1.putSerializable("polylines", b.getSerializable("polylines"));
+            RouteEndFragment routeEndFragment = new RouteEndFragment();
+            routeEndFragment.setArguments(b1);
+            replace(routeEndFragment);
         }
 
 

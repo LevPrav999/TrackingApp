@@ -127,13 +127,13 @@ public class EditRouteFragment extends Fragment implements
                     trip.setName(binding.routeName.getText().toString());
 
                     RoomHandler.getInstance(this.getContext()).getAppDatabase().tripDao().insertAll(trip);
+                    binding.getRoot().post(() -> replaceActivity(
+                            trip,
+                            polylines
+                    ));
 
                 });
                 th.start();
-                replaceActivity(
-                        binding.routeName.getText().toString(),
-                        polylines
-                );
             } else {
                 Toast.makeText(getContext(), "Введите название", Toast.LENGTH_SHORT).show();
             }
@@ -292,10 +292,10 @@ public class EditRouteFragment extends Fragment implements
             }
         }
     }
-    private void replaceActivity(String routeName, List<Polyline> polylines){
+    private void replaceActivity(Trip tr, List<Polyline> polylines){
         ArrayList<LatLng> polylinePoints = new ArrayList<>(polylines.get(0).getPoints());
 
-        Thread th2 = new Thread(() -> { // Тест работы БД
+        Thread th2 = new Thread(() -> {
             Trip trip = new Trip();
             trip.setAvgSpeed("10");
             trip.setTime("12:00");
@@ -320,7 +320,11 @@ public class EditRouteFragment extends Fragment implements
 
         Intent intent = new Intent(this.getActivity(), OnRouteActivity.class);
         Bundle b = new Bundle();
-        b.putString("routeName", routeName);
+        b.putString("routeName", tr.getName());
+        b.putInt("route_id", tr.getNumber());
+        b.putString("len", tr.lenKm);
+        Log.d("dfkjhgsjfkdj", tr.lenKm);
+        b.putString("dif_aut", tr.getDifficultAuto());
         b.putSerializable("polylines", polylinePoints);
         intent.putExtras(b);
         startActivity(intent);

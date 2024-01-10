@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.databinding.ActivityMainBinding;
 import ru.predprof.trackingapp.databinding.ActivityOnRouteBinding;
 import ru.predprof.trackingapp.databinding.FragmentMapBinding;
+import ru.predprof.trackingapp.models.Trip;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 import ru.predprof.trackingapp.utils.Counter;
 import ru.predprof.trackingapp.utils.MapUtils;
@@ -299,9 +301,14 @@ public class OnRouteActivity extends AppCompatActivity
 
         Intent intent = new Intent(this, NoBarActivity.class);
         Bundle b = new Bundle();
+        Bundle bundle = getIntent().getExtras();
         b.putInt("fragment", frag);
         b.putString("routeName", routeName);
-        b.putSerializable("polylines", b.getSerializable("polylines"));
+        Log.d("qwertyuiop", bundle.getString("len"));
+        b.putInt("route_id", bundle.getInt("route_id"));
+        b.putString("len", bundle.getString("len"));
+        b.putString("dif_aut", bundle.getString("dif_aut"));
+        b.putSerializable("polylines", bundle.getSerializable("polylines"));
         intent.putExtras(b);
         startActivity(intent);
     }

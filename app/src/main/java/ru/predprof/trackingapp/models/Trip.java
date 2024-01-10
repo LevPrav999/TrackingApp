@@ -7,10 +7,11 @@ import androidx.room.PrimaryKey;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Entity
-public class Trip implements Comparable<Trip> {
+public class Trip implements Comparable<Trip>, Serializable {
     @PrimaryKey(autoGenerate = true)
     public int number;
 

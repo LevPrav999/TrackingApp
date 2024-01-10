@@ -1,5 +1,8 @@
 package ru.predprof.trackingapp.fragments;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +31,8 @@ public class RouteEndFragment extends Fragment {
 
         sharedPreferencesManager = new SharedPreferencesManager(getContext());
         sharedPreferencesManager.saveInt("lastRouteStatus", 0);
+        Bundle b = getActivity().getIntent().getExtras();
+        binding.lastRoute.setText(b.getString("routeName"));
 
         return binding.getRoot();
     }

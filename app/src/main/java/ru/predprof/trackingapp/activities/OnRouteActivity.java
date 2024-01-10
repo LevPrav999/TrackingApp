@@ -300,6 +300,8 @@ public class OnRouteActivity extends AppCompatActivity
         Intent intent = new Intent(this, NoBarActivity.class);
         Bundle b = new Bundle();
         b.putInt("fragment", frag);
+        b.putString("routeName", routeName);
+        b.putSerializable("polylines", b.getSerializable("polylines"));
         intent.putExtras(b);
         startActivity(intent);
     }

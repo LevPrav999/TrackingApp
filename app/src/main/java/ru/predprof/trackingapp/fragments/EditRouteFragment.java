@@ -110,30 +110,34 @@ public class EditRouteFragment extends Fragment implements
 
         binding.buttonSave.setOnClickListener(l -> {
             if (binding.routeName.getText().toString().length() > 0) {
-                Thread th = new Thread(() -> {
-                    Trip trip = new Trip();
-                    trip.setAvgSpeed("0");
-                    trip.setTime("0");
-                    trip.setLenKm(binding.routeLength.getText().toString().substring(0, binding.routeLength.getText().toString().length() - 3));
-                    trip.setDataPulse(new ArrayList<>());
-                    trip.setDifficultAuto(Integer.toString(complexity));
-                    trip.setDifficultReal("0");
-                    trip.setMaxSpeed("0");
-                    Calendar calendar = Calendar.getInstance();
-                    String date = new SimpleDateFormat("dd.MM.yyyy").format(calendar.getTime());
-                    trip.setWeekDay(date);
-                    trip.setDuration("0");
-                    trip.setEnded("0");
-                    trip.setName(binding.routeName.getText().toString());
+                if (binding.routeLength.getText().toString().split(" ").length > 1) {
+                    Thread th = new Thread(() -> {
+                        Trip trip = new Trip();
+                        trip.setAvgSpeed("0");
+                        trip.setTime("0");
+                        trip.setLenKm(binding.routeLength.getText().toString().split(" ")[1]);
+                        trip.setDataPulse(new ArrayList<>());
+                        trip.setDifficultAuto(Integer.toString(complexity));
+                        trip.setDifficultReal("0");
+                        trip.setMaxSpeed("0");
+                        Calendar calendar = Calendar.getInstance();
+                        String date = new SimpleDateFormat("dd.MM.yyyy").format(calendar.getTime());
+                        trip.setWeekDay(date);
+                        trip.setDuration("0");
+                        trip.setEnded("0");
+                        trip.setName(binding.routeName.getText().toString());
+                        RoomHandler.getInstance(this.getContext()).getAppDatabase().tripDao().insertAll(trip);
+                        Trip trip1 = RoomHandler.getInstance(this.getContext()).getAppDatabase().tripDao().getlastTrip();
+                        binding.getRoot().post(() -> replaceActivity(
+                                trip1,
+                                polylines
+                        ));
 
-                    RoomHandler.getInstance(this.getContext()).getAppDatabase().tripDao().insertAll(trip);
-                    binding.getRoot().post(() -> replaceActivity(
-                            trip,
-                            polylines
-                    ));
-
-                });
-                th.start();
+                    });
+                    th.start();
+                } else {
+                    Toast.makeText(getContext(), "Поставьте метку", Toast.LENGTH_SHORT).show();
+                }
             } else {
                 Toast.makeText(getContext(), "Введите название", Toast.LENGTH_SHORT).show();
             }
@@ -312,7 +316,7 @@ public class EditRouteFragment extends Fragment implements
             List<Trip> lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
             Log.d("points", polylinePoints.toString());
 
-            Trip a = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getTripById("1233333");
+            Trip a = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getTripByName("1233333");
             Log.d("points2", a.polylinePoints.toString());
         });
         th2.start();
@@ -320,6 +324,7 @@ public class EditRouteFragment extends Fragment implements
 
         Intent intent = new Intent(this.getActivity(), OnRouteActivity.class);
         Bundle b = new Bundle();
+        Log.d("kjhdbvbjhb", Integer.toString(tr.getNumber()));
         b.putString("routeName", tr.getName());
         b.putInt("route_id", tr.getNumber());
         b.putString("len", tr.lenKm);

@@ -35,6 +35,7 @@ public class RoutesRecyclerAdapter extends RecyclerView.Adapter<RoutesRecyclerAd
     @Override
     public void onBindViewHolder(@NonNull TripsHolder holder, int position) {
         Trip trip = trips.get(position);
+        Log.d("dfghghghnhgff", Integer.toString(trip.number));
         holder.name.setText(trip.name);
         holder.complexity.setText(trip.difficultAuto);
 //        holder.tv.setText(gr.name);

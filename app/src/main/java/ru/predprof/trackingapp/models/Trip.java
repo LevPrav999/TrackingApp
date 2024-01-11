@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 @Entity
-public class Trip implements Comparable<Trip>, Serializable {
+public class Trip implements Comparable<Trip> {
     @PrimaryKey(autoGenerate = true)
     public int number;
 
@@ -93,7 +93,7 @@ public class Trip implements Comparable<Trip>, Serializable {
     }
 
     public int getNumber() {
-        return number;
+        return this.number;
     }
 
     public void setNumber(int number) {

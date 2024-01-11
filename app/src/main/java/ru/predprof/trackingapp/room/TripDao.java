@@ -15,7 +15,10 @@ public interface TripDao {
     List<Trip> getAll();
 
     @Query("SELECT * FROM trip WHERE name = (:name)")
-    Trip getTripById(String name);
+    Trip getTripByName(String name);
+
+    @Query("SELECT * FROM trip WHERE number = (:id)")
+    Trip getTripById(int id);
 
     @Query("SELECT * FROM trip ORDER BY number DESC LIMIT 1")
     Trip getlastTrip();

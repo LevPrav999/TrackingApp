@@ -69,8 +69,6 @@ public class EditRouteFragment extends Fragment implements
     private Counter counter;
     int complexity = 0;
 
-    private boolean isRouteFromDb = false;
-
     private SharedPreferencesManager preferenceManager;
 
 
@@ -169,8 +167,6 @@ public class EditRouteFragment extends Fragment implements
         polylines = new ArrayList<>();
         for (int i = 0; i < route.size(); i++) {
 
-
-            int colorIndex = i % 4;
             PolylineOptions polyOptions = new PolylineOptions();
             polyOptions.color(getResources().getColor(R.color.dark_orange));
             polyOptions.width(10);

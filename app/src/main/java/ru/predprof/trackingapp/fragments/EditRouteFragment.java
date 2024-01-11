@@ -121,16 +121,17 @@ public class EditRouteFragment extends Fragment implements
                     String date = new SimpleDateFormat("dd.MM.yyyy").format(calendar.getTime());
                     trip.setWeekDay(date);
                     trip.setDuration("0");
+                    trip.setEnded("0");
                     trip.setName(binding.routeName.getText().toString());
 
                     RoomHandler.getInstance(this.getContext()).getAppDatabase().tripDao().insertAll(trip);
+                    binding.getRoot().post(() -> replaceActivity(
+                            trip,
+                            polylines
+                    ));
 
                 });
                 th.start();
-                replaceActivity(
-                        binding.routeName.getText().toString(),
-                        polylines
-                );
             } else {
                 Toast.makeText(getContext(), "Введите название", Toast.LENGTH_SHORT).show();
             }
@@ -287,12 +288,39 @@ public class EditRouteFragment extends Fragment implements
             }
         }
     }
-    private void replaceActivity(String routeName, List<Polyline> polylines){
+    private void replaceActivity(Trip tr, List<Polyline> polylines){
         ArrayList<LatLng> polylinePoints = new ArrayList<>(polylines.get(0).getPoints());
+
+        Thread th2 = new Thread(() -> {
+            Trip trip = new Trip();
+            trip.setAvgSpeed("10");
+            trip.setTime("12:00");
+            trip.setLenKm("1");
+            trip.setDataPulse(new ArrayList<>());
+            trip.setDifficultAuto("1");
+            trip.setDifficultReal("1");
+            trip.setMaxSpeed("14");
+            trip.setName("1233333");
+            trip.setWeekDay("02.01.2024");
+            trip.setDuration("15");
+            trip.setPolylinePoints(polylinePoints);
+            RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().insertAll(trip);
+            List<Trip> lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
+            Log.d("points", polylinePoints.toString());
+
+            Trip a = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getTripById("1233333");
+            Log.d("points2", a.polylinePoints.toString());
+        });
+        th2.start();
+
 
         Intent intent = new Intent(this.getActivity(), OnRouteActivity.class);
         Bundle b = new Bundle();
-        b.putString("routeName", routeName);
+        b.putString("routeName", tr.getName());
+        b.putInt("route_id", tr.getNumber());
+        b.putString("len", tr.lenKm);
+        Log.d("dfkjhgsjfkdj", tr.lenKm);
+        b.putString("dif_aut", tr.getDifficultAuto());
         b.putSerializable("polylines", polylinePoints);
         intent.putExtras(b);
         startActivity(intent);

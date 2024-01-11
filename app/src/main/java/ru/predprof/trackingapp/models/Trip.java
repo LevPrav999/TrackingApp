@@ -7,10 +7,11 @@ import androidx.room.PrimaryKey;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Entity
-public class Trip implements Comparable<Trip> {
+public class Trip implements Comparable<Trip>, Serializable {
     @PrimaryKey(autoGenerate = true)
     public int number;
 
@@ -47,7 +48,17 @@ public class Trip implements Comparable<Trip> {
     @ColumnInfo(name = "polylinePoints")
     public ArrayList<LatLng> polylinePoints;
 
+    @ColumnInfo(name = "ended")
+    public String ended; // Закончил ли юзер маршрут 1 - закончил, 0 - нет
 
+
+    public String getEnded() {
+        return ended;
+    }
+
+    public void setEnded(String ended) {
+        this.ended = ended;
+    }
 
     public ArrayList<LatLng> getPolylinePoints() {
         return polylinePoints;

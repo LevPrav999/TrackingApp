@@ -166,28 +166,6 @@ public class MainActivity extends AppCompatActivity {
         });
         Controller ct = new Controller(); // проверка работы api
         ct.run();
-//        Thread th2 = new Thread(() -> { // Тест работы БД
-//            Trip trip = new Trip();
-//            trip.setAvgSpeed("10");
-//            trip.setTime("12:00");
-//            trip.setLenKm("1");
-//            trip.setDataPulse(new ArrayList<>());
-//            trip.setDifficultAuto("1");
-//            trip.setDifficultReal("1");
-//            trip.setMaxSpeed("14");
-//            trip.setWeekDay("02.01.2024");
-//            trip.setDuration("15");
-//            trip.setStartPoint("Люблино");
-//            trip.setEndPoint("Подольск");
-//            RoomHandler.getInstance(getApplicationContext()).getAppDatabase().tripDao().insertAll(trip);
-//            List<Trip> lst = RoomHandler.getInstance(getApplicationContext()).getAppDatabase().tripDao().getAll();
-//            Log.d("avgSpeed", lst.get(lst.size() - 1).weekDay);
-//        });
-//        th2.start();
-
-
-
-
     }
 
     public void replace(Fragment fragment) {

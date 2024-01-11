@@ -65,12 +65,26 @@
     <string name="no_permision">Вы не выдали все нужные права приложению!</string>
     <string name="to_settings">В настройки</string>
     <string name="complexity_none">Неизвестно</string>
+    <string name="Weight_warring">Пожалуста, указывайте вес в формате XXX.X или XX.X</string>
 
     <string-array name="level_choice_array">
         <item>Никогда не ездил</item>
         <item>Изредка катаюсь</item>
         <item>Ежедневно катаюсь</item>
         <item>Занимаюсь профессионально</item>
+    </string-array>
+
+    <string-array name="complexity">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
     </string-array>
 
     <string-array name="health_choice_array">

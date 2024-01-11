@@ -21,10 +21,12 @@ import com.jjoe64.graphview.series.DataPoint;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.adapters.StatisticRecyclerAdapter;
@@ -41,23 +43,29 @@ public class MainAppFragment extends Fragment {
 
     private void initFunc() {
         sharedPreferencesManager = new SharedPreferencesManager(getContext());
-        binding.helloAndName.setText("Здравствуйте, " + sharedPreferencesManager.getString("name", "inkognito"));
+        binding.helloAndName.setText("Здравствуйте, " + sharedPreferencesManager.getString("name", "inkognito") +"!");
         Thread th1 = new Thread(() -> {
 
             List<Trip> lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
+            List<Trip> ended = new ArrayList<>();
+            for (Trip el : lst) {
+                if (Objects.equals(el.ended, "1")) {
+                    ended.add(el);
+                }
+            }
             binding.routeLength.post(new Runnable() {
                 @Override
                 public void run() {
-                    if (!lst.isEmpty()) {
-                        binding.lastRoute.setText(lst.get(lst.size() - 1).getName());
-                        binding.routeLength.setText(lst.get(lst.size() - 1).lenKm);
-                        binding.routeDuration.setText(lst.get(lst.size() - 1).time);
-                        binding.routeEstimatedComplexity.setText(lst.get(lst.size() - 1).difficultAuto);
-                        binding.routeUserRating.setText(lst.get(lst.size() - 1).difficultReal);
+                    if (!ended.isEmpty()) {
+                        binding.lastRoute.setText(ended.get(ended.size() - 1).getName());
+                        binding.routeLength.setText(ended.get(ended.size() - 1).lenKm);
+                        binding.routeDuration.setText(ended.get(ended.size() - 1).time);
+                        binding.routeEstimatedComplexity.setText(ended.get(ended.size() - 1).difficultAuto);
+                        binding.routeUserRating.setText(ended.get(ended.size() - 1).difficultReal);
                         try {
                             binding.routeAverageRating.setText(Integer.toString(
-                                    Integer.parseInt(lst.get(lst.size() - 1).difficultReal)
-                                            + Integer.parseInt(lst.get(lst.size() - 1).difficultAuto) / 2));
+                                    Integer.parseInt(ended.get(ended.size() - 1).difficultReal)
+                                            + Integer.parseInt(ended.get(ended.size() - 1).difficultAuto) / 2));
                         } catch (Exception e) {
                             binding.routeAverageRating.setText("0");
                         }
@@ -101,6 +109,12 @@ public class MainAppFragment extends Fragment {
         Thread th_gr = new Thread(() -> {
 
             List<Trip> lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
+            List<Trip> ended = new ArrayList<>();
+            for (Trip el : lst) {
+                if (Objects.equals(el.ended, "1")) {
+                    ended.add(el);
+                }
+            }
             Calendar calendar = Calendar.getInstance();
 
             String date = new SimpleDateFormat("dd.MM.yyyy").format(calendar.getTime());
@@ -116,7 +130,7 @@ public class MainAppFragment extends Fragment {
                 @Override
                 public void run() {
 
-                    for(Trip tr : lst) {
+                    for(Trip tr : ended) {
                         Date thedate = null;
                         try {
                             try {
@@ -168,12 +182,18 @@ public class MainAppFragment extends Fragment {
         Thread th2 = new Thread(() -> {
 
             lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
+            List<Trip> ended = new ArrayList<>();
+            for (Trip el : lst) {
+                if (Objects.equals(el.ended, "1")) {
+                    ended.add(el);
+                }
+            }
 
             binding.recycler.post(new Runnable() {
                 @Override
                 public void run() {
                     if (!lst.isEmpty()) {
-                        adapter = new StatisticRecyclerAdapter(lst);
+                        adapter = new StatisticRecyclerAdapter(ended);
                         binding.recycler.setAdapter(adapter);
                         binding.recycler.setLayoutManager(new LinearLayoutManager((Context) getActivity()));
                         adapter.notifyDataSetChanged();

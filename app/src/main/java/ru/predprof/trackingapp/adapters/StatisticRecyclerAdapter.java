@@ -1,6 +1,6 @@
 package ru.predprof.trackingapp.adapters;
 
-import android.util.Log;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +10,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Objects;
 
 import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.models.Trip;
 
 public class StatisticRecyclerAdapter extends RecyclerView.Adapter<StatisticRecyclerAdapter.TripsStatHolder> {
     List<Trip> trips;
+    Context context;
+    OnClickShowListener onClickShowListener;
+
+    public StatisticRecyclerAdapter(OnClickShowListener onClickShowListener) {
+        this.onClickShowListener = onClickShowListener;
+        this.context = context;
+
+    }
 
     public StatisticRecyclerAdapter(List<Trip> trips) {
         this.trips = trips;
@@ -34,7 +43,11 @@ public class StatisticRecyclerAdapter extends RecyclerView.Adapter<StatisticRecy
     @Override
     public void onBindViewHolder(@NonNull TripsStatHolder holder, int position) {
         Trip trip = trips.get(position);
-        holder.dificult.setText(trip.difficultAuto);
+        if (Objects.equals(trip.difficultReal, "0")) {
+            holder.dificult.setText(trip.difficultAuto);
+        } else {
+            holder.dificult.setText(trip.difficultReal);
+        }
         holder.startPoint.setText(trip.getName());
 
     }
@@ -58,6 +71,10 @@ public class StatisticRecyclerAdapter extends RecyclerView.Adapter<StatisticRecy
 
 
         }
+
+    }
+    public interface OnClickShowListener {
+        void onClickShowListener(int position);
 
     }
 }

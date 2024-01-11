@@ -69,8 +69,6 @@ public class EditRouteFragment extends Fragment implements
     private Counter counter;
     int complexity = 0;
 
-    private boolean isRouteFromDb = false;
-
     private SharedPreferencesManager preferenceManager;
 
 
@@ -164,8 +162,6 @@ public class EditRouteFragment extends Fragment implements
         polylines = new ArrayList<>();
         for (int i = 0; i < route.size(); i++) {
 
-
-            int colorIndex = i % 4;
             PolylineOptions polyOptions = new PolylineOptions();
             polyOptions.color(getResources().getColor(R.color.dark_orange));
             polyOptions.width(10);
@@ -293,29 +289,6 @@ public class EditRouteFragment extends Fragment implements
     }
     private void replaceActivity(String routeName, List<Polyline> polylines){
         ArrayList<LatLng> polylinePoints = new ArrayList<>(polylines.get(0).getPoints());
-
-        Thread th2 = new Thread(() -> { // Тест работы БД
-            Trip trip = new Trip();
-            trip.setAvgSpeed("10");
-            trip.setTime("12:00");
-            trip.setLenKm("1");
-            trip.setDataPulse(new ArrayList<>());
-            trip.setDifficultAuto("1");
-            trip.setDifficultReal("1");
-            trip.setMaxSpeed("14");
-            trip.setName("1233333");
-            trip.setWeekDay("02.01.2024");
-            trip.setDuration("15");
-            trip.setPolylinePoints(polylinePoints);
-            RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().insertAll(trip);
-            List<Trip> lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
-            Log.d("points", polylinePoints.toString());
-
-            Trip a = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getTripById("1233333");
-            Log.d("points2", a.polylinePoints.toString());
-        });
-        th2.start();
-
 
         Intent intent = new Intent(this.getActivity(), OnRouteActivity.class);
         Bundle b = new Bundle();

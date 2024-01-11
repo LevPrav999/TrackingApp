@@ -36,9 +36,6 @@ import ru.predprof.trackingapp.utils.Replace;
 
 public class MainActivity extends AppCompatActivity {
 
-    // 0 - нет маршрута
-    // 1 - на маршруте
-    // 2- маршрут на паузе
 
     private final MutableLiveData<Boolean> connection = new MutableLiveData<>();
 

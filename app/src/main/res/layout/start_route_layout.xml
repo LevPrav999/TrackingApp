@@ -9,7 +9,7 @@
 
     <TextView
         style="@style/title_fragment"
-        android:text="@string/your_routes" />
+        android:text="@string/choice_route" />
 
     <TextView
         android:id="@+id/route_points"

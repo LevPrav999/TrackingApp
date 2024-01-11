@@ -72,10 +72,14 @@ public class OnRouteActivity extends AppCompatActivity
 
     double maxToRewrite = 0.3d;
 
+    public static boolean isRoutePause = false;
+
     private GoogleMap map;
     LocationCallback mLocationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
+            if(isRoutePause)
+                return;
             for (Location location : locationResult.getLocations()) {
                 if (getApplicationContext() != null) {
                     mLastLocation = location;
@@ -154,6 +158,7 @@ public class OnRouteActivity extends AppCompatActivity
         supportMapFragment.getMapAsync(this);
 
         binding.pauseButton.setOnClickListener(view -> {
+            isRoutePause=true;
             replaceActivity(1);
         });
         binding.endButton.setOnClickListener(view -> {
@@ -161,6 +166,8 @@ public class OnRouteActivity extends AppCompatActivity
         });
 
     }
+
+
 
     private void getRouteToMarker(LatLng pickupLatLng, LatLng locationLatLng) {
         if (pickupLatLng != null && mLastLocation != null) {

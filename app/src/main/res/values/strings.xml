@@ -31,6 +31,7 @@
     <string name="complexity">Сложность:</string>
     <string name="workout">Тренировка</string>
     <string name="your_routes">Ваши маршруты:</string>
+    <string name="choice_route">Выбранный маршрут:</string>
     <string name="create_new_route">Создать новый маршрут</string>
     <string name="one_of_us">Или выберете один из наших маршрутов:</string>
     <string name="text_A_visiblehint">Пункт A -</string>

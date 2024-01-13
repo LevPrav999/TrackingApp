@@ -16,7 +16,6 @@
         android:backgroundTint="#FFFFFF" />
 
     <TextView
-        android:fontFamily="@font/moscowsansregular"
         style="@style/text_for_stats"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

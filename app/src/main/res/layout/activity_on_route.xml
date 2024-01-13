@@ -21,13 +21,13 @@
     <TextView
         style="@style/title_fragment"
         android:layout_marginTop="83dp"
-        android:text="Текущая скорость:" />
+        android:text="@string/Speed_now" />
 
     <TextView
         android:id="@+id/user_speed"
         style="@style/title_fragment"
         android:layout_marginTop="110dp"
-        android:text="0 km/h" />
+        android:text="@string/speed_font" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/google_map"

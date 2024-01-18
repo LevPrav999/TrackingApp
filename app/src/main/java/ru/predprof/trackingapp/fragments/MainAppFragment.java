@@ -43,7 +43,7 @@ public class MainAppFragment extends Fragment {
 
     private void initFunc() {
         sharedPreferencesManager = new SharedPreferencesManager(getContext());
-        binding.helloAndName.setText("Здравствуйте, " + sharedPreferencesManager.getString("name", "inkognito") +"!");
+        binding.helloAndName.setText("Здравствуйте, " + sharedPreferencesManager.getString("name", "inkognito") + "!");
         Thread th1 = new Thread(() -> {
 
             List<Trip> lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
@@ -130,7 +130,7 @@ public class MainAppFragment extends Fragment {
                 @Override
                 public void run() {
 
-                    for(Trip tr : ended) {
+                    for (Trip tr : ended) {
                         Date thedate = null;
                         try {
                             try {
@@ -143,7 +143,7 @@ public class MainAppFragment extends Fragment {
                             if (thedate.compareTo(start_date) >= 0 && thedate.compareTo(end_date) <= 0) {
                                 Calendar cd = Calendar.getInstance();
                                 cd.setTime(thedate);
-                                hj[cd.get(Calendar.DAY_OF_WEEK) - 1] = hj[cd.get(Calendar.DAY_OF_WEEK)- 1] + Double.parseDouble(tr.getLenKm());
+                                hj[cd.get(Calendar.DAY_OF_WEEK) - 1] = hj[cd.get(Calendar.DAY_OF_WEEK) - 1] + Double.parseDouble(tr.getLenKm());
 
                             }
                         } catch (Exception e) {
@@ -222,6 +222,7 @@ public class MainAppFragment extends Fragment {
         initFunc();
         return binding.getRoot();
     }
+
     public void replace(Fragment fragment) {
         FragmentManager fragmentManager = getParentFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();

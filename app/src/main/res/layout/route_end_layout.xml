@@ -38,19 +38,19 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_marginStart="15dp"
                 style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
                 android:text="@string/long_"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
 
             <TextView
                 android:id="@+id/route_length"
+                style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/text_for_stats"
                 android:layout_marginEnd="15dp"
                 android:text="@string/none_hint"
                 app:layout_constraintRight_toRightOf="parent"
@@ -66,22 +66,22 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_marginStart="15dp"
                 style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
                 android:text="@string/duration"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
 
             <TextView
-                android:layout_marginStart="15dp"
                 android:id="@+id/route_duration"
                 style="@style/text_for_stats"
-                android:layout_marginEnd="15dp"
-                android:text="@string/none_hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:text="@string/none_hint"
                 app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -96,10 +96,10 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_marginStart="15dp"
                 style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
                 android:text="@string/estimated_complexity"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:ignore="MissingConstraints" />
@@ -107,9 +107,9 @@
             <TextView
                 android:id="@+id/route_estimated_complexity"
                 style="@style/text_for_stats"
-                android:layout_marginEnd="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
                 android:text="@string/none_hint"
                 app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
@@ -163,8 +163,8 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        style="@style/orange_button"
         android:id="@+id/to_main"
+        style="@style/orange_button"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_gravity="bottom|center"
@@ -176,10 +176,10 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="270dp"
-        android:layout_marginBottom="70dp"
         android:layout_gravity="bottom"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="270dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="70dp"
         android:background="@drawable/map_shape" />
 </FrameLayout>

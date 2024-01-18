@@ -1,17 +1,14 @@
 package ru.predprof.trackingapp.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
-import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.directions.route.AbstractRouting;
 import com.directions.route.Route;
@@ -33,16 +30,12 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import ru.predprof.trackingapp.NoBarActivity;
 import ru.predprof.trackingapp.R;
-import ru.predprof.trackingapp.databinding.ActivityMainBinding;
 import ru.predprof.trackingapp.databinding.ActivityOnRouteBinding;
-import ru.predprof.trackingapp.databinding.FragmentMapBinding;
 import ru.predprof.trackingapp.models.Trip;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 import ru.predprof.trackingapp.utils.Counter;
@@ -52,30 +45,22 @@ public class OnRouteActivity extends AppCompatActivity
         implements
         OnMapReadyCallback, RoutingListener {
 
+    private static final int[] COLORS = new int[]{R.color.dark_orange};
+    public static boolean isRoutePause = false;
+    Location mLastLocation;
+    LocationRequest mLocationRequest;
+    double maxToRewrite = 0.3d;
     private ActivityOnRouteBinding binding;
     private SharedPreferencesManager sharedPreferencesManager;
-
     private List<LatLng> arrayLatLng;
     private List<LatLng> arrayLatLngNotUsed;
     private String routeName = "Название маршрута не задано";
-
-
-    private static final int[] COLORS = new int[]{R.color.dark_orange};
-    Location mLastLocation;
-    LocationRequest mLocationRequest;
-
     private Counter counter;
     private MapUtils mapUtils;
-
     private LatLng markerLatLng = null;
     private LatLng startLatLng = null;
     private LatLng lastNearest = null;
     private List<Polyline> polylines;
-
-    double maxToRewrite = 0.3d;
-
-    public static boolean isRoutePause = false;
-
     private ArrayList<Float> speedList;
     private float avgSpeed = 0;
     private ArrayList<LatLng> stepLines;
@@ -86,7 +71,7 @@ public class OnRouteActivity extends AppCompatActivity
     LocationCallback mLocationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
-            if(isRoutePause)
+            if (isRoutePause)
                 return;
             for (Location location : locationResult.getLocations()) {
                 if (getApplicationContext() != null) {
@@ -94,27 +79,27 @@ public class OnRouteActivity extends AppCompatActivity
                     String speed = roundToOneSignificantDigit(new BigDecimal(mLastLocation.getSpeed())).toPlainString();
                     binding.userSpeed.setText(speed + " km/h");
                     speedList.add(mLastLocation.getSpeed());
-                    if(arrayLatLng != null){
+                    if (arrayLatLng != null) {
                         LatLng current = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
                         LatLng nearest = mapUtils.findNearestLatLng(arrayLatLng, current);
-                        if(nearest != null){
+                        if (nearest != null) {
                             lastNearest = nearest;
                             int index = arrayLatLng.indexOf(nearest);
                             List<LatLng> elementsToDelete = new ArrayList<>();
-                            for(int i = 0; i <= index; i++){
+                            for (int i = 0; i <= index; i++) {
                                 elementsToDelete.add(arrayLatLng.get(i));
                             }
                             arrayLatLng.removeAll(elementsToDelete);
                             renderPolylineNew(arrayLatLng);
 
-                            if (mapUtils.haversineDistance(nearest.latitude, nearest.longitude, current.latitude, current.longitude) > maxToRewrite){
+                            if (mapUtils.haversineDistance(nearest.latitude, nearest.longitude, current.latitude, current.longitude) > maxToRewrite) {
                                 getRouteToMarker(markerLatLng, current);
-                                maxToRewrite+=0.3d;
+                                maxToRewrite += 0.3d;
                             }
-                        }else if(lastNearest != null){
-                            if (mapUtils.haversineDistance(lastNearest.latitude, lastNearest.longitude, current.latitude, current.longitude) > maxToRewrite){
+                        } else if (lastNearest != null) {
+                            if (mapUtils.haversineDistance(lastNearest.latitude, lastNearest.longitude, current.latitude, current.longitude) > maxToRewrite) {
                                 getRouteToMarker(markerLatLng, current);
-                                maxToRewrite+=0.3d;
+                                maxToRewrite += 0.3d;
                             }
                         }
 
@@ -122,9 +107,9 @@ public class OnRouteActivity extends AppCompatActivity
                         stepLines.add(startLatLng);
                         startLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
                     }
-                    if(markerLatLng != null){
+                    if (markerLatLng != null) {
                         double distance = mapUtils.countDistanceBetweenToPoints(location.getLatitude(), location.getLongitude(), markerLatLng.latitude, markerLatLng.longitude);
-                        if (distance < 0.0009d){
+                        if (distance < 0.0009d) {
                             //Toast.makeText(getApplicationContext(), "Вы приехали", Toast.LENGTH_SHORT).show();
 
                         }
@@ -149,7 +134,7 @@ public class OnRouteActivity extends AppCompatActivity
         sharedPreferencesManager.saveInt("lastRouteStatus", 1);
 
         Bundle b = getIntent().getExtras();
-        if(b != null){
+        if (b != null) {
             currentTrip = (Trip) b.getSerializable("trip");
 
             arrayLatLng = (List<LatLng>) b.getSerializable("polylines");
@@ -176,18 +161,18 @@ public class OnRouteActivity extends AppCompatActivity
         supportMapFragment.getMapAsync(this);
 
         binding.pauseButton.setOnClickListener(view -> {
-            isRoutePause=true;
+            isRoutePause = true;
             replaceActivity(1);
         });
         binding.endButton.setOnClickListener(view -> {
             float summa = 0;
             float maxSpeed = 0;
-            for(Float speed: speedList){
-                summa+=speed;
-                if(maxSpeed < speed)
+            for (Float speed : speedList) {
+                summa += speed;
+                if (maxSpeed < speed)
                     maxSpeed = speed;
             }
-            avgSpeed = summa/speedList.size();
+            avgSpeed = summa / speedList.size();
             currentTrip.setAvgSpeed(String.valueOf(avgSpeed));
             currentTrip.setMaxSpeed(String.valueOf(maxSpeed));
             //currentTrip.setStepsPoints(stepLines);
@@ -195,7 +180,6 @@ public class OnRouteActivity extends AppCompatActivity
         });
 
     }
-
 
 
     private void getRouteToMarker(LatLng pickupLatLng, LatLng locationLatLng) {
@@ -225,10 +209,10 @@ public class OnRouteActivity extends AppCompatActivity
     }
 
 
-    public void renderPolylineFirst(){
+    public void renderPolylineFirst() {
 
         startLatLng = arrayLatLng.get(0);
-        markerLatLng = arrayLatLng.get(arrayLatLng.size()-1);
+        markerLatLng = arrayLatLng.get(arrayLatLng.size() - 1);
 
         PolylineOptions polyOptions = new PolylineOptions();
         polyOptions.color(getResources().getColor(COLORS[0]));
@@ -238,7 +222,7 @@ public class OnRouteActivity extends AppCompatActivity
         polylines.add(polyline);
     }
 
-    public void renderPolyline(ArrayList<Route> route){
+    public void renderPolyline(ArrayList<Route> route) {
         if (polylines.size() > 0) {
             for (Polyline poly : polylines) {
                 poly.remove();
@@ -251,7 +235,7 @@ public class OnRouteActivity extends AppCompatActivity
 
             startLatLng = route.get(i).getPoints().get(0);
             arrayLatLng = route.get(i).getPoints();
-            markerLatLng = route.get(i).getPoints().get(route.get(i).getPoints().size()-1);
+            markerLatLng = route.get(i).getPoints().get(route.get(i).getPoints().size() - 1);
 
             int colorIndex = i % 4;
             PolylineOptions polyOptions = new PolylineOptions();
@@ -263,7 +247,7 @@ public class OnRouteActivity extends AppCompatActivity
         }
     }
 
-    public void renderPolylineNew(List<LatLng> list){
+    public void renderPolylineNew(List<LatLng> list) {
         if (polylines.size() > 0) {
             for (Polyline poly : polylines) {
                 poly.remove();
@@ -280,9 +264,7 @@ public class OnRouteActivity extends AppCompatActivity
     }
 
 
-
-
-    public void addStepPolyline(LatLng first, LatLng second){
+    public void addStepPolyline(LatLng first, LatLng second) {
 
 
         PolylineOptions polyOptions = new PolylineOptions();
@@ -298,16 +280,16 @@ public class OnRouteActivity extends AppCompatActivity
 
         renderPolyline(route);
 
-        float a = ((float)(route.get(route.size()-1).getDistanceValue())) / 1000f / counter.countPersonalSpeed(1); // подставлять параметр из SP
+        float a = ((float) (route.get(route.size() - 1).getDistanceValue())) / 1000f / counter.countPersonalSpeed(1); // подставлять параметр из SP
         int b = (int) a;
-        float c = a-b;
+        float c = a - b;
 
         String cRound = String.format("%.2g", c).replace(",", ".");
-        float cRoundFloat = Float.parseFloat(cRound)*60f+5f;
+        float cRoundFloat = Float.parseFloat(cRound) * 60f + 5f;
         int cRoundInt = (int) cRoundFloat;
-        String str = b+" Hours "+cRoundInt+" Mins";
+        String str = b + " Hours " + cRoundInt + " Mins";
 
-        Toast.makeText(getApplicationContext(), "Distance - " + route.get(route.size()-1).getDistanceText()+ " : time - " + str , Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Distance - " + route.get(route.size() - 1).getDistanceText() + " : time - " + str, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -333,7 +315,7 @@ public class OnRouteActivity extends AppCompatActivity
         renderPolylineFirst();
     }
 
-    private void replaceActivity(int frag){
+    private void replaceActivity(int frag) {
         ArrayList<LatLng> polylinePoints = new ArrayList<>(arrayLatLngNotUsed);
         ArrayList<LatLng> stepPolyline = new ArrayList<>(stepLines);
 

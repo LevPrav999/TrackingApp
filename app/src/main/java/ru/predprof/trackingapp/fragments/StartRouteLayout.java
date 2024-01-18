@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +35,6 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.predprof.trackingapp.MainActivity;
 import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.databinding.StartRouteLayoutBinding;
 import ru.predprof.trackingapp.models.DefaultTrip;
@@ -49,13 +47,11 @@ import ru.predprof.trackingapp.utils.MapUtils;
 
 public class StartRouteLayout extends Fragment implements
         OnMapReadyCallback, RoutingListener {
-    private StartRouteLayoutBinding binding;
-    private SharedPreferencesManager sharedPreferencesManager;
-
-    private FusedLocationProviderClient mFusedLocationClient;
-
     Location mLastLocation;
     LocationRequest mLocationRequest;
+    private StartRouteLayoutBinding binding;
+    private SharedPreferencesManager sharedPreferencesManager;
+    private FusedLocationProviderClient mFusedLocationClient;
     private List<Polyline> polylines;
     private GoogleMap map;
     private Counter counter;
@@ -76,7 +72,7 @@ public class StartRouteLayout extends Fragment implements
                     double distanceToStart = mapUtils.countDistanceBetweenToPoints(mLastLocation.getLatitude(), mLastLocation.getLongitude(), startedPoint.latitude, startedPoint.longitude);
                     double distanceToEnd = mapUtils.countDistanceBetweenToPoints(mLastLocation.getLatitude(), mLastLocation.getLongitude(), endedPoint.latitude, endedPoint.longitude);
 
-                    if (distanceToStart > distanceToEnd){
+                    if (distanceToStart > distanceToEnd) {
                         LatLng a = startedPoint;
                         startedPoint = endedPoint;
                         endedPoint = a;
@@ -84,14 +80,14 @@ public class StartRouteLayout extends Fragment implements
 
                     double distanceFinal = mapUtils.countDistanceBetweenToPoints(mLastLocation.getLatitude(), mLastLocation.getLongitude(), startedPoint.latitude, startedPoint.longitude);
 
-                    if(distanceFinal > 0.0009d){
-                        if(!isError){
+                    if (distanceFinal > 0.0009d) {
+                        if (!isError) {
                             Toast.makeText(getContext(), "Вы слишком далеко от точки старта", Toast.LENGTH_LONG).show();
                             isError = true;
                             binding.startButton.setActivated(false);
                         }
-                    }else{
-                        isError=false;
+                    } else {
+                        isError = false;
                         binding.startButton.setActivated(true);
                     }
 
@@ -152,7 +148,7 @@ public class StartRouteLayout extends Fragment implements
 
     }
 
-    public void renderPolyline(ArrayList<Route> route){
+    public void renderPolyline(ArrayList<Route> route) {
         if (polylines.size() > 0) {
             for (Polyline poly : polylines) {
                 poly.remove();
@@ -170,7 +166,8 @@ public class StartRouteLayout extends Fragment implements
             polylines.add(polyline);
         }
     }
-    public void renderPolylineNew(List<LatLng> list){
+
+    public void renderPolylineNew(List<LatLng> list) {
         if (polylines.size() > 0) {
             for (Polyline poly : polylines) {
                 poly.remove();
@@ -196,18 +193,18 @@ public class StartRouteLayout extends Fragment implements
 
         int personalLevel = counter.countPersonalLevel(imt, level, healthStatus);
 
-        float a = ((float)(route.get(route.size()-1).getDistanceValue())) / 1000f / counter.countPersonalSpeed(personalLevel);
+        float a = ((float) (route.get(route.size() - 1).getDistanceValue())) / 1000f / counter.countPersonalSpeed(personalLevel);
         int b = (int) a;
-        float c = a-b;
+        float c = a - b;
 
         String cRound = String.format("%.2g", c).replace(",", ".");
-        float cRoundFloat = Float.parseFloat(cRound)*60f+5f;
+        float cRoundFloat = Float.parseFloat(cRound) * 60f + 5f;
         if (cRoundFloat >= 60) {
             cRoundFloat -= 60;
             b += 1;
         }
         int cRoundInt = (int) cRoundFloat;
-        String str = b+":"+cRoundInt;
+        String str = b + ":" + cRoundInt;
 
         binding.routeComplexity.setText(counter.countLevelOfTravelStr(b));
 
@@ -233,16 +230,16 @@ public class StartRouteLayout extends Fragment implements
         map.setMyLocationEnabled(true);
 
         Bundle b = getArguments();
-        if(b != null){
-            Handler h = new Handler(){
+        if (b != null) {
+            Handler h = new Handler() {
                 @Override
-                public void handleMessage(Message msg){
+                public void handleMessage(Message msg) {
                     super.handleMessage(msg);
                 }
             };
 
-            Thread th = new Thread(()->{
-                if(b.getBoolean("isDefaultRoute", false)){
+            Thread th = new Thread(() -> {
+                if (b.getBoolean("isDefaultRoute", false)) {
                     String name = b.getString("routeName", "Не указано");
                     DefaultTrip trip = DefaultRoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getTripByName(name);
 
@@ -252,21 +249,21 @@ public class StartRouteLayout extends Fragment implements
                         binding.routeName.setText(name);
                         String startPoint = trip.start_point;
                         String endPoint = trip.end_point;
-                        if (startPoint.length() > 1 && endPoint.length() > 1){
+                        if (startPoint.length() > 1 && endPoint.length() > 1) {
                             startedPoint = new LatLng(Double.parseDouble(startPoint.split(":")[0]), Double.parseDouble(startPoint.split(":")[1]));
                             endedPoint = new LatLng(Double.parseDouble(endPoint.split(":")[0]), Double.parseDouble(endPoint.split(":")[1]));
 
                             getRoute(startedPoint, endedPoint);
                         }
                     });
-                }else{
+                } else {
                     String name = b.getString("routeName", "Не указано");
                     Trip trip = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getTripByName(name);
 
                     h.post(() -> {
                         binding.routeName.setText(name);
                         startedPoint = trip.getPolylinePoints().get(0);
-                        endedPoint = trip.getPolylinePoints().get(trip.getPolylinePoints().size()-1);
+                        endedPoint = trip.getPolylinePoints().get(trip.getPolylinePoints().size() - 1);
                         renderPolylineNew(trip.getPolylinePoints());
                     });
                 }

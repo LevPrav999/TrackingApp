@@ -9,16 +9,16 @@
         android:layout_height="200dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:background="@drawable/no_gps_connection"/>
+        android:background="@drawable/no_gps_connection" />
 
     <TextView
-        android:fontFamily="@font/moscowsansregular"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:layout_marginBottom="180dp"
+        android:fontFamily="@font/moscowsansregular"
+        android:gravity="center"
         android:text="Отсутствует GPS сигнал!"
-        android:textSize="25sp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textSize="25sp" />
 
 </FrameLayout>

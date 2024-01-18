@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,51 +26,40 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import ru.predprof.trackingapp.MainActivity;
-import ru.predprof.trackingapp.NoBarActivity;
 import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.databinding.RouteEndLayoutBinding;
 import ru.predprof.trackingapp.models.Trip;
 import ru.predprof.trackingapp.room.RoomHandler;
-import ru.predprof.trackingapp.room.TripDao;
-import ru.predprof.trackingapp.room.RoomHandler;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 
-public class RouteEndFragment extends Fragment  implements
+public class RouteEndFragment extends Fragment implements
         OnMapReadyCallback {
-    private RouteEndLayoutBinding binding;
-    private SharedPreferencesManager sharedPreferencesManager;
-
     int user_complexity = 0;
-    private GoogleMap map;
-
     Location mLastLocation;
     LocationRequest mLocationRequest;
-
-    private Trip endedTrip;
-
-    private ArrayList<LatLng> polylines;
-    private ArrayList<LatLng> steps;
-
     LocationCallback mLocationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
 
         }
     };
+    private RouteEndLayoutBinding binding;
+    private SharedPreferencesManager sharedPreferencesManager;
+    private GoogleMap map;
+    private Trip endedTrip;
+    private ArrayList<LatLng> polylines;
+    private ArrayList<LatLng> steps;
     private FusedLocationProviderClient mFusedLocationClient;
 
-    private void initFunc(){
+    private void initFunc() {
         Bundle b = getActivity().getIntent().getExtras();
         binding.lastRoute.setText(b.getString("routeName"));
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -93,22 +81,22 @@ public class RouteEndFragment extends Fragment  implements
             }
         });
 
-        Handler h = new Handler(){
+        Handler h = new Handler() {
             @Override
-            public void handleMessage(Message msg){
+            public void handleMessage(Message msg) {
                 super.handleMessage(msg);
             }
         };
 
-        Thread th = new Thread(() ->{
-           Trip trip = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getTripByName(getArguments().getString("routeName"));
-           h.post(()->{
-              endedTrip = trip;
-               binding.routeLength.setText(trip.getLenKm());
-               binding.routeEstimatedComplexity.setText(trip.getDifficultAuto());
-               binding.lastRoute.setText(trip.getName());
-               binding.routeDuration.setText(trip.getDuration());
-           });
+        Thread th = new Thread(() -> {
+            Trip trip = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getTripByName(getArguments().getString("routeName"));
+            h.post(() -> {
+                endedTrip = trip;
+                binding.routeLength.setText(trip.getLenKm());
+                binding.routeEstimatedComplexity.setText(trip.getDifficultAuto());
+                binding.lastRoute.setText(trip.getName());
+                binding.routeDuration.setText(trip.getDuration());
+            });
         });
 
         th.start();
@@ -165,7 +153,8 @@ public class RouteEndFragment extends Fragment  implements
         supportMapFragment.getMapAsync(this);
         return binding.getRoot();
     }
-    private void replaceActivity(){
+
+    private void replaceActivity() {
         Intent intent = new Intent(this.getActivity(), MainActivity.class);
         startActivity(intent);
         this.getActivity().finish();
@@ -189,7 +178,7 @@ public class RouteEndFragment extends Fragment  implements
         addStepPolyline((ArrayList<LatLng>) getArguments().getSerializable("stepPoliline"));
     }
 
-    public void renderPolylineNew(List<LatLng> list){
+    public void renderPolylineNew(List<LatLng> list) {
         PolylineOptions polyOptions = new PolylineOptions();
         polyOptions.color(getResources().getColor(R.color.dark_orange));
         polyOptions.width(10);
@@ -197,7 +186,7 @@ public class RouteEndFragment extends Fragment  implements
         map.addPolyline(polyOptions);
     }
 
-    public void addStepPolyline(List<LatLng> list){
+    public void addStepPolyline(List<LatLng> list) {
 
 
         PolylineOptions polyOptions = new PolylineOptions();

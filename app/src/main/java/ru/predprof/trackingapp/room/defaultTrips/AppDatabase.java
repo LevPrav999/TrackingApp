@@ -5,7 +5,6 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import ru.predprof.trackingapp.models.DefaultTrip;
-import ru.predprof.trackingapp.models.Trip;
 
 @Database(entities = {DefaultTrip.class}, version = 1, exportSchema = true)
 @TypeConverters({Converters.class})

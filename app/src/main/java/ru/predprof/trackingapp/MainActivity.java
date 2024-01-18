@@ -26,11 +26,11 @@ import java.util.List;
 import ru.predprof.trackingapp.activities.NoGpsActivity;
 import ru.predprof.trackingapp.activities.NoInternetActivity;
 import ru.predprof.trackingapp.activities.NoPermissionsActivity;
+import ru.predprof.trackingapp.activities.RegisterActivity;
 import ru.predprof.trackingapp.databinding.ActivityMainBinding;
 import ru.predprof.trackingapp.fragments.EditRouteFragment;
-import ru.predprof.trackingapp.fragments.ProfileFragment;
-import ru.predprof.trackingapp.activities.RegisterActivity;
 import ru.predprof.trackingapp.fragments.MainAppFragment;
+import ru.predprof.trackingapp.fragments.ProfileFragment;
 import ru.predprof.trackingapp.fragments.RoutesFragment;
 import ru.predprof.trackingapp.models.DefaultTrip;
 import ru.predprof.trackingapp.presentation.api.Controller;
@@ -42,7 +42,24 @@ public class MainActivity extends AppCompatActivity {
 
 
     private final MutableLiveData<Boolean> connection = new MutableLiveData<>();
-
+    ActivityResultLauncher<String[]> locationPermissionRequest =
+            registerForActivityResult(new ActivityResultContracts
+                            .RequestMultiplePermissions(), result -> {
+                        Boolean fineLocationGranted = result.getOrDefault(
+                                Manifest.permission.ACCESS_FINE_LOCATION, false);
+                        Boolean coarseLocationGranted = result.getOrDefault(
+                                Manifest.permission.ACCESS_COARSE_LOCATION, false);
+                        if (fineLocationGranted != null && fineLocationGranted) {
+                            Log.d("granted", "1");
+                        } else if (coarseLocationGranted != null && coarseLocationGranted) {
+                            Log.d("granted", "2");
+                        } else {
+                            Replace.replaceActivity(this, new NoPermissionsActivity(), true);
+                        }
+                    }
+            );
+    private ActivityMainBinding binding;
+    private SharedPreferencesManager sharedPreferencesManager;
 
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -50,9 +67,7 @@ public class MainActivity extends AppCompatActivity {
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
-
-
-    public void internetListener(){
+    public void internetListener() {
         ConnectivityManager connectivityManager =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -75,50 +90,26 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private boolean isGPS(){
+    private boolean isGPS() {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
-
-
-
-
-    private ActivityMainBinding binding;
-    private SharedPreferencesManager sharedPreferencesManager;
-    ActivityResultLauncher<String[]> locationPermissionRequest =
-            registerForActivityResult(new ActivityResultContracts
-                            .RequestMultiplePermissions(), result -> {
-                        Boolean fineLocationGranted = result.getOrDefault(
-                                Manifest.permission.ACCESS_FINE_LOCATION, false);
-                        Boolean coarseLocationGranted = result.getOrDefault(
-                                Manifest.permission.ACCESS_COARSE_LOCATION, false);
-                        if (fineLocationGranted != null && fineLocationGranted) {
-                            Log.d("granted", "1");
-                        } else if (coarseLocationGranted != null && coarseLocationGranted) {
-                            Log.d("granted", "2");
-                        } else {
-                            Replace.replaceActivity(this, new NoPermissionsActivity(), true);
-                        }
-                    }
-            );
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(!isGPS()){
+        if (!isGPS()) {
             Replace.replaceActivity(this, new NoGpsActivity(), true);
         }
 
-        if(!isNetworkConnected()){
+        if (!isNetworkConnected()) {
             Replace.replaceActivity(this, new NoInternetActivity(), true);
         }
         internetListener();
 
         connection.observe(this, con -> {
-            if(!con){
+            if (!con) {
                 Replace.replaceActivity(this, new NoInternetActivity(), true);
             }
         });
@@ -129,17 +120,16 @@ public class MainActivity extends AppCompatActivity {
         saveToDb();
 
 
-
         //sharedPreferencesManager.saveInt("lastRouteStatus", 0);
-        if(sharedPreferencesManager.getInt("lastRouteStatus", 0) == 1){
+        if (sharedPreferencesManager.getInt("lastRouteStatus", 0) == 1) {
             Fragment f = new EditRouteFragment();
             Bundle b = new Bundle();
             b.putBoolean("isTripActive", true);
             f.setArguments(b);
             replace(f);
-        }else{
+        } else {
             replace(new MainAppFragment());
-            if (sharedPreferencesManager.getString("name", null) == null){
+            if (sharedPreferencesManager.getString("name", null) == null) {
                 Replace.replaceActivity(this, new RegisterActivity(), true);
             } else {
                 replace(new MainAppFragment());
@@ -147,15 +137,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
-
-
         locationPermissionRequest.launch(new String[]{
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION
         });
-
-
 
 
         BottomNavigationView bottomNavigationView = binding.getterNavigation;
@@ -174,10 +159,10 @@ public class MainActivity extends AppCompatActivity {
         ct.run();
     }
 
-    public void saveToDb(){
+    public void saveToDb() {
         Thread th = new Thread(() -> {
             List<DefaultTrip> list = DefaultRoomHandler.getInstance(getApplicationContext()).getAppDatabase().tripDao().getAll();
-            if(list.size() == 0){
+            if (list.size() == 0) {
                 DefaultTrip trip = new DefaultTrip();
                 trip.setStart_point("55.764647:37.605854");
                 trip.setEnd_point("55.754238:37.634425");

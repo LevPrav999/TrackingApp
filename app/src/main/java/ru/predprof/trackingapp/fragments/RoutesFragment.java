@@ -26,11 +26,12 @@ import ru.predprof.trackingapp.room.RoomHandler;
 import ru.predprof.trackingapp.room.defaultTrips.DefaultRoomHandler;
 
 public class RoutesFragment extends Fragment {
-    private RoutesLayoutBinding binding;
     List<Trip> lst;
     List<DefaultTrip> lst2;
     RoutesRecyclerAdapter adapter;
     DefaultRoutesRecyclerAdapter adapter2;
+    private RoutesLayoutBinding binding;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +54,6 @@ public class RoutesFragment extends Fragment {
                     no_ended.add(el);
                 }
             }
-
 
 
             binding.recyclerUserSRoutes.post(new Runnable() {
@@ -107,6 +107,7 @@ public class RoutesFragment extends Fragment {
 
         return binding.getRoot();
     }
+
     public void replace(Fragment fragment) {
         FragmentManager fragmentManager = getParentFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();

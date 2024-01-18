@@ -25,6 +25,7 @@
         android:layout_marginRight="20dp"
         android:background="@drawable/pres_info"
         android:orientation="vertical">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,54 +45,52 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:singleLine="true"
                 android:id="@+id/registerName"
                 style="@style/edit_data"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_name"
                 android:maxLines="1"
+                android:singleLine="true"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="vertical"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            >
+            android:orientation="vertical">
 
             <TextView
                 style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="left"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="0dp"
-                android:layout_gravity="left"
                 android:text="@string/phone_number"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:singleLine="true"
                 android:id="@+id/register_phone_number"
                 style="@style/edit_data"
-                android:maxLines="1"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:hint="@string/hint_phone_number"
+                android:maxLines="1"
+                android:singleLine="true"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.appcompat.widget.LinearLayoutCompat>
-
-
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -104,6 +103,7 @@
         android:layout_marginRight="20dp"
         android:background="@drawable/pres_info"
         android:orientation="vertical">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -135,14 +135,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -170,15 +169,16 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="MissingConstraints" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TextView
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="0dp"
+                style="@style/text_for_stats"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="13sp"
-                style="@style/text_for_stats"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="0dp"
+                android:text="@string/Weight_warring"
                 android:textColor="@color/hint_text"
-                android:text="@string/Weight_warring"/>
+                android:textSize="13sp" />
 
         </LinearLayout>
 
@@ -195,9 +195,9 @@
                 style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="left"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="0dp"
-                android:layout_gravity="left"
                 android:text="@string/level_of_training"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -222,17 +222,17 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:orientation="vertical"
             android:layout_marginBottom="5dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 style="@style/text_for_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="left"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="0dp"
-                android:layout_gravity="left"
                 android:text="@string/health_status"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -242,8 +242,8 @@
                 android:id="@+id/registerHealthSpinner"
                 style="@style/edit_data"
                 android:layout_width="150dp"
-                android:layout_gravity="right"
                 android:layout_height="30dp"
+                android:layout_gravity="right"
                 android:layout_marginEnd="15dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -264,24 +264,24 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cancel"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/grey_button"
             android:text="@string/cancel"
             android:textColor="@color/white"
-            android:textSize="15sp"
-            android:layout_width="wrap_content"/>
+            android:textSize="15sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/sendFormButton"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_weight="1"
             android:background="@drawable/orange_button"
             android:text="@string/save"
             android:textColor="@color/white"
-            android:textSize="15sp"
-            android:layout_width="wrap_content"/>
+            android:textSize="15sp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>

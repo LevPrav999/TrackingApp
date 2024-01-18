@@ -2,19 +2,15 @@ package ru.predprof.trackingapp.activities;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import ru.predprof.trackingapp.MainActivity;
 import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.databinding.EditProfileLayoutBinding;
-import ru.predprof.trackingapp.databinding.FragmentRegisterBinding;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 import ru.predprof.trackingapp.utils.Replace;
 

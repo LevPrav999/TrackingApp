@@ -1,7 +1,5 @@
 package ru.predprof.trackingapp.fragments;
 
-import static android.content.Intent.getIntent;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.location.Location;
@@ -18,8 +16,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.directions.route.AbstractRouting;
 import com.directions.route.Route;
@@ -47,7 +43,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import ru.predprof.trackingapp.MainActivity;
 import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.activities.OnRouteActivity;
 import ru.predprof.trackingapp.databinding.EditRouteLayoutBinding;
@@ -58,20 +53,9 @@ import ru.predprof.trackingapp.utils.Counter;
 
 public class EditRouteFragment extends Fragment implements
         OnMapReadyCallback, GoogleMap.OnMapClickListener, RoutingListener {
-    private EditRouteLayoutBinding binding;
-
-    private FusedLocationProviderClient mFusedLocationClient;
-
     Location mLastLocation;
     LocationRequest mLocationRequest;
-    private List<Polyline> polylines;
-    private GoogleMap map;
-    private Counter counter;
     int complexity = 0;
-
-    private SharedPreferencesManager preferenceManager;
-
-
     LocationCallback mLocationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
@@ -82,6 +66,12 @@ public class EditRouteFragment extends Fragment implements
             }
         }
     };
+    private EditRouteLayoutBinding binding;
+    private FusedLocationProviderClient mFusedLocationClient;
+    private List<Polyline> polylines;
+    private GoogleMap map;
+    private Counter counter;
+    private SharedPreferencesManager preferenceManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -163,7 +153,7 @@ public class EditRouteFragment extends Fragment implements
 
     }
 
-    public void renderPolyline(ArrayList<Route> route){
+    public void renderPolyline(ArrayList<Route> route) {
         if (polylines.size() > 0) {
             for (Polyline poly : polylines) {
                 poly.remove();
@@ -181,7 +171,8 @@ public class EditRouteFragment extends Fragment implements
             polylines.add(polyline);
         }
     }
-    public void renderPolylineNew(List<LatLng> list){
+
+    public void renderPolylineNew(List<LatLng> list) {
         if (polylines.size() > 0) {
             for (Polyline poly : polylines) {
                 poly.remove();
@@ -207,19 +198,19 @@ public class EditRouteFragment extends Fragment implements
 
         int personalLevel = counter.countPersonalLevel(imt, level, healthStatus);
 
-        float a = ((float)(route.get(route.size()-1).getDistanceValue())) / 1000f / counter.countPersonalSpeed(personalLevel);
+        float a = ((float) (route.get(route.size() - 1).getDistanceValue())) / 1000f / counter.countPersonalSpeed(personalLevel);
         int b = (int) a;
-        float c = a-b;
+        float c = a - b;
 
         String cRound = String.format("%.2g", c).replace(",", ".");
-        float cRoundFloat = Float.parseFloat(cRound)*60f+5f;
+        float cRoundFloat = Float.parseFloat(cRound) * 60f + 5f;
         if (cRoundFloat >= 60) {
             cRoundFloat -= 60;
             b += 1;
         }
         int cRoundInt = (int) cRoundFloat;
-        String str = b+":"+cRoundInt;
-        binding.routeLength.setText(route.get(route.size()-1).getDistanceText());
+        String str = b + ":" + cRoundInt;
+        binding.routeLength.setText(route.get(route.size() - 1).getDistanceText());
         binding.routeTime.setText(str);
         complexity = counter.countLevelOfTravelInt(a);
         Log.d("fghjkl", Integer.toString(complexity));
@@ -232,6 +223,7 @@ public class EditRouteFragment extends Fragment implements
     public void onRoutingCancelled() {
 
     }
+
     private void getRouteToMarker(LatLng pickupLatLng, LatLng locationLatLng) {
         if (pickupLatLng != null && mLastLocation != null) {
             Routing routing = new Routing.Builder()
@@ -274,17 +266,17 @@ public class EditRouteFragment extends Fragment implements
         map.setOnMapClickListener(this);
 
         Bundle b = getArguments();
-        if(b != null){
+        if (b != null) {
             boolean isTripActive = b.getBoolean("isTripActive", false);
-            if (isTripActive){
-                Handler h = new Handler(){
+            if (isTripActive) {
+                Handler h = new Handler() {
                     @Override
-                    public void handleMessage(Message msg){
+                    public void handleMessage(Message msg) {
                         super.handleMessage(msg);
                     }
                 };
 
-                Thread th = new Thread(()->{
+                Thread th = new Thread(() -> {
                     Trip t = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getlastTrip();
                     h.post(() -> {
                         binding.routeTime.setText(t.time);
@@ -298,7 +290,8 @@ public class EditRouteFragment extends Fragment implements
             }
         }
     }
-    private void replaceActivity(Trip tr, List<Polyline> polylines){
+
+    private void replaceActivity(Trip tr, List<Polyline> polylines) {
         ArrayList<LatLng> polylinePoints = new ArrayList<>(polylines.get(0).getPoints());
 
 

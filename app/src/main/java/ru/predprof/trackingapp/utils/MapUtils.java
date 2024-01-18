@@ -6,15 +6,6 @@ import java.util.List;
 
 public class MapUtils {
 
-    public double countDistanceBetweenToPoints(double lat1, double long1, double lat2, double long2) {
-        // 1 - конец
-        // 2 - начало
-        double a = Math.abs(lat1-lat2);
-        double b = Math.abs(long2-long1);
-
-        return Math.sqrt(a*a+b*b);
-    }
-
     public static LatLng findNearestLatLng(List<LatLng> latLngArray, LatLng targetPoint) {
         double minDistance = 0.01d;
         LatLng nearestLatLng = null;
@@ -38,5 +29,14 @@ public class MapUtils {
                 Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return R * c;
+    }
+
+    public double countDistanceBetweenToPoints(double lat1, double long1, double lat2, double long2) {
+        // 1 - конец
+        // 2 - начало
+        double a = Math.abs(lat1 - lat2);
+        double b = Math.abs(long2 - long1);
+
+        return Math.sqrt(a * a + b * b);
     }
 }

@@ -15,8 +15,8 @@ import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.models.DefaultTrip;
 
 public class DefaultRoutesRecyclerAdapter extends RecyclerView.Adapter<DefaultRoutesRecyclerAdapter.TripsHolder> {
-    List<DefaultTrip> trips;
     private final OnItemClickListener listener;
+    List<DefaultTrip> trips;
 
     public DefaultRoutesRecyclerAdapter(List<DefaultTrip> trips, OnItemClickListener listener) {
         this.trips = trips;
@@ -47,6 +47,10 @@ public class DefaultRoutesRecyclerAdapter extends RecyclerView.Adapter<DefaultRo
         return trips.size();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(DefaultRoutesRecyclerAdapter.TripsHolder item);
+    }
+
     public static class TripsHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView complexity;
@@ -56,14 +60,10 @@ public class DefaultRoutesRecyclerAdapter extends RecyclerView.Adapter<DefaultRo
             name = itemView.findViewById(R.id.name_of_route);
             complexity = itemView.findViewById(R.id.complexity);
 
-            itemView.setOnClickListener(l->{
+            itemView.setOnClickListener(l -> {
                 listener.onItemClick(this);
             });
         }
 
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(DefaultRoutesRecyclerAdapter.TripsHolder item);
     }
 }

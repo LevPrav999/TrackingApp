@@ -9,9 +9,7 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -27,35 +25,28 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.predprof.trackingapp.MainActivity;
 import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.activities.OnRouteActivity;
 import ru.predprof.trackingapp.databinding.PauseRouteLayoutBinding;
 import ru.predprof.trackingapp.models.Trip;
 import ru.predprof.trackingapp.room.RoomHandler;
-import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 
 public class PauseRouteFragment extends Fragment implements
         OnMapReadyCallback {
-    private PauseRouteLayoutBinding binding;
-
-    private GoogleMap map;
-
     Location mLastLocation;
     LocationRequest mLocationRequest;
-
-    private List<Polyline> polylines;
-
     LocationCallback mLocationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
 
         }
     };
+    private PauseRouteLayoutBinding binding;
+    private GoogleMap map;
+    private List<Polyline> polylines;
     private FusedLocationProviderClient mFusedLocationClient;
 
     @Override
@@ -70,7 +61,7 @@ public class PauseRouteFragment extends Fragment implements
                              Bundle savedInstanceState) {
         binding = PauseRouteLayoutBinding.inflate(getLayoutInflater());
 
-        binding.resumeButton.setOnClickListener(l->{
+        binding.resumeButton.setOnClickListener(l -> {
             OnRouteActivity.isRoutePause = false;
             getActivity().finish();
         });
@@ -97,14 +88,14 @@ public class PauseRouteFragment extends Fragment implements
         mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
         map.setMyLocationEnabled(true);
 
-        Handler h = new Handler(){
+        Handler h = new Handler() {
             @Override
-            public void handleMessage(Message msg){
+            public void handleMessage(Message msg) {
                 super.handleMessage(msg);
             }
         };
 
-        Thread th = new Thread(()->{
+        Thread th = new Thread(() -> {
             Trip t = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getlastTrip();
             h.post(() -> {
                 renderPolylineNew(t.polylinePoints);
@@ -113,7 +104,7 @@ public class PauseRouteFragment extends Fragment implements
         th.start();
     }
 
-    public void renderPolylineNew(List<LatLng> list){
+    public void renderPolylineNew(List<LatLng> list) {
         if (polylines.size() > 0) {
             for (Polyline poly : polylines) {
                 poly.remove();

@@ -1,18 +1,15 @@
 package ru.predprof.trackingapp.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
-
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
-import android.os.Build;
 import android.os.Bundle;
 
-import java.net.InetAddress;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
 
 import ru.predprof.trackingapp.MainActivity;
 import ru.predprof.trackingapp.R;
@@ -22,7 +19,7 @@ public class NoInternetActivity extends AppCompatActivity {
     private final MutableLiveData<Boolean> connection = new MutableLiveData<>(false);
 
 
-    public void internetListener(){
+    public void internetListener() {
         ConnectivityManager connectivityManager =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -51,7 +48,7 @@ public class NoInternetActivity extends AppCompatActivity {
         internetListener();
 
         connection.observe(this, con -> {
-            if(con){
+            if (con) {
                 Replace.replaceActivity(this, new MainActivity(), false);
                 connection.removeObservers(this);
             }

@@ -8,7 +8,6 @@ import androidx.room.Query;
 import java.util.List;
 
 import ru.predprof.trackingapp.models.DefaultTrip;
-import ru.predprof.trackingapp.models.Trip;
 
 @Dao
 public interface TripDao {

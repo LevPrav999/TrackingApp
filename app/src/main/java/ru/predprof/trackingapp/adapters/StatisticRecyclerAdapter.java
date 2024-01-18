@@ -57,6 +57,11 @@ public class StatisticRecyclerAdapter extends RecyclerView.Adapter<StatisticRecy
         return trips.size();
     }
 
+    public interface OnClickShowListener {
+        void onClickShowListener(int position);
+
+    }
+
     public static class TripsStatHolder extends RecyclerView.ViewHolder {
 
         TextView dificult;
@@ -71,10 +76,6 @@ public class StatisticRecyclerAdapter extends RecyclerView.Adapter<StatisticRecy
 
 
         }
-
-    }
-    public interface OnClickShowListener {
-        void onClickShowListener(int position);
 
     }
 }

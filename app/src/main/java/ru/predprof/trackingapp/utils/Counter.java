@@ -2,14 +2,13 @@ package ru.predprof.trackingapp.utils;
 
 public class Counter {
 
-    public Counter(){
+    public Counter() {
 
     }
 
     public int countImt(int height, int weight) {
         return weight / (height * height);
     }
-
 
 
     public int countImtBall(int imt) {

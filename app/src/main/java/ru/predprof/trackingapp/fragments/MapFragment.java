@@ -4,14 +4,12 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.directions.route.AbstractRouting;
@@ -19,20 +17,13 @@ import com.directions.route.Route;
 import com.directions.route.RouteException;
 import com.directions.route.Routing;
 import com.directions.route.RoutingListener;
-import com.directions.route.Segment;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -40,18 +31,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.predprof.trackingapp.R;
-import ru.predprof.trackingapp.databinding.FragmentMapBinding;
 import ru.predprof.trackingapp.databinding.FragmentSupportMapBinding;
-import ru.predprof.trackingapp.models.DefaultTrip;
-import ru.predprof.trackingapp.room.RoomHandler;
-import ru.predprof.trackingapp.room.defaultTrips.DefaultRoomHandler;
 import ru.predprof.trackingapp.utils.Counter;
 import ru.predprof.trackingapp.utils.MapUtils;
+
 public class MapFragment extends Fragment
         implements
         OnMapReadyCallback, RoutingListener {
-
-
 
 
     private static final int[] COLORS = new int[]{R.color.dark_orange};
@@ -100,7 +86,7 @@ public class MapFragment extends Fragment
 
         supportMapFragment.getMapAsync(this);
 
-        binding.button.setOnClickListener(l ->{
+        binding.button.setOnClickListener(l -> {
             getRouteToMarker(
                     new LatLng(Double.parseDouble(binding.editText1.getText().toString().split(":")[0]), Double.parseDouble(binding.editText1.getText().toString().split(":")[1])),
                     new LatLng(Double.parseDouble(binding.editText2.getText().toString().split(":")[0]), Double.parseDouble(binding.editText2.getText().toString().split(":")[1]))
@@ -120,7 +106,6 @@ public class MapFragment extends Fragment
         mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
-
 
 
     private void getRouteToMarker(LatLng pickupLatLng, LatLng locationLatLng) {
@@ -148,8 +133,7 @@ public class MapFragment extends Fragment
     }
 
 
-
-    public void renderPolyline(ArrayList<Route> route){
+    public void renderPolyline(ArrayList<Route> route) {
         if (polylines.size() > 0) {
             for (Polyline poly : polylines) {
                 poly.remove();
@@ -175,7 +159,7 @@ public class MapFragment extends Fragment
         }
     }
 
-    public void renderPolylineNew(List<LatLng> list){
+    public void renderPolylineNew(List<LatLng> list) {
         if (polylines.size() > 0) {
             for (Polyline poly : polylines) {
                 poly.remove();
@@ -192,9 +176,7 @@ public class MapFragment extends Fragment
     }
 
 
-
-
-    public void addStepPolyline(LatLng first, LatLng second){
+    public void addStepPolyline(LatLng first, LatLng second) {
 
 
         PolylineOptions polyOptions = new PolylineOptions();
@@ -211,16 +193,16 @@ public class MapFragment extends Fragment
 
         renderPolyline(route);
 
-        float a = ((float)(route.get(route.size()-1).getDistanceValue())) / 1000f / counter.countPersonalSpeed(1); // подставлять параметр из SP
+        float a = ((float) (route.get(route.size() - 1).getDistanceValue())) / 1000f / counter.countPersonalSpeed(1); // подставлять параметр из SP
         int b = (int) a;
-        float c = a-b;
+        float c = a - b;
 
         String cRound = String.format("%.2g", c).replace(",", ".");
-        float cRoundFloat = Float.parseFloat(cRound)*60f+5f;
+        float cRoundFloat = Float.parseFloat(cRound) * 60f + 5f;
         int cRoundInt = (int) cRoundFloat;
-        String str = b+" Hours "+cRoundInt+" Mins";
+        String str = b + " Hours " + cRoundInt + " Mins";
 
-        Toast.makeText(getContext(), "Distance - " + route.get(route.size()-1).getDistanceText()+ " : time - " + str , Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Distance - " + route.get(route.size() - 1).getDistanceText() + " : time - " + str, Toast.LENGTH_SHORT).show();
 
     }
 

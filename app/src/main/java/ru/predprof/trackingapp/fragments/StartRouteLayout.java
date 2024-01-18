@@ -84,9 +84,15 @@ public class StartRouteLayout extends Fragment implements
 
                     double distanceFinal = mapUtils.countDistanceBetweenToPoints(mLastLocation.getLatitude(), mLastLocation.getLongitude(), startedPoint.latitude, startedPoint.longitude);
 
-                    if(distanceFinal > 0.0009d && !isError){
-                        Toast.makeText(getContext(), "Вы слишком далеко от точки старта", Toast.LENGTH_LONG).show();
-                        isError = true;
+                    if(distanceFinal > 0.0009d){
+                        if(!isError){
+                            Toast.makeText(getContext(), "Вы слишком далеко от точки старта", Toast.LENGTH_LONG).show();
+                            isError = true;
+                            binding.startButton.setActivated(false);
+                        }
+                    }else{
+                        isError=false;
+                        binding.startButton.setActivated(true);
                     }
 
 
@@ -241,8 +247,8 @@ public class StartRouteLayout extends Fragment implements
                     DefaultTrip trip = DefaultRoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getTripByName(name);
 
 
-
                     h.post(() -> {
+                        binding.editButton.setVisibility(View.GONE);
                         binding.routeName.setText(name);
                         String startPoint = trip.start_point;
                         String endPoint = trip.end_point;

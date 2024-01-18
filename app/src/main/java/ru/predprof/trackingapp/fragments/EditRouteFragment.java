@@ -111,7 +111,7 @@ public class EditRouteFragment extends Fragment implements
                 if (binding.routeLength.getText().toString().split(" ").length > 1) {
                     String lenKm = binding.routeLength.getText().toString().split(" ")[0];
                     String name = binding.routeName.getText().toString();
-
+                    ArrayList<LatLng> polylinePoints = new ArrayList<>(polylines.get(0).getPoints());
                     Thread th = new Thread(() -> {
 
                         Trip trip = new Trip();
@@ -128,8 +128,10 @@ public class EditRouteFragment extends Fragment implements
                         trip.setDuration("0");
                         trip.setEnded("0");
                         trip.setName(name);
+                        trip.setPolylinePoints(polylinePoints);
                         RoomHandler.getInstance(this.getContext()).getAppDatabase().tripDao().insertAll(trip);
                         Trip trip1 = RoomHandler.getInstance(this.getContext()).getAppDatabase().tripDao().getlastTrip();
+                        trip1.setPolylinePoints(null);
                         binding.getRoot().post(() -> replaceActivity(
                                 trip1,
                                 polylines

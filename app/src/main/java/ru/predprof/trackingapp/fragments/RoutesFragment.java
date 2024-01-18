@@ -49,7 +49,7 @@ public class RoutesFragment extends Fragment {
             lst2 = DefaultRoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
             List<Trip> no_ended = new ArrayList<>();
             for (Trip el : lst) {
-                if (Objects.equals(el.ended, "0")) {
+                if (Objects.equals(el.ended, "1")) {
                     no_ended.add(el);
                 }
             }

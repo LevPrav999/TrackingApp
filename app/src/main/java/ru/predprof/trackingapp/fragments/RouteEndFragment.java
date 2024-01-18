@@ -131,7 +131,7 @@ public class RouteEndFragment extends Fragment  implements
                 trip.setName(endedTrip.getName());
                 trip.setPolylinePoints(polylines);
                 trip.setStepsPoints(steps);
-
+                RoomHandler.getInstance(this.getContext()).getAppDatabase().tripDao().deleteAllByName(endedTrip.getName());
                 RoomHandler.getInstance(this.getContext()).getAppDatabase().tripDao().insertAll(trip);
                 binding.getRoot().post(this::replaceActivity);
 

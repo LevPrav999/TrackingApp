@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -16,16 +17,20 @@ import java.util.List;
 import java.util.Objects;
 
 import ru.predprof.trackingapp.R;
+import ru.predprof.trackingapp.adapters.DefaultRoutesRecyclerAdapter;
 import ru.predprof.trackingapp.adapters.RoutesRecyclerAdapter;
-import ru.predprof.trackingapp.adapters.StatisticRecyclerAdapter;
 import ru.predprof.trackingapp.databinding.RoutesLayoutBinding;
+import ru.predprof.trackingapp.models.DefaultTrip;
 import ru.predprof.trackingapp.models.Trip;
 import ru.predprof.trackingapp.room.RoomHandler;
+import ru.predprof.trackingapp.room.defaultTrips.DefaultRoomHandler;
 
 public class RoutesFragment extends Fragment {
     private RoutesLayoutBinding binding;
     List<Trip> lst;
+    List<DefaultTrip> lst2;
     RoutesRecyclerAdapter adapter;
+    DefaultRoutesRecyclerAdapter adapter2;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +46,7 @@ public class RoutesFragment extends Fragment {
         Thread th2 = new Thread(() -> {
 
             lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
+            lst2 = DefaultRoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
             List<Trip> no_ended = new ArrayList<>();
             for (Trip el : lst) {
                 if (Objects.equals(el.ended, "0")) {
@@ -48,14 +54,50 @@ public class RoutesFragment extends Fragment {
                 }
             }
 
+
+
             binding.recyclerUserSRoutes.post(new Runnable() {
                 @Override
                 public void run() {
                     if (!lst.isEmpty()) {
-                        adapter = new RoutesRecyclerAdapter(no_ended);
+                        adapter = new RoutesRecyclerAdapter(no_ended, new RoutesRecyclerAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(RoutesRecyclerAdapter.TripsHolder item) {
+                                Fragment f = new StartRouteLayout();
+                                Bundle b = new Bundle();
+                                TextView textView = item.itemView.findViewById(R.id.name_of_route);
+                                b.putString("routeName", textView.getText().toString());
+                                b.putBoolean("isDefaultRoute", false);
+                                f.setArguments(b);
+                                replace(f);
+                            }
+                        });
                         binding.recyclerUserSRoutes.setAdapter(adapter);
                         binding.recyclerUserSRoutes.setLayoutManager(new LinearLayoutManager((Context) getActivity()));
                         adapter.notifyDataSetChanged();
+                    }
+                }
+            });
+
+            binding.recyclerRoutesOfApp.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (!lst2.isEmpty()) {
+                        adapter2 = new DefaultRoutesRecyclerAdapter(lst2, new DefaultRoutesRecyclerAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(DefaultRoutesRecyclerAdapter.TripsHolder item) {
+                                Fragment f = new StartRouteLayout();
+                                Bundle b = new Bundle();
+                                TextView textView = item.itemView.findViewById(R.id.name_of_route);
+                                b.putString("routeName", textView.getText().toString());
+                                b.putBoolean("isDefaultRoute", true);
+                                f.setArguments(b);
+                                replace(f);
+                            }
+                        });
+                        binding.recyclerRoutesOfApp.setAdapter(adapter2);
+                        binding.recyclerRoutesOfApp.setLayoutManager(new LinearLayoutManager((Context) getActivity()));
+                        adapter2.notifyDataSetChanged();
                     }
                 }
             });

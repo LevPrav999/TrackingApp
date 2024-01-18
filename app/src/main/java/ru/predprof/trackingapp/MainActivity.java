@@ -21,6 +21,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.List;
+
 import ru.predprof.trackingapp.activities.NoGpsActivity;
 import ru.predprof.trackingapp.activities.NoInternetActivity;
 import ru.predprof.trackingapp.activities.NoPermissionsActivity;
@@ -30,7 +32,9 @@ import ru.predprof.trackingapp.fragments.ProfileFragment;
 import ru.predprof.trackingapp.activities.RegisterActivity;
 import ru.predprof.trackingapp.fragments.MainAppFragment;
 import ru.predprof.trackingapp.fragments.RoutesFragment;
+import ru.predprof.trackingapp.models.DefaultTrip;
 import ru.predprof.trackingapp.presentation.api.Controller;
+import ru.predprof.trackingapp.room.defaultTrips.DefaultRoomHandler;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 import ru.predprof.trackingapp.utils.Replace;
 
@@ -122,9 +126,11 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferencesManager = new SharedPreferencesManager(this);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        saveToDb();
 
 
-        int a = sharedPreferencesManager.getInt("lastRouteStatus", 0);
+
+        //sharedPreferencesManager.saveInt("lastRouteStatus", 0);
         if(sharedPreferencesManager.getInt("lastRouteStatus", 0) == 1){
             Fragment f = new EditRouteFragment();
             Bundle b = new Bundle();
@@ -166,6 +172,39 @@ public class MainActivity extends AppCompatActivity {
         });
         Controller ct = new Controller(); // проверка работы api
         ct.run();
+    }
+
+    public void saveToDb(){
+        Thread th = new Thread(() -> {
+            List<DefaultTrip> list = DefaultRoomHandler.getInstance(getApplicationContext()).getAppDatabase().tripDao().getAll();
+            if(list.size() == 0){
+                DefaultTrip trip = new DefaultTrip();
+                trip.setStart_point("55.764647:37.605854");
+                trip.setEnd_point("55.754238:37.634425");
+                trip.setName("Красоты Москвы #1");
+                trip.setDifficultAuto("Easy");
+
+                DefaultRoomHandler.getInstance(getApplicationContext()).getAppDatabase().tripDao().insertAll(trip);
+
+                DefaultTrip trip2 = new DefaultTrip();
+                trip2.setStart_point("55.751863:37.601204");
+                trip2.setEnd_point("55.768413:37.649324");
+                trip2.setName("Красоты Москвы #2");
+                trip2.setDifficultAuto("Medium");
+
+                DefaultRoomHandler.getInstance(getApplicationContext()).getAppDatabase().tripDao().insertAll(trip2);
+
+                DefaultTrip trip3 = new DefaultTrip();
+                trip3.setStart_point("55.795116:37.616204");
+                trip3.setEnd_point("55.704786:37.538074");
+                trip3.setName("Красоты Москвы #3");
+                trip3.setDifficultAuto("Hard");
+
+                DefaultRoomHandler.getInstance(getApplicationContext()).getAppDatabase().tripDao().insertAll(trip3);
+            }
+        });
+
+        th.start();
     }
 
     public void replace(Fragment fragment) {

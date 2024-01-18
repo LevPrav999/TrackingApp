@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 @Entity
-public class Trip implements Comparable<Trip> {
+public class Trip implements Comparable<Trip>, Serializable {
     @PrimaryKey(autoGenerate = true)
     public int number;
 
@@ -48,9 +48,20 @@ public class Trip implements Comparable<Trip> {
     @ColumnInfo(name = "polylinePoints")
     public ArrayList<LatLng> polylinePoints;
 
+    @ColumnInfo(name = "stepsPoints")
+    public ArrayList<LatLng> stepsPoints;
+
     @ColumnInfo(name = "ended")
     public String ended; // Закончил ли юзер маршрут 1 - закончил, 0 - нет
 
+
+    public ArrayList<LatLng> getStepsPoints() {
+        return stepsPoints;
+    }
+
+    public void setStepsPoints(ArrayList<LatLng> stepsPoints) {
+        this.stepsPoints = stepsPoints;
+    }
 
     public String getEnded() {
         return ended;

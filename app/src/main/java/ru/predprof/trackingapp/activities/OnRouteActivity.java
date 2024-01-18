@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -55,6 +56,7 @@ public class OnRouteActivity extends AppCompatActivity
     private SharedPreferencesManager sharedPreferencesManager;
 
     private List<LatLng> arrayLatLng;
+    private List<LatLng> arrayLatLngNotUsed;
     private String routeName = "Название маршрута не задано";
 
 
@@ -74,6 +76,12 @@ public class OnRouteActivity extends AppCompatActivity
 
     public static boolean isRoutePause = false;
 
+    private ArrayList<Float> speedList;
+    private float avgSpeed = 0;
+    private ArrayList<LatLng> stepLines;
+
+    private Trip currentTrip;
+
     private GoogleMap map;
     LocationCallback mLocationCallback = new LocationCallback() {
         @Override
@@ -85,6 +93,7 @@ public class OnRouteActivity extends AppCompatActivity
                     mLastLocation = location;
                     String speed = roundToOneSignificantDigit(new BigDecimal(mLastLocation.getSpeed())).toPlainString();
                     binding.userSpeed.setText(speed + " km/h");
+                    speedList.add(mLastLocation.getSpeed());
                     if(arrayLatLng != null){
                         LatLng current = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
                         LatLng nearest = mapUtils.findNearestLatLng(arrayLatLng, current);
@@ -110,12 +119,14 @@ public class OnRouteActivity extends AppCompatActivity
                         }
 
                         addStepPolyline(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), startLatLng);
+                        stepLines.add(startLatLng);
                         startLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
                     }
                     if(markerLatLng != null){
                         double distance = mapUtils.countDistanceBetweenToPoints(location.getLatitude(), location.getLongitude(), markerLatLng.latitude, markerLatLng.longitude);
                         if (distance < 0.0009d){
-                            Toast.makeText(getApplicationContext(), "Вы приехали", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "Вы приехали", Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 }
@@ -139,14 +150,21 @@ public class OnRouteActivity extends AppCompatActivity
 
         Bundle b = getIntent().getExtras();
         if(b != null){
-            arrayLatLng = (ArrayList<LatLng>) b.getSerializable("polylines");
+            currentTrip = (Trip) b.getSerializable("trip");
 
-            routeName = b.getString("routeName");
+            arrayLatLng = (List<LatLng>) b.getSerializable("polylines");
+            arrayLatLngNotUsed = (List<LatLng>) b.getSerializable("polylines");
+
+            routeName = currentTrip.name;
         }
 
         counter = new Counter();
         mapUtils = new MapUtils();
         polylines = new ArrayList<>();
+        speedList = new ArrayList<>();
+        stepLines = new ArrayList<>();
+
+        currentTrip.setName(routeName);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
         binding.routePoints.setText(routeName);
@@ -162,6 +180,17 @@ public class OnRouteActivity extends AppCompatActivity
             replaceActivity(1);
         });
         binding.endButton.setOnClickListener(view -> {
+            float summa = 0;
+            float maxSpeed = 0;
+            for(Float speed: speedList){
+                summa+=speed;
+                if(maxSpeed < speed)
+                    maxSpeed = speed;
+            }
+            avgSpeed = summa/speedList.size();
+            currentTrip.setAvgSpeed(String.valueOf(avgSpeed));
+            currentTrip.setMaxSpeed(String.valueOf(maxSpeed));
+            //currentTrip.setStepsPoints(stepLines);
             replaceActivity(2);
         });
 
@@ -305,18 +334,18 @@ public class OnRouteActivity extends AppCompatActivity
     }
 
     private void replaceActivity(int frag){
+        ArrayList<LatLng> polylinePoints = new ArrayList<>(arrayLatLngNotUsed);
+        ArrayList<LatLng> stepPolyline = new ArrayList<>(stepLines);
 
         Intent intent = new Intent(this, NoBarActivity.class);
         Bundle b = new Bundle();
-        Bundle bundle = getIntent().getExtras();
         b.putInt("fragment", frag);
-        b.putString("routeName", routeName);
-        Log.d("qwertyuiop", bundle.getString("len"));
-        b.putInt("route_id", bundle.getInt("route_id"));
-        b.putString("len", bundle.getString("len"));
-        b.putString("dif_aut", bundle.getString("dif_aut"));
-        b.putSerializable("polylines", bundle.getSerializable("polylines"));
+        b.putString("routeName", currentTrip.name);
+        b.putSerializable("trip", (Serializable) currentTrip);
+        b.putSerializable("poliline", (Serializable) polylinePoints);
+        b.putSerializable("stepPoliline", (Serializable) stepPolyline);
         intent.putExtras(b);
         startActivity(intent);
     }
+
 }

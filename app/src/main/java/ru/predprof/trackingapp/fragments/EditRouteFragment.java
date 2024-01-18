@@ -109,11 +109,15 @@ public class EditRouteFragment extends Fragment implements
         binding.buttonSave.setOnClickListener(l -> {
             if (binding.routeName.getText().toString().length() > 0) {
                 if (binding.routeLength.getText().toString().split(" ").length > 1) {
+                    String lenKm = binding.routeLength.getText().toString().split(" ")[0];
+                    String name = binding.routeName.getText().toString();
+
                     Thread th = new Thread(() -> {
+
                         Trip trip = new Trip();
                         trip.setAvgSpeed("0");
                         trip.setTime("0");
-                        trip.setLenKm(binding.routeLength.getText().toString().split(" ")[1]);
+                        trip.setLenKm(lenKm);
                         trip.setDataPulse(new ArrayList<>());
                         trip.setDifficultAuto(Integer.toString(complexity));
                         trip.setDifficultReal("0");
@@ -123,7 +127,7 @@ public class EditRouteFragment extends Fragment implements
                         trip.setWeekDay(date);
                         trip.setDuration("0");
                         trip.setEnded("0");
-                        trip.setName(binding.routeName.getText().toString());
+                        trip.setName(name);
                         RoomHandler.getInstance(this.getContext()).getAppDatabase().tripDao().insertAll(trip);
                         Trip trip1 = RoomHandler.getInstance(this.getContext()).getAppDatabase().tripDao().getlastTrip();
                         binding.getRoot().post(() -> replaceActivity(
@@ -215,7 +219,7 @@ public class EditRouteFragment extends Fragment implements
         String str = b+":"+cRoundInt;
         binding.routeLength.setText(route.get(route.size()-1).getDistanceText());
         binding.routeTime.setText(str);
-        complexity = b;
+        complexity = counter.countLevelOfTravelInt(a);
         Log.d("fghjkl", Integer.toString(complexity));
         binding.routeComplexity.setText(counter.countLevelOfTravelStr(b));
 
@@ -295,37 +299,10 @@ public class EditRouteFragment extends Fragment implements
     private void replaceActivity(Trip tr, List<Polyline> polylines){
         ArrayList<LatLng> polylinePoints = new ArrayList<>(polylines.get(0).getPoints());
 
-        Thread th2 = new Thread(() -> {
-            Trip trip = new Trip();
-            trip.setAvgSpeed("10");
-            trip.setTime("12:00");
-            trip.setLenKm("1");
-            trip.setDataPulse(new ArrayList<>());
-            trip.setDifficultAuto("1");
-            trip.setDifficultReal("1");
-            trip.setMaxSpeed("14");
-            trip.setName("1233333");
-            trip.setWeekDay("02.01.2024");
-            trip.setDuration("15");
-            trip.setPolylinePoints(polylinePoints);
-            RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().insertAll(trip);
-            List<Trip> lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
-            Log.d("points", polylinePoints.toString());
-
-            Trip a = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getTripByName("1233333");
-            Log.d("points2", a.polylinePoints.toString());
-        });
-        th2.start();
-
 
         Intent intent = new Intent(this.getActivity(), OnRouteActivity.class);
         Bundle b = new Bundle();
-        Log.d("kjhdbvbjhb", Integer.toString(tr.getNumber()));
-        b.putString("routeName", tr.getName());
-        b.putInt("route_id", tr.getNumber());
-        b.putString("len", tr.lenKm);
-        Log.d("dfkjhgsjfkdj", tr.lenKm);
-        b.putString("dif_aut", tr.getDifficultAuto());
+        b.putSerializable("trip", (Serializable) tr);
         b.putSerializable("polylines", polylinePoints);
         intent.putExtras(b);
         startActivity(intent);

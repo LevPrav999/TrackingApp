@@ -12,7 +12,7 @@
         android:text="@string/choice_route" />
 
     <TextView
-        android:id="@+id/route_points"
+        android:id="@+id/route_name"
         style="@style/title_fragment"
         android:layout_marginTop="40dp"
         android:text="@string/text_A_to_B_visiblehint" />
@@ -25,7 +25,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="80dp"
-        android:layout_marginBottom="400dp"
+        android:layout_marginBottom="330dp"
         android:layout_gravity="bottom"
         android:background="@drawable/map_shape" />
 
@@ -48,7 +48,7 @@
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/route_length"
+            android:id="@+id/route_complexity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

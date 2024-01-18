@@ -1,9 +1,13 @@
 package ru.predprof.trackingapp.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +17,21 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,12 +44,32 @@ import ru.predprof.trackingapp.databinding.RouteEndLayoutBinding;
 import ru.predprof.trackingapp.models.Trip;
 import ru.predprof.trackingapp.room.RoomHandler;
 import ru.predprof.trackingapp.room.TripDao;
+import ru.predprof.trackingapp.room.RoomHandler;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 
-public class RouteEndFragment extends Fragment {
+public class RouteEndFragment extends Fragment  implements
+        OnMapReadyCallback {
     private RouteEndLayoutBinding binding;
     private SharedPreferencesManager sharedPreferencesManager;
+
     int user_complexity = 0;
+    private GoogleMap map;
+
+    Location mLastLocation;
+    LocationRequest mLocationRequest;
+
+    private Trip endedTrip;
+
+    private ArrayList<LatLng> polylines;
+    private ArrayList<LatLng> steps;
+
+    LocationCallback mLocationCallback = new LocationCallback() {
+        @Override
+        public void onLocationResult(LocationResult locationResult) {
+
+        }
+    };
+    private FusedLocationProviderClient mFusedLocationClient;
 
     private void initFunc(){
         Bundle b = getActivity().getIntent().getExtras();
@@ -53,40 +92,61 @@ public class RouteEndFragment extends Fragment {
 
             }
         });
-        binding.routeLength.setText(getArguments().getString("len"));
-        binding.routeEstimatedComplexity.setText(getArguments().getString("dif_aut"));
-        binding.lastRoute.setText(getArguments().getString("routeName"));
-        int route_id = getArguments().getInt("route_id");
+
+        Handler h = new Handler(){
+            @Override
+            public void handleMessage(Message msg){
+                super.handleMessage(msg);
+            }
+        };
+
+        Thread th = new Thread(() ->{
+           Trip trip = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getTripByName(getArguments().getString("routeName"));
+           h.post(()->{
+              endedTrip = trip;
+               binding.routeLength.setText(trip.getLenKm());
+               binding.routeEstimatedComplexity.setText(trip.getDifficultAuto());
+               binding.lastRoute.setText(trip.getName());
+               binding.routeDuration.setText(trip.getDuration());
+           });
+        });
+
+        th.start();
+
         binding.toMain.setOnClickListener(view -> {
-            Thread th = new Thread(() -> {
-                Trip a = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getTripById(route_id);
+            Thread th2 = new Thread(() -> {
                 Trip trip = new Trip();
-                trip.setAvgSpeed("0");
+                trip.setAvgSpeed(endedTrip.getAvgSpeed());
                 trip.setTime("0");
-                Log.d("sdgfd", a.lenKm);
-                trip.setLenKm(a.getLenKm());
+                trip.setLenKm(endedTrip.getLenKm());
                 trip.setDataPulse(new ArrayList<>());
-                trip.setDifficultAuto(a.getDifficultAuto());
+                trip.setDifficultAuto(endedTrip.getDifficultAuto());
                 trip.setDifficultReal(Integer.toString(user_complexity));
-                trip.setMaxSpeed("0");
+                trip.setMaxSpeed(endedTrip.getMaxSpeed());
                 Calendar calendar = Calendar.getInstance();
                 String date = new SimpleDateFormat("dd.MM.yyyy").format(calendar.getTime());
                 trip.setWeekDay(date);
-                trip.setDuration("0");
+                trip.setDuration(endedTrip.getDuration());
                 trip.setEnded("1");
-                trip.setName(a.getName());
+                trip.setName(endedTrip.getName());
+                trip.setPolylinePoints(polylines);
+                trip.setStepsPoints(steps);
 
                 RoomHandler.getInstance(this.getContext()).getAppDatabase().tripDao().insertAll(trip);
                 binding.getRoot().post(this::replaceActivity);
 
             });
-            th.start();
+            th2.start();
         });
 
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+        polylines = (ArrayList<LatLng>) getArguments().getSerializable("poliline");
+        steps = (ArrayList<LatLng>) getArguments().getSerializable("stepPoliline");
     }
 
     @Override
@@ -95,7 +155,14 @@ public class RouteEndFragment extends Fragment {
         binding = RouteEndLayoutBinding.inflate(getLayoutInflater());
 
         sharedPreferencesManager = new SharedPreferencesManager(getContext());
+        sharedPreferencesManager.saveInt("lastRouteStatus", 0);
         initFunc();
+
+        SupportMapFragment supportMapFragment = (SupportMapFragment)
+                getChildFragmentManager().findFragmentById(R.id.google_map);
+
+
+        supportMapFragment.getMapAsync(this);
         return binding.getRoot();
     }
     private void replaceActivity(){
@@ -103,5 +170,40 @@ public class RouteEndFragment extends Fragment {
         startActivity(intent);
         this.getActivity().finish();
 
+    }
+
+    @Override
+    @SuppressLint("MissingPermission")
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(1000);
+        mLocationRequest.setFastestInterval(1000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
+        map.setMyLocationEnabled(true);
+
+        renderPolylineNew((ArrayList<LatLng>) getArguments().getSerializable("poliline"));
+        addStepPolyline((ArrayList<LatLng>) getArguments().getSerializable("stepPoliline"));
+    }
+
+    public void renderPolylineNew(List<LatLng> list){
+        PolylineOptions polyOptions = new PolylineOptions();
+        polyOptions.color(getResources().getColor(R.color.dark_orange));
+        polyOptions.width(10);
+        polyOptions.addAll(list);
+        map.addPolyline(polyOptions);
+    }
+
+    public void addStepPolyline(List<LatLng> list){
+
+
+        PolylineOptions polyOptions = new PolylineOptions();
+        polyOptions.width(10);
+        polyOptions.color(Color.GREEN);
+        polyOptions.addAll(list);
+        map.addPolyline(polyOptions);
     }
 }

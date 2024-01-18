@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import ru.predprof.trackingapp.databinding.NoBarActivityBinding;
@@ -28,12 +29,12 @@ public class NoBarActivity  extends AppCompatActivity {
             replace(new PauseRouteFragment());
         } else if (b != null && b.getInt("fragment") == 2) {
             Bundle b1 = new Bundle();
-            Log.d("qwertyuiop", b.getString("len"));
+
             b1.putString("routeName", b.getString("routeName"));
-            b1.putInt("route_id", b.getInt("route_id"));
-            b1.putString("len", b.getString("len"));
-            b1.putString("dif_aut", b.getString("dif_aut"));
-            b1.putSerializable("polylines", b.getSerializable("polylines"));
+            b1.putSerializable("stepPoliline", (Serializable) b.getSerializable("stepPoliline"));
+            b1.putSerializable("poliline", (Serializable) b.getSerializable("poliline"));
+            b1.putSerializable("trip", b.getFloat("trip"));
+
             RouteEndFragment routeEndFragment = new RouteEndFragment();
             routeEndFragment.setArguments(b1);
             replace(routeEndFragment);
@@ -44,7 +45,6 @@ public class NoBarActivity  extends AppCompatActivity {
     public void replace(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-
         transaction.replace(R.id.fragment, fragment).commit();
 
     }

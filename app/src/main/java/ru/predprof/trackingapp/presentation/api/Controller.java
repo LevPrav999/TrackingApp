@@ -13,6 +13,9 @@ import ru.predprof.trackingapp.presentation.api.models.AllJson;
 
 public class Controller implements Runnable {
     public static final String BASE_URL = "https://dt.miet.ru/ppo_it/api/watch/";
+    public static int min_pulse = 0;
+    public static int max_pulse = 0;
+    public static int avg_pulse = 0;
 
     @Override
     public void run() {
@@ -27,6 +30,10 @@ public class Controller implements Runnable {
             public void onResponse(@NonNull Call<AllJson> call, @NonNull Response<AllJson> response) {
                 assert response.body() != null;
                 Log.d("alksjfdhsjkfdvlb", Integer.toString(response.body().getAll().getPulse().getMin()));
+                min_pulse = response.body().getAll().getPulse().getMin();
+                max_pulse = response.body().getAll().getPulse().getMax();
+                avg_pulse = response.body().getAll().getPulse().getAvg();
+
             }
 
             @Override

@@ -209,7 +209,7 @@ public class EditRouteFragment extends Fragment implements
             b += 1;
         }
         int cRoundInt = (int) cRoundFloat;
-        String str = b + ":" + cRoundInt;
+        String str = b + ":" + cRoundInt / 10 + cRoundInt % 10;
         binding.routeLength.setText(route.get(route.size() - 1).getDistanceText());
         binding.routeTime.setText(str);
         complexity = counter.countLevelOfTravelInt(a);

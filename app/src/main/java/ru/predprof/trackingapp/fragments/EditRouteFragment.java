@@ -73,7 +73,7 @@ public class EditRouteFragment extends Fragment implements
     private Counter counter;
     private SharedPreferencesManager preferenceManager;
 
-    private List<String> arrTrips;
+    private List<String> arrTrips = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

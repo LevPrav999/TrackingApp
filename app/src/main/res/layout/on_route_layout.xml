@@ -14,17 +14,47 @@
         style="@style/title_fragment"
         android:layout_marginTop="38dp"
         android:text="@string/text_A_to_B_visiblehint" />
-
-    <TextView
-        style="@style/title_fragment"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="83dp"
-        android:text="Текущая скорость:" />
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                style="@style/title_fragment"
+                android:text="Текущая скорость:" />
 
-    <TextView
-        android:id="@+id/user_speed"
-        style="@style/title_fragment"
-        android:layout_marginTop="110dp"
-        android:text="0 km/h" />
+            <TextView
+                android:id="@+id/user_speed"
+                style="@style/title_fragment"
+                android:layout_marginTop="2dp"
+                android:text="Время в пути" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/route_speed"
+            style="@style/title_fragment"
+            android:text="0 km/h" />
+
+            <TextView
+                android:id="@+id/route_time"
+                style="@style/title_fragment"
+                android:text="0:0:0" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/google_map"
@@ -35,7 +65,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="160dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="380dp"
+        android:layout_marginBottom="350dp"
         android:background="@drawable/map_shape" />
 
 
@@ -43,7 +73,7 @@
         android:id="@+id/pause_button"
         style="@style/big_orange_button"
         android:layout_gravity="bottom|center"
-        android:layout_marginBottom="200dp"
+        android:layout_marginBottom="190dp"
         android:text="@string/pause" />
 
     <androidx.appcompat.widget.AppCompatButton

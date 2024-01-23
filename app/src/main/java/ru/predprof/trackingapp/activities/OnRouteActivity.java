@@ -199,165 +199,161 @@ public class OnRouteActivity extends AppCompatActivity
     }
 
 
-        private void getRouteToMarker (LatLng pickupLatLng, LatLng locationLatLng){
-            if (pickupLatLng != null && mLastLocation != null) {
-                Routing routing = new Routing.Builder()
-                        .key("AIzaSyCK4y3tSLqGJD2GG4lCkMCDf-Cc6D-jvKU")
-                        .travelMode(AbstractRouting.TravelMode.WALKING)
-                        .withListener(this)
-                        .alternativeRoutes(false)
-                        .waypoints(locationLatLng, pickupLatLng)
-                        .build();
-                routing.execute();
+    private void getRouteToMarker(LatLng pickupLatLng, LatLng locationLatLng) {
+        if (pickupLatLng != null && mLastLocation != null) {
+            Routing routing = new Routing.Builder()
+                    .key("AIzaSyCK4y3tSLqGJD2GG4lCkMCDf-Cc6D-jvKU")
+                    .travelMode(AbstractRouting.TravelMode.WALKING)
+                    .withListener(this)
+                    .alternativeRoutes(false)
+                    .waypoints(locationLatLng, pickupLatLng)
+                    .build();
+            routing.execute();
+        }
+    }
+
+    @Override
+    public void onRoutingFailure(RouteException e) {
+        if (e != null) {
+            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Something went wrong, Try again", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onRoutingStart() {
+    }
+
+
+    public void renderPolylineFirst() {
+
+        startLatLng = arrayLatLng.get(0);
+        markerLatLng = arrayLatLng.get(arrayLatLng.size() - 1);
+
+        PolylineOptions polyOptions = new PolylineOptions();
+        polyOptions.color(getResources().getColor(COLORS[0]));
+        polyOptions.width(10);
+        polyOptions.addAll(arrayLatLng);
+        Polyline polyline = map.addPolyline(polyOptions);
+        polylines.add(polyline);
+    }
+
+    public void renderPolyline(ArrayList<Route> route) {
+        if (polylines.size() > 0) {
+            for (Polyline poly : polylines) {
+                poly.remove();
             }
         }
 
-        @Override
-        public void onRoutingFailure (RouteException e){
-            if (e != null) {
-                Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(getApplicationContext(), "Something went wrong, Try again", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        @Override
-        public void onRoutingStart () {
-        }
+        polylines = new ArrayList<>();
+        for (int i = 0; i < route.size(); i++) {
 
 
-        public void renderPolylineFirst () {
+            startLatLng = route.get(i).getPoints().get(0);
+            arrayLatLng = route.get(i).getPoints();
+            markerLatLng = route.get(i).getPoints().get(route.get(i).getPoints().size() - 1);
 
-            startLatLng = arrayLatLng.get(0);
-            markerLatLng = arrayLatLng.get(arrayLatLng.size() - 1);
-
+            int colorIndex = i % 4;
             PolylineOptions polyOptions = new PolylineOptions();
-            polyOptions.color(getResources().getColor(COLORS[0]));
+            polyOptions.color(getResources().getColor(COLORS[colorIndex]));
             polyOptions.width(10);
-            polyOptions.addAll(arrayLatLng);
+            polyOptions.addAll(route.get(i).getPoints());
             Polyline polyline = map.addPolyline(polyOptions);
             polylines.add(polyline);
         }
+    }
 
-        public void renderPolyline (ArrayList < Route > route) {
-            if (polylines.size() > 0) {
-                for (Polyline poly : polylines) {
-                    poly.remove();
-                }
-            }
-
-            polylines = new ArrayList<>();
-            for (int i = 0; i < route.size(); i++) {
-
-
-                startLatLng = route.get(i).getPoints().get(0);
-                arrayLatLng = route.get(i).getPoints();
-                markerLatLng = route.get(i).getPoints().get(route.get(i).getPoints().size() - 1);
-
-                int colorIndex = i % 4;
-                PolylineOptions polyOptions = new PolylineOptions();
-                polyOptions.color(getResources().getColor(COLORS[colorIndex]));
-                polyOptions.width(10);
-                polyOptions.addAll(route.get(i).getPoints());
-                Polyline polyline = map.addPolyline(polyOptions);
-                polylines.add(polyline);
+    public void renderPolylineNew(List<LatLng> list) {
+        if (polylines.size() > 0) {
+            for (Polyline poly : polylines) {
+                poly.remove();
             }
         }
 
-        public void renderPolylineNew (List < LatLng > list) {
-            if (polylines.size() > 0) {
-                for (Polyline poly : polylines) {
-                    poly.remove();
-                }
-            }
-
-            polylines = new ArrayList<>();
-            PolylineOptions polyOptions = new PolylineOptions();
-            polyOptions.color(getResources().getColor(COLORS[0]));
-            polyOptions.width(10);
-            polyOptions.addAll(list);
-            Polyline polyline = map.addPolyline(polyOptions);
-            polylines.add(polyline);
-        }
+        polylines = new ArrayList<>();
+        PolylineOptions polyOptions = new PolylineOptions();
+        polyOptions.color(getResources().getColor(COLORS[0]));
+        polyOptions.width(10);
+        polyOptions.addAll(list);
+        Polyline polyline = map.addPolyline(polyOptions);
+        polylines.add(polyline);
+    }
 
 
-        public void addStepPolyline (LatLng first, LatLng second){
+    public void addStepPolyline(LatLng first, LatLng second) {
 
 
-            PolylineOptions polyOptions = new PolylineOptions();
-            polyOptions.width(10);
-            polyOptions.color(Color.GREEN);
-            polyOptions.add(first);
-            polyOptions.add(second);
-            map.addPolyline(polyOptions);
-        }
+        PolylineOptions polyOptions = new PolylineOptions();
+        polyOptions.width(10);
+        polyOptions.color(Color.GREEN);
+        polyOptions.add(first);
+        polyOptions.add(second);
+        map.addPolyline(polyOptions);
+    }
 
-        @Override
-        public void onRoutingSuccess (ArrayList < Route > route,int shortestRouteIndex){
+    @Override
+    public void onRoutingSuccess(ArrayList<Route> route, int shortestRouteIndex) {
 
-            renderPolyline(route);
+        renderPolyline(route);
 
-            float a = ((float) (route.get(route.size() - 1).getDistanceValue())) / 1000f / counter.countPersonalSpeed(1); // подставлять параметр из SP
-            int b = (int) a;
-            float c = a - b;
+        float a = ((float) (route.get(route.size() - 1).getDistanceValue())) / 1000f / counter.countPersonalSpeed(1); // подставлять параметр из SP
+        int b = (int) a;
+        float c = a - b;
 
-            String cRound = String.format("%.2g", c).replace(",", ".");
-            float cRoundFloat = Float.parseFloat(cRound) * 60f + 5f;
-            int cRoundInt = (int) cRoundFloat;
-            String str = b + " Hours " + cRoundInt + " Mins";
+        String cRound = String.format("%.2g", c).replace(",", ".");
+        float cRoundFloat = Float.parseFloat(cRound) * 60f + 5f;
+        int cRoundInt = (int) cRoundFloat;
+        String str = b + " Hours " + cRoundInt + " Mins";
 
-            Toast.makeText(getApplicationContext(), "Distance - " + route.get(route.size() - 1).getDistanceText() + " : time - " + str, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Distance - " + route.get(route.size() - 1).getDistanceText() + " : time - " + str, Toast.LENGTH_SHORT).show();
 
-        }
+    }
 
-        @Override
-        public void onRoutingCancelled () {
+    @Override
+    public void onRoutingCancelled() {
 
-        }
+    }
 
 
-        @SuppressLint("MissingPermission")
-        @Override
-        public void onMapReady (GoogleMap googleMap){
-            map = googleMap;
+    @SuppressLint("MissingPermission")
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
 
-            mLocationRequest = new LocationRequest();
-            mLocationRequest.setInterval(1000);
-            mLocationRequest.setFastestInterval(1000);
-            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(1000);
+        mLocationRequest.setFastestInterval(1000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-            mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
-            map.setMyLocationEnabled(true);
+        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
+        map.setMyLocationEnabled(true);
 
-            renderPolylineFirst();
-        }
+        renderPolylineFirst();
+    }
 
-        private void replaceActivity ( int frag){
-            ArrayList<LatLng> polylinePoints = new ArrayList<>(arrayLatLngNotUsed);
-            ArrayList<LatLng> stepPolyline = new ArrayList<>(stepLines);
+    private void replaceActivity(int frag) {
+        ArrayList<LatLng> polylinePoints = new ArrayList<>(arrayLatLngNotUsed);
+        ArrayList<LatLng> stepPolyline = new ArrayList<>(stepLines);
 
-            currentTrip.setPolylinePoints(null);
-            currentTrip.setStepsPoints(null);
+        currentTrip.setPolylinePoints(null);
+        currentTrip.setStepsPoints(null);
 
-            Intent intent = new Intent(this, NoBarActivity.class);
-            Bundle b = new Bundle();
-            b.putInt("fragment", frag);
-            b.putString("routeName", currentTrip.name);
-            b.putSerializable("trip", (Serializable) currentTrip);
-            b.putSerializable("poliline", (Serializable) polylinePoints);
-            b.putSerializable("stepPoliline", (Serializable) stepPolyline);
-            b.putString("routeName", routeName);
-            b.putInt("route_id", b.getInt("route_id"));
-            b.putInt("dur", seconds);
-            b.putString("len", b.getString("len"));
-            b.putString("dif_aut", b.getString("dif_aut"));
-            b.putSerializable("polylines", b.getSerializable("polylines"));
-            intent.putExtras(b);
-            startActivity(intent);
-        }
+        Intent intent = new Intent(this, NoBarActivity.class);
+        Bundle b = new Bundle();
+        b.putInt("fragment", frag);
+        b.putString("routeName", currentTrip.name);
+        b.putSerializable("trip", (Serializable) currentTrip);
+        b.putSerializable("poliline", (Serializable) polylinePoints);
+        b.putSerializable("stepPoliline", (Serializable) stepPolyline);
+        b.putString("routeName", routeName);
+        b.putInt("dur", seconds);
+        b.putSerializable("polylines", b.getSerializable("polylines"));
+        intent.putExtras(b);
+        startActivity(intent);
+    }
 
-    private void runTimer ()
-    {
+    private void runTimer() {
         // Creates a new Handler
         Handler handler
                 = new Handler();
@@ -377,6 +373,7 @@ public class OnRouteActivity extends AppCompatActivity
                 if (!isRoutePause) {
                     seconds++;
                 }
+                binding.routeTime.setText(time);
                 handler.postDelayed(this, 1000);
             }
         });

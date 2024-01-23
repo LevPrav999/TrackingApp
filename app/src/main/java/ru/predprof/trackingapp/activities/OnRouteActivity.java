@@ -1,11 +1,17 @@
 package ru.predprof.trackingapp.activities;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,12 +36,17 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import ru.predprof.trackingapp.NoBarActivity;
 import ru.predprof.trackingapp.R;
+import ru.predprof.trackingapp.databinding.ActivityMainBinding;
 import ru.predprof.trackingapp.databinding.ActivityOnRouteBinding;
+import ru.predprof.trackingapp.databinding.FragmentMapBinding;
 import ru.predprof.trackingapp.models.Trip;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 import ru.predprof.trackingapp.utils.Counter;
@@ -52,6 +63,7 @@ public class OnRouteActivity extends AppCompatActivity
     double maxToRewrite = 0.3d;
     private ActivityOnRouteBinding binding;
     private SharedPreferencesManager sharedPreferencesManager;
+    private int seconds = 0;
     private List<LatLng> arrayLatLng;
     private List<LatLng> arrayLatLngNotUsed;
     private String routeName = "Название маршрута не задано";
@@ -130,195 +142,216 @@ public class OnRouteActivity extends AppCompatActivity
         binding = ActivityOnRouteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         sharedPreferencesManager = new SharedPreferencesManager(this);
-
-        sharedPreferencesManager.saveInt("lastRouteStatus", 1);
-
         Bundle b = getIntent().getExtras();
         if (b != null) {
             currentTrip = (Trip) b.getSerializable("trip");
+            seconds = b.getInt("dur", 0);
+            runTimer();
+            sharedPreferencesManager.saveInt("lastRouteStatus", 1);
 
-            arrayLatLng = (List<LatLng>) b.getSerializable("polylines");
-            arrayLatLngNotUsed = (List<LatLng>) b.getSerializable("polylines");
+            if (b != null) {
+                arrayLatLng = (ArrayList<LatLng>) b.getSerializable("polylines");
 
-            routeName = currentTrip.name;
-        }
+                arrayLatLng = (List<LatLng>) b.getSerializable("polylines");
+                arrayLatLngNotUsed = (List<LatLng>) b.getSerializable("polylines");
 
-        counter = new Counter();
-        mapUtils = new MapUtils();
-        polylines = new ArrayList<>();
-        speedList = new ArrayList<>();
-        stepLines = new ArrayList<>();
-
-        currentTrip.setName(routeName);
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
-        binding.routePoints.setText(routeName);
-
-        SupportMapFragment supportMapFragment = (SupportMapFragment)
-                getSupportFragmentManager().findFragmentById(R.id.google_map);
-
-
-        supportMapFragment.getMapAsync(this);
-
-        binding.pauseButton.setOnClickListener(view -> {
-            isRoutePause = true;
-            replaceActivity(1);
-        });
-        binding.endButton.setOnClickListener(view -> {
-            float summa = 0;
-            float maxSpeed = 0;
-            for (Float speed : speedList) {
-                summa += speed;
-                if (maxSpeed < speed)
-                    maxSpeed = speed;
+                routeName = currentTrip.name;
             }
-            avgSpeed = summa / speedList.size();
-            currentTrip.setAvgSpeed(String.valueOf(avgSpeed));
-            currentTrip.setMaxSpeed(String.valueOf(maxSpeed));
-            //currentTrip.setStepsPoints(stepLines);
-            replaceActivity(2);
-        });
 
-    }
+            counter = new Counter();
+            mapUtils = new MapUtils();
+            polylines = new ArrayList<>();
+            speedList = new ArrayList<>();
+            stepLines = new ArrayList<>();
+
+            currentTrip.setName(routeName);
+
+            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
+            binding.routePoints.setText(routeName);
+
+            SupportMapFragment supportMapFragment = (SupportMapFragment)
+                    getSupportFragmentManager().findFragmentById(R.id.google_map);
 
 
-    private void getRouteToMarker(LatLng pickupLatLng, LatLng locationLatLng) {
-        if (pickupLatLng != null && mLastLocation != null) {
-            Routing routing = new Routing.Builder()
-                    .key("AIzaSyCK4y3tSLqGJD2GG4lCkMCDf-Cc6D-jvKU")
-                    .travelMode(AbstractRouting.TravelMode.WALKING)
-                    .withListener(this)
-                    .alternativeRoutes(false)
-                    .waypoints(locationLatLng, pickupLatLng)
-                    .build();
-            routing.execute();
+            supportMapFragment.getMapAsync(this);
+
+            binding.pauseButton.setOnClickListener(view -> {
+                isRoutePause = true;
+                replaceActivity(1);
+                Log.d("poiuytrew", Integer.toString(seconds));
+            });
+            binding.endButton.setOnClickListener(view -> {
+                float summa = 0;
+                float maxSpeed = 0;
+                for (Float speed : speedList) {
+                    summa += speed;
+                    if (maxSpeed < speed)
+                        maxSpeed = speed;
+                }
+                avgSpeed = summa / speedList.size();
+                currentTrip.setAvgSpeed(String.valueOf(avgSpeed));
+                currentTrip.setMaxSpeed(String.valueOf(maxSpeed));
+                //currentTrip.setStepsPoints(stepLines);
+                replaceActivity(2);
+            });
+
         }
     }
 
-    @Override
-    public void onRoutingFailure(RouteException e) {
-        if (e != null) {
-            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(getApplicationContext(), "Something went wrong, Try again", Toast.LENGTH_SHORT).show();
-        }
-    }
 
-    @Override
-    public void onRoutingStart() {
-    }
-
-
-    public void renderPolylineFirst() {
-
-        startLatLng = arrayLatLng.get(0);
-        markerLatLng = arrayLatLng.get(arrayLatLng.size() - 1);
-
-        PolylineOptions polyOptions = new PolylineOptions();
-        polyOptions.color(getResources().getColor(COLORS[0]));
-        polyOptions.width(10);
-        polyOptions.addAll(arrayLatLng);
-        Polyline polyline = map.addPolyline(polyOptions);
-        polylines.add(polyline);
-    }
-
-    public void renderPolyline(ArrayList<Route> route) {
-        if (polylines.size() > 0) {
-            for (Polyline poly : polylines) {
-                poly.remove();
+        private void getRouteToMarker (LatLng pickupLatLng, LatLng locationLatLng){
+            if (pickupLatLng != null && mLastLocation != null) {
+                Routing routing = new Routing.Builder()
+                        .key("AIzaSyCK4y3tSLqGJD2GG4lCkMCDf-Cc6D-jvKU")
+                        .travelMode(AbstractRouting.TravelMode.WALKING)
+                        .withListener(this)
+                        .alternativeRoutes(false)
+                        .waypoints(locationLatLng, pickupLatLng)
+                        .build();
+                routing.execute();
             }
         }
 
-        polylines = new ArrayList<>();
-        for (int i = 0; i < route.size(); i++) {
+        @Override
+        public void onRoutingFailure (RouteException e){
+            if (e != null) {
+                Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Something went wrong, Try again", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onRoutingStart () {
+        }
 
 
-            startLatLng = route.get(i).getPoints().get(0);
-            arrayLatLng = route.get(i).getPoints();
-            markerLatLng = route.get(i).getPoints().get(route.get(i).getPoints().size() - 1);
+        public void renderPolylineFirst () {
 
-            int colorIndex = i % 4;
+            startLatLng = arrayLatLng.get(0);
+            markerLatLng = arrayLatLng.get(arrayLatLng.size() - 1);
+
             PolylineOptions polyOptions = new PolylineOptions();
-            polyOptions.color(getResources().getColor(COLORS[colorIndex]));
+            polyOptions.color(getResources().getColor(COLORS[0]));
             polyOptions.width(10);
-            polyOptions.addAll(route.get(i).getPoints());
+            polyOptions.addAll(arrayLatLng);
             Polyline polyline = map.addPolyline(polyOptions);
             polylines.add(polyline);
         }
-    }
 
-    public void renderPolylineNew(List<LatLng> list) {
-        if (polylines.size() > 0) {
-            for (Polyline poly : polylines) {
-                poly.remove();
+        public void renderPolyline (ArrayList < Route > route) {
+            if (polylines.size() > 0) {
+                for (Polyline poly : polylines) {
+                    poly.remove();
+                }
+            }
+
+            polylines = new ArrayList<>();
+            for (int i = 0; i < route.size(); i++) {
+
+
+                startLatLng = route.get(i).getPoints().get(0);
+                arrayLatLng = route.get(i).getPoints();
+                markerLatLng = route.get(i).getPoints().get(route.get(i).getPoints().size() - 1);
+
+                int colorIndex = i % 4;
+                PolylineOptions polyOptions = new PolylineOptions();
+                polyOptions.color(getResources().getColor(COLORS[colorIndex]));
+                polyOptions.width(10);
+                polyOptions.addAll(route.get(i).getPoints());
+                Polyline polyline = map.addPolyline(polyOptions);
+                polylines.add(polyline);
             }
         }
 
-        polylines = new ArrayList<>();
-        PolylineOptions polyOptions = new PolylineOptions();
-        polyOptions.color(getResources().getColor(COLORS[0]));
-        polyOptions.width(10);
-        polyOptions.addAll(list);
-        Polyline polyline = map.addPolyline(polyOptions);
-        polylines.add(polyline);
-    }
+        public void renderPolylineNew (List < LatLng > list) {
+            if (polylines.size() > 0) {
+                for (Polyline poly : polylines) {
+                    poly.remove();
+                }
+            }
+
+            polylines = new ArrayList<>();
+            PolylineOptions polyOptions = new PolylineOptions();
+            polyOptions.color(getResources().getColor(COLORS[0]));
+            polyOptions.width(10);
+            polyOptions.addAll(list);
+            Polyline polyline = map.addPolyline(polyOptions);
+            polylines.add(polyline);
+        }
 
 
-    public void addStepPolyline(LatLng first, LatLng second) {
+        public void addStepPolyline (LatLng first, LatLng second){
 
 
-        PolylineOptions polyOptions = new PolylineOptions();
-        polyOptions.width(10);
-        polyOptions.color(Color.GREEN);
-        polyOptions.add(first);
-        polyOptions.add(second);
-        map.addPolyline(polyOptions);
-    }
+            PolylineOptions polyOptions = new PolylineOptions();
+            polyOptions.width(10);
+            polyOptions.color(Color.GREEN);
+            polyOptions.add(first);
+            polyOptions.add(second);
+            map.addPolyline(polyOptions);
+        }
 
-    @Override
-    public void onRoutingSuccess(ArrayList<Route> route, int shortestRouteIndex) {
+        @Override
+        public void onRoutingSuccess (ArrayList < Route > route,int shortestRouteIndex){
 
-        renderPolyline(route);
+            renderPolyline(route);
 
-        float a = ((float) (route.get(route.size() - 1).getDistanceValue())) / 1000f / counter.countPersonalSpeed(1); // подставлять параметр из SP
-        int b = (int) a;
-        float c = a - b;
+            float a = ((float) (route.get(route.size() - 1).getDistanceValue())) / 1000f / counter.countPersonalSpeed(1); // подставлять параметр из SP
+            int b = (int) a;
+            float c = a - b;
 
-        String cRound = String.format("%.2g", c).replace(",", ".");
-        float cRoundFloat = Float.parseFloat(cRound) * 60f + 5f;
-        int cRoundInt = (int) cRoundFloat;
-        String str = b + " Hours " + cRoundInt + " Mins";
+            String cRound = String.format("%.2g", c).replace(",", ".");
+            float cRoundFloat = Float.parseFloat(cRound) * 60f + 5f;
+            int cRoundInt = (int) cRoundFloat;
+            String str = b + " Hours " + cRoundInt + " Mins";
 
-        Toast.makeText(getApplicationContext(), "Distance - " + route.get(route.size() - 1).getDistanceText() + " : time - " + str, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Distance - " + route.get(route.size() - 1).getDistanceText() + " : time - " + str, Toast.LENGTH_SHORT).show();
 
-    }
+        }
 
-    @Override
-    public void onRoutingCancelled() {
+        @Override
+        public void onRoutingCancelled () {
 
-    }
+        }
 
 
-    @SuppressLint("MissingPermission")
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
+        @SuppressLint("MissingPermission")
+        @Override
+        public void onMapReady (GoogleMap googleMap){
+            map = googleMap;
 
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(1000);
-        mLocationRequest.setFastestInterval(1000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+            mLocationRequest = new LocationRequest();
+            mLocationRequest.setInterval(1000);
+            mLocationRequest.setFastestInterval(1000);
+            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
-        map.setMyLocationEnabled(true);
+            mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
+            map.setMyLocationEnabled(true);
 
-        renderPolylineFirst();
-    }
+            renderPolylineFirst();
+        }
 
-    private void replaceActivity(int frag) {
-        ArrayList<LatLng> polylinePoints = new ArrayList<>(arrayLatLngNotUsed);
-        ArrayList<LatLng> stepPolyline = new ArrayList<>(stepLines);
+        private void replaceActivity ( int frag){
+            ArrayList<LatLng> polylinePoints = new ArrayList<>(arrayLatLngNotUsed);
+            ArrayList<LatLng> stepPolyline = new ArrayList<>(stepLines);
 
+            Intent intent = new Intent(this, NoBarActivity.class);
+            Bundle b = new Bundle();
+            b.putInt("fragment", frag);
+            b.putString("routeName", currentTrip.name);
+            b.putSerializable("trip", (Serializable) currentTrip);
+            b.putSerializable("poliline", (Serializable) polylinePoints);
+            b.putSerializable("stepPoliline", (Serializable) stepPolyline);
+            b.putString("routeName", routeName);
+            b.putInt("route_id", b.getInt("route_id"));
+            b.putInt("dur", seconds);
+            b.putString("len", b.getString("len"));
+            b.putString("dif_aut", b.getString("dif_aut"));
+            b.putSerializable("polylines", b.getSerializable("polylines"));
+            intent.putExtras(b);
+            startActivity(intent);
+        }
         currentTrip.setPolylinePoints(null);
         currentTrip.setStepsPoints(null);
 
@@ -332,5 +365,31 @@ public class OnRouteActivity extends AppCompatActivity
         intent.putExtras(b);
         startActivity(intent);
     }
+
+        private void runTimer ()
+        {
+            // Creates a new Handler
+            Handler handler
+                    = new Handler();
+            handler.post(new Runnable() {
+                @Override
+
+                public void run() {
+                    int hours = seconds / 3600;
+                    int minutes = (seconds % 3600) / 60;
+                    int secs = seconds % 60;
+
+                    String time
+                            = String
+                            .format(Locale.getDefault(),
+                                    "%d:%02d:%02d", hours,
+                                    minutes, secs);
+                    if (!isRoutePause) {
+                        seconds++;
+                    }
+                    handler.postDelayed(this, 1000);
+                }
+            });
+        }
 
 }

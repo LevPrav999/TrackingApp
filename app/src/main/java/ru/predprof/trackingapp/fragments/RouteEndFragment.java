@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,12 +38,16 @@ import ru.predprof.trackingapp.MainActivity;
 import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.databinding.RouteEndLayoutBinding;
 import ru.predprof.trackingapp.models.Trip;
+import ru.predprof.trackingapp.presentation.api.Controller;
 import ru.predprof.trackingapp.room.RoomHandler;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 
 public class RouteEndFragment extends Fragment implements
         OnMapReadyCallback {
     int user_complexity = 0;
+    int max = 0;
+    int min = 0;
+    int avg = 0;
     Location mLastLocation;
     LocationRequest mLocationRequest;
     LocationCallback mLocationCallback = new LocationCallback() {
@@ -94,7 +99,8 @@ public class RouteEndFragment extends Fragment implements
             Thread th2 = new Thread(() -> {
                 Trip trip = new Trip();
                 trip.setAvgSpeed(endedTrip.getAvgSpeed());
-                trip.setTime("0");
+                trip.setTime(Integer.toString(b.getInt("dur") / 60));
+                Log.d("asdfghjkl", trip.getTime());
                 trip.setLenKm(endedTrip.getLenKm());
                 trip.setDataPulse(new ArrayList<>());
                 trip.setDifficultAuto(endedTrip.getDifficultAuto());
@@ -124,6 +130,12 @@ public class RouteEndFragment extends Fragment implements
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
         polylines = (ArrayList<LatLng>) getArguments().getSerializable("poliline");
         steps = (ArrayList<LatLng>) getArguments().getSerializable("stepPoliline");
+        Controller controller = new Controller();
+        controller.run();
+        int max = controller.max_pulse;
+        int min = controller.min_pulse;
+        int avg = controller.avg_pulse;
+        Log.d("qwertyuiop", Integer.toString(max));
     }
 
     @Override

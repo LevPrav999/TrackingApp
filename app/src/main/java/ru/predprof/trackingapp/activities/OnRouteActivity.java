@@ -336,6 +336,9 @@ public class OnRouteActivity extends AppCompatActivity
             ArrayList<LatLng> polylinePoints = new ArrayList<>(arrayLatLngNotUsed);
             ArrayList<LatLng> stepPolyline = new ArrayList<>(stepLines);
 
+            currentTrip.setPolylinePoints(null);
+            currentTrip.setStepsPoints(null);
+
             Intent intent = new Intent(this, NoBarActivity.class);
             Bundle b = new Bundle();
             b.putInt("fragment", frag);
@@ -352,44 +355,31 @@ public class OnRouteActivity extends AppCompatActivity
             intent.putExtras(b);
             startActivity(intent);
         }
-        currentTrip.setPolylinePoints(null);
-        currentTrip.setStepsPoints(null);
 
-        Intent intent = new Intent(this, NoBarActivity.class);
-        Bundle b = new Bundle();
-        b.putInt("fragment", frag);
-        b.putString("routeName", currentTrip.name);
-        b.putSerializable("trip", (Serializable) currentTrip);
-        b.putSerializable("poliline", (Serializable) polylinePoints);
-        b.putSerializable("stepPoliline", (Serializable) stepPolyline);
-        intent.putExtras(b);
-        startActivity(intent);
-    }
+    private void runTimer ()
+    {
+        // Creates a new Handler
+        Handler handler
+                = new Handler();
+        handler.post(new Runnable() {
+            @Override
 
-        private void runTimer ()
-        {
-            // Creates a new Handler
-            Handler handler
-                    = new Handler();
-            handler.post(new Runnable() {
-                @Override
+            public void run() {
+                int hours = seconds / 3600;
+                int minutes = (seconds % 3600) / 60;
+                int secs = seconds % 60;
 
-                public void run() {
-                    int hours = seconds / 3600;
-                    int minutes = (seconds % 3600) / 60;
-                    int secs = seconds % 60;
-
-                    String time
-                            = String
-                            .format(Locale.getDefault(),
-                                    "%d:%02d:%02d", hours,
-                                    minutes, secs);
-                    if (!isRoutePause) {
-                        seconds++;
-                    }
-                    handler.postDelayed(this, 1000);
+                String time
+                        = String
+                        .format(Locale.getDefault(),
+                                "%d:%02d:%02d", hours,
+                                minutes, secs);
+                if (!isRoutePause) {
+                    seconds++;
                 }
-            });
-        }
+                handler.postDelayed(this, 1000);
+            }
+        });
+    }
 
 }

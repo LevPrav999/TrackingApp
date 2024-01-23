@@ -168,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
                 trip.setEnd_point("55.754238:37.634425");
                 trip.setName("Красоты Москвы #1");
                 trip.setDifficultAuto("Easy");
+                trip.setDifficultAutoInt("3");
 
                 DefaultRoomHandler.getInstance(getApplicationContext()).getAppDatabase().tripDao().insertAll(trip);
 
@@ -176,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
                 trip2.setEnd_point("55.768413:37.649324");
                 trip2.setName("Красоты Москвы #2");
                 trip2.setDifficultAuto("Medium");
+                trip.setDifficultAutoInt("5");
 
                 DefaultRoomHandler.getInstance(getApplicationContext()).getAppDatabase().tripDao().insertAll(trip2);
 
@@ -184,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
                 trip3.setEnd_point("55.704786:37.538074");
                 trip3.setName("Красоты Москвы #3");
                 trip3.setDifficultAuto("Hard");
+                trip.setDifficultAutoInt("7");
 
                 DefaultRoomHandler.getInstance(getApplicationContext()).getAppDatabase().tripDao().insertAll(trip3);
             }

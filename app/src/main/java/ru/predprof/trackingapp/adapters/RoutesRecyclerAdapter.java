@@ -13,15 +13,19 @@ import java.util.List;
 
 import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.models.Trip;
+import ru.predprof.trackingapp.utils.Counter;
 
 
 public class RoutesRecyclerAdapter extends RecyclerView.Adapter<RoutesRecyclerAdapter.TripsHolder> {
     private final RoutesRecyclerAdapter.OnItemClickListener listener;
     List<Trip> trips;
 
+    Counter counter;
+
     public RoutesRecyclerAdapter(List<Trip> trips, OnItemClickListener listener) {
         this.trips = trips;
         this.listener = listener;
+        counter = new Counter();
     }
 
 
@@ -39,7 +43,10 @@ public class RoutesRecyclerAdapter extends RecyclerView.Adapter<RoutesRecyclerAd
         Trip trip = trips.get(position);
         Log.d("dfghghghnhgff", Integer.toString(trip.number));
         holder.name.setText(trip.name);
-        holder.complexity.setText(trip.difficultAuto);
+        holder.complexity.setText(counter.countFinalLevelOfTravelStr(
+                Integer.parseInt(trip.difficultAuto),
+                Integer.parseInt(trip.difficultReal)
+        ));
 //        holder.tv.setText(gr.name);
 //        holder.tv1.setText(gr.id);
 

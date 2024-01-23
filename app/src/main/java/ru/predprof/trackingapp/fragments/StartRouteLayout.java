@@ -1,6 +1,8 @@
 package ru.predprof.trackingapp.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.directions.route.AbstractRouting;
 import com.directions.route.Route;
@@ -32,10 +36,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import ru.predprof.trackingapp.R;
+import ru.predprof.trackingapp.activities.OnRouteActivity;
 import ru.predprof.trackingapp.databinding.StartRouteLayoutBinding;
 import ru.predprof.trackingapp.models.DefaultTrip;
 import ru.predprof.trackingapp.models.Trip;
@@ -59,6 +65,8 @@ public class StartRouteLayout extends Fragment implements
 
     private LatLng startedPoint;
     private LatLng endedPoint;
+
+    private Trip currentTrip;
 
     private boolean isError = false;
 
@@ -118,6 +126,15 @@ public class StartRouteLayout extends Fragment implements
 
         SupportMapFragment supportMapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.google_map);
+
+
+        binding.startButton.setOnClickListener(l->{
+            replaceActivity(currentTrip);
+        });
+
+        binding.editButton.setOnClickListener(l -> {
+            toEditFragment();
+        });
 
 
         supportMapFragment.getMapAsync(this);
@@ -183,6 +200,16 @@ public class StartRouteLayout extends Fragment implements
         polylines.add(polyline);
     }
 
+    public void addStepPolyline(List<LatLng> list) {
+
+
+        PolylineOptions polyOptions = new PolylineOptions();
+        polyOptions.width(10);
+        polyOptions.color(Color.GREEN);
+        polyOptions.addAll(list);
+        map.addPolyline(polyOptions);
+    }
+
     @Override
     public void onRoutingSuccess(ArrayList<Route> route, int shortestRouteIndex) {
         renderPolyline(route);
@@ -205,6 +232,11 @@ public class StartRouteLayout extends Fragment implements
         }
         int cRoundInt = (int) cRoundFloat;
         String str = b + ":" + cRoundInt;
+
+        if (getArguments().getBoolean("isDefaultRoute", false)) {
+            currentTrip.setLenKm(route.get(route.size() - 1).getDistanceText());
+            currentTrip.setDuration(str);
+        }
 
         binding.routeComplexity.setText(counter.countLevelOfTravelStr(b));
 
@@ -243,8 +275,12 @@ public class StartRouteLayout extends Fragment implements
                     String name = b.getString("routeName", "Не указано");
                     DefaultTrip trip = DefaultRoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getTripByName(name);
 
+                    Trip tripToReplace = new Trip();
+                    tripToReplace.setName(trip.name);
+                    tripToReplace.setDifficultAuto(trip.difficultAutoInt);
 
                     h.post(() -> {
+                        currentTrip = tripToReplace;
                         binding.editButton.setVisibility(View.GONE);
                         binding.routeName.setText(name);
                         String startPoint = trip.start_point;
@@ -261,15 +297,49 @@ public class StartRouteLayout extends Fragment implements
                     Trip trip = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getTripByName(name);
 
                     h.post(() -> {
+                        currentTrip = trip;
                         binding.routeName.setText(name);
                         startedPoint = trip.getPolylinePoints().get(0);
                         endedPoint = trip.getPolylinePoints().get(trip.getPolylinePoints().size() - 1);
                         renderPolylineNew(trip.getPolylinePoints());
+                        addStepPolyline(trip.getStepsPoints());
+
                     });
                 }
             });
             th.start();
 
         }
+    }
+
+    private void replaceActivity(Trip tr) {
+        ArrayList<LatLng> polylinePoints = new ArrayList<>(tr.getPolylinePoints() != null ? tr.getPolylinePoints() : polylines.get(0).getPoints());
+        tr.setPolylinePoints(null);
+        tr.setStepsPoints(null);
+
+        Intent intent = new Intent(this.getActivity(), OnRouteActivity.class);
+        Bundle b = new Bundle();
+        b.putSerializable("trip", (Serializable) tr);
+        b.putSerializable("polylines", polylinePoints);
+        intent.putExtras(b);
+        startActivity(intent);
+        getActivity().finish();
+    }
+
+    private void toEditFragment(){
+        Fragment fragment = new EditRouteFragment();
+        Bundle b = new Bundle();
+        b.putString("routeName", currentTrip.name);
+        b.putString("routeLength", currentTrip.getLenKm());
+        b.putString("routeComplexity", currentTrip.getDifficultAuto());
+        b.putString("routeTime", currentTrip.getDuration());
+
+        fragment.setArguments(b);
+
+        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        transaction.replace(R.id.map, fragment);
+        transaction.commit();
     }
 }

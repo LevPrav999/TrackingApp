@@ -18,12 +18,27 @@ public class DefaultTrip {
 
     @ColumnInfo(name = "dif_auto")
     public String difficultAuto; // Сложность расчётная
+
+    @ColumnInfo(name = "dif_auto_int")
+    public String difficultAutoInt; // Сложность расчётная (число)
+
     @ColumnInfo(name = "start_point")
     public String start_point;
     @ColumnInfo(name = "end_point")
     public String end_point;
     @ColumnInfo(name = "polylinePoints")
     public ArrayList<LatLng> polylinePoints;
+
+
+
+
+    public String getDifficultAutoInt() {
+        return difficultAutoInt;
+    }
+
+    public void setDifficultAutoInt(String difficultAutoInt) {
+        this.difficultAutoInt = difficultAutoInt;
+    }
 
     public String getName() {
         return name;

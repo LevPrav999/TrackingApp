@@ -81,25 +81,14 @@ public class RouteEndFragment extends Fragment implements
             }
         });
 
-        Handler h = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-            }
-        };
+        endedTrip = (Trip) b.getSerializable("trip");
 
-        Thread th = new Thread(() -> {
-            Trip trip = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getTripByName(getArguments().getString("routeName"));
-            h.post(() -> {
-                endedTrip = trip;
-                binding.routeLength.setText(trip.getLenKm());
-                binding.routeEstimatedComplexity.setText(trip.getDifficultAuto());
-                binding.lastRoute.setText(trip.getName());
-                binding.routeDuration.setText(trip.getDuration());
-            });
-        });
+        binding.routeLength.setText(endedTrip.getLenKm());
+        binding.routeEstimatedComplexity.setText(endedTrip.getDifficultAuto());
+        binding.lastRoute.setText(endedTrip.getName());
+        binding.routeDuration.setText(endedTrip.getDuration());
 
-        th.start();
+
 
         binding.toMain.setOnClickListener(view -> {
             Thread th2 = new Thread(() -> {

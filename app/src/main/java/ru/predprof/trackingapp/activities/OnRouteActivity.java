@@ -319,6 +319,9 @@ public class OnRouteActivity extends AppCompatActivity
         ArrayList<LatLng> polylinePoints = new ArrayList<>(arrayLatLngNotUsed);
         ArrayList<LatLng> stepPolyline = new ArrayList<>(stepLines);
 
+        currentTrip.setPolylinePoints(null);
+        currentTrip.setStepsPoints(null);
+
         Intent intent = new Intent(this, NoBarActivity.class);
         Bundle b = new Bundle();
         b.putInt("fragment", frag);

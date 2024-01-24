@@ -33,7 +33,7 @@ public interface TripDao {
     @Delete
     void delete(Trip user);
 
-    @Query("DELETE FROM trip WHERE name = (:name)")
+    @Query("DELETE FROM trip WHERE name = (:name) AND polylinePoints = null AND stepsPoints = null")
     void deleteAllByName(String name);
 
     @Query("DELETE FROM trip")

@@ -73,6 +73,8 @@ public class EditRouteFragment extends Fragment implements
     private Counter counter;
     private SharedPreferencesManager preferenceManager;
 
+    private List<String> arrTrips = new ArrayList<>();
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,39 +98,61 @@ public class EditRouteFragment extends Fragment implements
 
         supportMapFragment.getMapAsync(this);
 
+        if(getArguments().getString("routeName") != null){
+            binding.routeName.setText(getArguments().getString("routeName"));
+            binding.routeLength.setText(getArguments().getString("routeLength"));
+            binding.routeComplexity.setText(getArguments().getString("routeComplexity"));
+            binding.routeTime.setText(getArguments().getString("routeTime"));
+        }
+
+        Handler h = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+            }
+        };
+
+        Thread th = new Thread(() -> {
+            List<Trip> t = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
+            h.post(() -> {
+                for(Trip trip: t){
+                    arrTrips.add(trip.getName());
+                }
+            });
+        });
+        th.start();
+
+
+
+
         binding.buttonSave.setOnClickListener(l -> {
             if (binding.routeName.getText().toString().length() > 0) {
-                if (binding.routeLength.getText().toString().split(" ").length > 1) {
+                if (arrTrips.contains(binding.routeName.getText().toString().trim())){
+                    Toast.makeText(getContext(), "Такое название маршрута уже существует", Toast.LENGTH_LONG).show();
+                }
+                else if (binding.routeLength.getText().toString().split(" ").length > 1) {
                     String lenKm = binding.routeLength.getText().toString().split(" ")[0];
                     String name = binding.routeName.getText().toString();
-                    ArrayList<LatLng> polylinePoints = new ArrayList<>(polylines.get(0).getPoints());
-                    Thread th = new Thread(() -> {
+                    Trip trip = new Trip();
+                    trip.setAvgSpeed("0");
+                    trip.setTime("0");
+                    trip.setLenKm(lenKm);
+                    trip.setDataPulse(new ArrayList<>());
+                    trip.setDifficultAuto(Integer.toString(complexity));
+                    trip.setDifficultReal("0");
+                    trip.setMaxSpeed("0");
+                    Calendar calendar = Calendar.getInstance();
+                    String date = new SimpleDateFormat("dd.MM.yyyy").format(calendar.getTime());
+                    trip.setWeekDay(date);
+                    trip.setDuration("0");
+                    trip.setEnded("0");
+                    trip.setName(name);
 
-                        Trip trip = new Trip();
-                        trip.setAvgSpeed("0");
-                        trip.setTime("0");
-                        trip.setLenKm(lenKm);
-                        trip.setDataPulse(new ArrayList<>());
-                        trip.setDifficultAuto(Integer.toString(complexity));
-                        trip.setDifficultReal("0");
-                        trip.setMaxSpeed("0");
-                        Calendar calendar = Calendar.getInstance();
-                        String date = new SimpleDateFormat("dd.MM.yyyy").format(calendar.getTime());
-                        trip.setWeekDay(date);
-                        trip.setDuration("0");
-                        trip.setEnded("0");
-                        trip.setName(name);
-                        trip.setPolylinePoints(polylinePoints);
-                        RoomHandler.getInstance(this.getContext()).getAppDatabase().tripDao().insertAll(trip);
-                        Trip trip1 = RoomHandler.getInstance(this.getContext()).getAppDatabase().tripDao().getlastTrip();
-                        trip1.setPolylinePoints(null);
-                        binding.getRoot().post(() -> replaceActivity(
-                                trip1,
-                                polylines
-                        ));
+                    replaceActivity(
+                            trip,
+                            polylines
+                    );
 
-                    });
-                    th.start();
                 } else {
                     Toast.makeText(getContext(), "Поставьте метку", Toast.LENGTH_SHORT).show();
                 }

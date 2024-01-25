@@ -97,13 +97,15 @@ public class EditRouteFragment extends Fragment implements
 
 
         supportMapFragment.getMapAsync(this);
+        try {
+            if(getArguments().getString("routeName") != null){
+                binding.routeName.setText(getArguments().getString("routeName"));
+                binding.routeLength.setText(getArguments().getString("routeLength"));
+                binding.routeComplexity.setText(getArguments().getString("routeComplexity"));
+                binding.routeTime.setText(getArguments().getString("routeTime"));
+            }
+        } catch (Exception e){}
 
-        if(getArguments().getString("routeName") != null){
-            binding.routeName.setText(getArguments().getString("routeName"));
-            binding.routeLength.setText(getArguments().getString("routeLength"));
-            binding.routeComplexity.setText(getArguments().getString("routeComplexity"));
-            binding.routeTime.setText(getArguments().getString("routeTime"));
-        }
 
         Handler h = new Handler() {
             @Override

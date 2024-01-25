@@ -139,7 +139,7 @@ public class MainAppFragment extends Fragment {
                                 throw new RuntimeException(e);
                             }
 
-                            Log.d("hvhgdjfk", end_date.toString());
+//                            Log.d("hvhgdjfk", end_date.toString());
                             if (thedate.compareTo(start_date) >= 0 && thedate.compareTo(end_date) <= 0) {
                                 Calendar cd = Calendar.getInstance();
                                 cd.setTime(thedate);

@@ -102,7 +102,17 @@ public class RouteEndFragment extends Fragment implements
                 trip.setTime(Integer.toString(b.getInt("dur") / 60));
                 Log.d("asdfghjkl", trip.getTime());
                 trip.setLenKm(endedTrip.getLenKm());
-                trip.setDataPulse(new ArrayList<>());
+                Controller controller = new Controller();
+                controller.run();
+                int max = controller.max_pulse;
+                int min = controller.min_pulse;
+                int avg = controller.avg_pulse;
+                ArrayList<String> pulse = new ArrayList<>();
+                pulse.add(Integer.toString(max));
+                pulse.add(Integer.toString(min));
+                pulse.add(Integer.toString(avg));
+                Log.d("l,g,fld,l,", pulse.get(0));
+                trip.setDataPulse(pulse);
                 trip.setDifficultAuto(endedTrip.getDifficultAuto());
                 trip.setDifficultReal(Integer.toString(user_complexity));
                 trip.setMaxSpeed(endedTrip.getMaxSpeed());
@@ -130,12 +140,8 @@ public class RouteEndFragment extends Fragment implements
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
         polylines = (ArrayList<LatLng>) getArguments().getSerializable("poliline");
         steps = (ArrayList<LatLng>) getArguments().getSerializable("stepPoliline");
-        Controller controller = new Controller();
-        controller.run();
-        int max = controller.max_pulse;
-        int min = controller.min_pulse;
-        int avg = controller.avg_pulse;
-        Log.d("qwertyuiop", Integer.toString(max));
+
+
     }
 
     @Override

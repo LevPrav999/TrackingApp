@@ -63,7 +63,7 @@ public class OnRouteActivity extends AppCompatActivity
     double maxToRewrite = 0.3d;
     private ActivityOnRouteBinding binding;
     private SharedPreferencesManager sharedPreferencesManager;
-    private int seconds = 0;
+    int seconds = 0;
     private List<LatLng> arrayLatLng;
     private List<LatLng> arrayLatLngNotUsed;
     private String routeName = "Название маршрута не задано";
@@ -177,8 +177,9 @@ public class OnRouteActivity extends AppCompatActivity
 
             binding.pauseButton.setOnClickListener(view -> {
                 isRoutePause = true;
-                replaceActivity(1);
                 Log.d("poiuytrew", Integer.toString(seconds));
+                replaceActivity(1);
+
             });
             binding.endButton.setOnClickListener(view -> {
                 float summa = 0;

@@ -118,7 +118,7 @@ public class MainAppFragment extends Fragment {
             Calendar calendar = Calendar.getInstance();
 
             String date = new SimpleDateFormat("dd.MM.yyyy").format(calendar.getTime());
-
+            Log.d("dddddddddddddddddddddd", Integer.toString(calendar.getTime().getHours()));
 
             int day_week = calendar.get(Calendar.DAY_OF_WEEK);
             calendar.add(Calendar.DAY_OF_MONTH, -day_week);
@@ -129,7 +129,6 @@ public class MainAppFragment extends Fragment {
             binding.graph.post(new Runnable() {
                 @Override
                 public void run() {
-
                     for (Trip tr : ended) {
                         Date thedate = null;
                         try {

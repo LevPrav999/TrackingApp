@@ -91,7 +91,7 @@ public class RouteEndFragment extends Fragment implements
         binding.routeLength.setText(endedTrip.getLenKm());
         binding.routeEstimatedComplexity.setText(endedTrip.getDifficultAuto());
         binding.lastRoute.setText(endedTrip.getName());
-        binding.routeDuration.setText(endedTrip.getDuration());
+        binding.routeDuration.setText(Integer.toString(b.getInt("dur") / 60));
 
 
 

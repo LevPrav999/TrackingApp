@@ -234,7 +234,7 @@ public class StartRouteLayout extends Fragment implements
         String str = b + ":" + cRoundInt;
 
         if (getArguments().getBoolean("isDefaultRoute", false)) {
-            currentTrip.setLenKm(route.get(route.size() - 1).getDistanceText());
+            currentTrip.setLenKm(route.get(route.size() - 1).getDistanceText().split(" ")[0]);
             currentTrip.setDuration(str);
         }
 

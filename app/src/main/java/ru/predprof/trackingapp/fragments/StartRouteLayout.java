@@ -129,7 +129,11 @@ public class StartRouteLayout extends Fragment implements
 
 
         binding.startButton.setOnClickListener(l->{
-            replaceActivity(currentTrip);
+            if(!isError){
+                replaceActivity(currentTrip);
+            }else{
+                Toast.makeText(getContext(), "Вы слишком далеко от точки старта", Toast.LENGTH_LONG).show();
+            }
         });
 
         binding.editButton.setOnClickListener(l -> {

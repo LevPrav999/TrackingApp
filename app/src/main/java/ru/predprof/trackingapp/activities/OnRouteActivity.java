@@ -349,7 +349,6 @@ public class OnRouteActivity extends AppCompatActivity
         b.putSerializable("stepPoliline", (Serializable) stepPolyline);
         b.putString("routeName", routeName);
         b.putInt("dur", seconds);
-        b.putSerializable("polylines", b.getSerializable("polylines"));
         intent.putExtras(b);
         startActivity(intent);
     }

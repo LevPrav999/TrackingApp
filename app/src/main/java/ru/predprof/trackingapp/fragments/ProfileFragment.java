@@ -50,6 +50,7 @@ public class ProfileFragment extends Fragment {
             List<Trip> ended = new ArrayList<>();
             for (Trip el : lst) {
                 if (Objects.equals(el.ended, "1")) {
+                    el.setLenKm(el.getLenKm().replace("km", "").replace("mi", ""));
                     ended.add(el);
                 }
             }

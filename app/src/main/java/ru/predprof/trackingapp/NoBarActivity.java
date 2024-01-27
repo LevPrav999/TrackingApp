@@ -23,14 +23,20 @@ public class NoBarActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         Bundle b = getIntent().getExtras();
         if (b != null && b.getInt("fragment") == 1) {
-            replace(new PauseRouteFragment());
+            Bundle b1 = new Bundle();
+            b1.putString("routeName", b.getString("routeName"));
+            b1.putSerializable("stepPoliline", (Serializable) b.getSerializable("stepPoliline"));
+            b1.putSerializable("poliline", (Serializable) b.getSerializable("poliline"));
+            PauseRouteFragment pauseRouteFragment = new PauseRouteFragment();
+            pauseRouteFragment.setArguments(b1);
+            replace(pauseRouteFragment);
         } else if (b != null && b.getInt("fragment") == 2) {
             Bundle b1 = new Bundle();
 
             b1.putString("routeName", b.getString("routeName"));
             b1.putSerializable("stepPoliline", (Serializable) b.getSerializable("stepPoliline"));
             b1.putSerializable("poliline", (Serializable) b.getSerializable("poliline"));
-            b1.putSerializable("trip", b.getFloat("trip"));
+            b1.putSerializable("trip", b.getSerializable("trip"));
             b1.putInt("dur", b.getInt("dur"));
             RouteEndFragment routeEndFragment = new RouteEndFragment();
             routeEndFragment.setArguments(b1);

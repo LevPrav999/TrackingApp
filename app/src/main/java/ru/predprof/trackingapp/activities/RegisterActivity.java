@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -73,15 +74,54 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         binding.sendFormButton.setOnClickListener(listener -> {
-            if (binding.registerHeight.length() != 3) {
-                Log.d("eeeeeee", "Введите рост трёхзначным числом");
+            if(binding.registerPhoneNumber.length() < 12 || binding.registerPhoneNumber.length() > 12){
+                Toast.makeText(getApplicationContext(),
+                        "Неверно введён номер телефона",
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+            else if(binding.registerName.length() < 3){
+                Toast.makeText(getApplicationContext(),
+                        "Введите имя",
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+            else if (binding.registerHeight.length() != 3) {
+                Toast.makeText(getApplicationContext(),
+                        "Введите рост трёхзначным числом",
+                        Toast.LENGTH_LONG
+                ).show();
             } else if (binding.registerWeight.length() != 4) {
-                Log.d("eeeeeee", "Введите вес в формате 86.3 или 72.0");
-            } else if (level == -1) {
-                Log.d("eeeeeee", "Вы не выбрали уровень подготовки");
-            } else {
-                saveToDb();
-                Replace.replaceActivity(this, new MainActivity(), false);
+                Toast.makeText(getApplicationContext(),
+                        "Введите вес в формате XXX.X или XX.X",
+                        Toast.LENGTH_LONG
+                ).show();
+            } else if (level == -2) {
+                Toast.makeText(getApplicationContext(),
+                        "Вы не выбрали уровень подготовки",
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+            else if (healthStatus == -3) {
+                Toast.makeText(getApplicationContext(),
+                        "Вы не выбрали состояние здоровья",
+                        Toast.LENGTH_LONG
+                ).show();
+            }else {
+                try{
+                    float a = Float.parseFloat(binding.registerHeight.getText().toString());
+                    float b = Float.parseFloat(binding.registerWeight.getText().toString());
+                    long c = Long.parseLong(binding.registerPhoneNumber.getText().toString().replace("+", "").replace("\"", ""));
+
+                    saveToDb();
+                    Replace.replaceActivity(this, new MainActivity(), false);
+
+                }catch (Exception e){
+                    Toast.makeText(getApplicationContext(),
+                            "Какой-то из параметров введён неверно",
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
             }
         });
     }

@@ -192,9 +192,12 @@ public class MainAppFragment extends Fragment {
                 @Override
                 public void run() {
                     if (!lst.isEmpty()) {
+                        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+                        llm.setOrientation(LinearLayoutManager.VERTICAL);
+                        binding.recycler.setLayoutManager(llm);
+
                         adapter = new StatisticRecyclerAdapter(ended);
                         binding.recycler.setAdapter(adapter);
-                        binding.recycler.setLayoutManager(new LinearLayoutManager((Context) getActivity()));
                         adapter.notifyDataSetChanged();
                     }
                 }

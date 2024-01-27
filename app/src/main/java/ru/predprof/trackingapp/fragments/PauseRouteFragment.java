@@ -66,6 +66,8 @@ public class PauseRouteFragment extends Fragment implements
             getActivity().finish();
         });
 
+        binding.routePoints.setText(getArguments().getString("routeName"));
+
         SupportMapFragment supportMapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.google_map);
 
@@ -95,13 +97,7 @@ public class PauseRouteFragment extends Fragment implements
             }
         };
 
-        Thread th = new Thread(() -> {
-            Trip t = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getlastTrip();
-            h.post(() -> {
-                renderPolylineNew(t.polylinePoints);
-            });
-        });
-        th.start();
+        renderPolylineNew((ArrayList<LatLng>) getArguments().getSerializable("poliline"));
     }
 
     public void renderPolylineNew(List<LatLng> list) {

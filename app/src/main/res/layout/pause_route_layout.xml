@@ -18,13 +18,13 @@
     <TextView
         style="@style/title_fragment"
         android:layout_marginTop="83dp"
-        android:text="@string/your_geopos" />
+        android:text="Маршрут на паузе" />
 
     <TextView
         android:id="@+id/user_speed"
         style="@style/title_fragment"
         android:layout_marginTop="110dp"
-        android:text="@string/text_geopos_visiblehint" />
+        android:text="Запись поездки не обновляются" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/google_map"

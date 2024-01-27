@@ -149,6 +149,13 @@ public class EditRouteFragment extends Fragment implements
                     trip.setDuration("0");
                     trip.setEnded("0");
                     trip.setName(name);
+                    trip.setPolylinePoints(new ArrayList<>(polylines.get(0).getPoints()));
+
+                    Thread th2 = new Thread(()->{
+                        RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().insertAll(trip);
+                    });
+
+                    th2.start();
 
                     replaceActivity(
                             trip,
@@ -319,7 +326,7 @@ public class EditRouteFragment extends Fragment implements
 
     private void replaceActivity(Trip tr, List<Polyline> polylines) {
         ArrayList<LatLng> polylinePoints = new ArrayList<>(polylines.get(0).getPoints());
-
+        tr.setPolylinePoints(null);
 
         Intent intent = new Intent(this.getActivity(), OnRouteActivity.class);
         Bundle b = new Bundle();

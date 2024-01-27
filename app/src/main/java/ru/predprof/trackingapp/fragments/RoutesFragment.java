@@ -60,6 +60,10 @@ public class RoutesFragment extends Fragment {
                 @Override
                 public void run() {
                     if (!lst.isEmpty()) {
+
+                        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+                        llm.setOrientation(LinearLayoutManager.VERTICAL);
+                        binding.recyclerUserSRoutes.setLayoutManager(llm);
                         adapter = new RoutesRecyclerAdapter(no_ended, new RoutesRecyclerAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(RoutesRecyclerAdapter.TripsHolder item) {
@@ -73,7 +77,6 @@ public class RoutesFragment extends Fragment {
                             }
                         });
                         binding.recyclerUserSRoutes.setAdapter(adapter);
-                        binding.recyclerUserSRoutes.setLayoutManager(new LinearLayoutManager((Context) getActivity()));
                         adapter.notifyDataSetChanged();
                     }
                 }
@@ -83,6 +86,10 @@ public class RoutesFragment extends Fragment {
                 @Override
                 public void run() {
                     if (!lst2.isEmpty()) {
+
+                        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+                        llm.setOrientation(LinearLayoutManager.VERTICAL);
+                        binding.recyclerRoutesOfApp.setLayoutManager(llm);
                         adapter2 = new DefaultRoutesRecyclerAdapter(lst2, new DefaultRoutesRecyclerAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(DefaultRoutesRecyclerAdapter.TripsHolder item) {
@@ -96,7 +103,6 @@ public class RoutesFragment extends Fragment {
                             }
                         });
                         binding.recyclerRoutesOfApp.setAdapter(adapter2);
-                        binding.recyclerRoutesOfApp.setLayoutManager(new LinearLayoutManager((Context) getActivity()));
                         adapter2.notifyDataSetChanged();
                     }
                 }

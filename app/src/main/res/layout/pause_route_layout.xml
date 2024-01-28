@@ -42,7 +42,7 @@
         android:id="@+id/resume_button"
         style="@style/big_orange_button"
         android:layout_gravity="bottom|center"
-        android:layout_marginBottom="200dp"
+        android:layout_marginBottom="190dp"
         android:text="@string/resume" />
 
     <androidx.appcompat.widget.AppCompatButton

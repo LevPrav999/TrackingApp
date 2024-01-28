@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -92,7 +90,9 @@ public class RouteEndFragment extends Fragment implements
         binding.routeEstimatedComplexity.setText(endedTrip.getDifficultAuto());
         binding.lastRoute.setText(endedTrip.getName());
         binding.routeDuration.setText(Integer.toString(b.getInt("dur") / 60));
-
+        binding.middleSpeed.setText(Integer.toString(b.getInt("avg_speed")));
+        binding.maxSpeed.setText(Integer.toString(b.getInt("max_speed")));
+        binding.middlePulse.setText(Integer.toString(b.getInt("data_pulse")));
 
 
         binding.toMain.setOnClickListener(view -> {

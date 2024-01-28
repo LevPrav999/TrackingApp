@@ -9,13 +9,21 @@
     <TextView
         style="@style/title_fragment"
         android:text="@string/route_end" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="10dp"
+        android:text="Название поездки"
+        style="@style/text_for_stats"
+        android:id="@+id/name_of_trip"/>
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="80dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/pres_info"
         android:orientation="vertical">
@@ -91,6 +99,87 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/text_for_stats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="Средняя скорость:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/middle_speed"
+                style="@style/text_for_stats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:text="@string/none_hint"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:ignore="MissingConstraints" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/text_for_stats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="Максимальная скорость:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/max_speed"
+                style="@style/text_for_stats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:text="@string/none_hint"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:ignore="MissingConstraints" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/text_for_stats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="Средний пульс:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/middle_pulse"
+                style="@style/text_for_stats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:text="@string/none_hint"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:ignore="MissingConstraints" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:orientation="horizontal">
@@ -114,13 +203,16 @@
                 app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="300dp"
         android:layout_marginRight="15dp"
         android:orientation="horizontal">
 
@@ -178,7 +270,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="270dp"
+        android:layout_marginTop="380dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="70dp"
         android:background="@drawable/map_shape" />

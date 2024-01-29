@@ -339,7 +339,15 @@ public class OnRouteActivity extends AppCompatActivity
 
         currentTrip.setPolylinePoints(null);
         currentTrip.setStepsPoints(null);
+        int hours = seconds / 3600;
+        int minutes = (seconds % 3600) / 60;
+        int secs = seconds % 60;
 
+        String time
+                = String
+                .format(Locale.getDefault(),
+                        "%d:%02d:%02d", hours,
+                        minutes, secs);
         Intent intent = new Intent(this, NoBarActivity.class);
         Bundle b = new Bundle();
         b.putInt("fragment", frag);
@@ -348,7 +356,7 @@ public class OnRouteActivity extends AppCompatActivity
         b.putSerializable("poliline", (Serializable) polylinePoints);
         b.putSerializable("stepPoliline", (Serializable) stepPolyline);
         b.putString("routeName", routeName);
-        b.putInt("dur", seconds);
+        b.putString("dur", time);
         intent.putExtras(b);
         startActivity(intent);
     }

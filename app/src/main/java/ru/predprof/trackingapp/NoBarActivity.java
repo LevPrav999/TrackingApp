@@ -37,7 +37,7 @@ public class NoBarActivity extends AppCompatActivity {
             b1.putSerializable("stepPoliline", (Serializable) b.getSerializable("stepPoliline"));
             b1.putSerializable("poliline", (Serializable) b.getSerializable("poliline"));
             b1.putSerializable("trip", b.getSerializable("trip"));
-            b1.putInt("dur", b.getInt("dur"));
+            b1.putString("dur", b.getString("dur"));
             RouteEndFragment routeEndFragment = new RouteEndFragment();
             routeEndFragment.setArguments(b1);
             replace(routeEndFragment);

@@ -85,28 +85,28 @@ public class RouteEndFragment extends Fragment implements
         });
 
         endedTrip = (Trip) b.getSerializable("trip");
-
+        Controller controller = new Controller();
+        controller.run();
         binding.routeLength.setText(endedTrip.getLenKm());
         binding.routeEstimatedComplexity.setText(endedTrip.getDifficultAuto());
         binding.lastRoute.setText(endedTrip.getName());
-        binding.routeDuration.setText(Integer.toString(b.getInt("dur") / 60));
+        binding.routeDuration.setText(b.getString("dur"));
         binding.middleSpeed.setText(Integer.toString(b.getInt("avg_speed")));
         binding.maxSpeed.setText(Integer.toString(b.getInt("max_speed")));
-        binding.middlePulse.setText(Integer.toString(b.getInt("data_pulse")));
+        avg = controller.avg_pulse;
+        binding.middlePulse.setText(Integer.toString(avg));
 
 
         binding.toMain.setOnClickListener(view -> {
             Thread th2 = new Thread(() -> {
                 Trip trip = new Trip();
                 trip.setAvgSpeed(endedTrip.getAvgSpeed());
-                trip.setTime(Integer.toString(b.getInt("dur") / 60));
+                trip.setTime(b.getString("dur"));
                 Log.d("asdfghjkl", trip.getTime());
                 trip.setLenKm(endedTrip.getLenKm());
-                Controller controller = new Controller();
-                controller.run();
-                int max = controller.max_pulse;
-                int min = controller.min_pulse;
-                int avg = controller.avg_pulse;
+                max = controller.max_pulse;
+                min = controller.min_pulse;
+
                 ArrayList<String> pulse = new ArrayList<>();
                 pulse.add(Integer.toString(max));
                 pulse.add(Integer.toString(min));

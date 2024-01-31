@@ -59,7 +59,7 @@ public class RoutesFragment extends Fragment {
             binding.recyclerUserSRoutes.post(new Runnable() {
                 @Override
                 public void run() {
-                    if (!lst.isEmpty()) {
+                    if (!no_ended.isEmpty()) {
 
                         LinearLayoutManager llm = new LinearLayoutManager(getContext());
                         llm.setOrientation(LinearLayoutManager.VERTICAL);

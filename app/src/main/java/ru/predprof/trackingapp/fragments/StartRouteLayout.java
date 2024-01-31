@@ -298,15 +298,16 @@ public class StartRouteLayout extends Fragment implements
                     });
                 } else {
                     String name = b.getString("routeName", "Не указано");
-                    Trip trip = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getTripByName(name);
+                    currentTrip = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getTripByName(name);
 
                     h.post(() -> {
-                        currentTrip = trip;
                         binding.routeName.setText(name);
-                        startedPoint = trip.getPolylinePoints().get(0);
-                        endedPoint = trip.getPolylinePoints().get(trip.getPolylinePoints().size() - 1);
-                        renderPolylineNew(trip.getPolylinePoints());
-                        addStepPolyline(trip.getStepsPoints());
+                        startedPoint = currentTrip.getPolylinePoints().get(0);
+                        endedPoint = currentTrip.getPolylinePoints().get(currentTrip.getPolylinePoints().size() - 1);
+                        renderPolylineNew(currentTrip.getPolylinePoints());
+                        addStepPolyline(currentTrip.getStepsPoints());
+
+
 
                     });
                 }

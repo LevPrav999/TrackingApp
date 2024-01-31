@@ -14,7 +14,7 @@ public interface TripDao {
     @Query("SELECT * FROM trip")
     List<Trip> getAll();
 
-    @Query("SELECT * FROM trip WHERE name = (:name)")
+    @Query("SELECT * FROM trip WHERE name = (:name) AND ended = 1")
     Trip getTripByName(String name);
 
     @Query("SELECT * FROM trip WHERE number = (:id)")

@@ -25,7 +25,7 @@ import ru.predprof.trackingapp.utils.Replace;
 
 public class ProfileFragment extends Fragment {
     List<Trip> lst;
-    List<Trip> bestTrips = new ArrayList<Trip>();
+    List<Trip> bestTrips = new ArrayList<>();
     ProfileRecyclerAdapter adapter;
     private ProfileLayoutBinding binding;
     private SharedPreferencesManager preferenceManager;
@@ -45,16 +45,16 @@ public class ProfileFragment extends Fragment {
         String[] stringHealth = getResources().getStringArray(R.array.health_choice_array);
         binding.registerHealth.setText(stringHealth[preferenceManager.getInt("healthStatus", 0)]);
         Thread th2 = new Thread(() -> {
-
             lst = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
             List<Trip> ended = new ArrayList<>();
             for (Trip el : lst) {
                 if (Objects.equals(el.ended, "1")) {
-                    el.setLenKm(el.getLenKm().replace("km", "").replace("mi", ""));
+                    //el.setLenKm(el.getLenKm().replace("km", "").replace("mi", ""));
                     ended.add(el);
                 }
             }
             Collections.sort(ended);
+            Collections.reverse(ended);
             if (!ended.isEmpty()) {
                 bestTrips.add(ended.get(0));
             }

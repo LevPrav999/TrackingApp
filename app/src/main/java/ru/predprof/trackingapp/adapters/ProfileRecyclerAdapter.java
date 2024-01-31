@@ -36,9 +36,7 @@ public class ProfileRecyclerAdapter extends RecyclerView.Adapter<ProfileRecycler
     public void onBindViewHolder(@NonNull TripsHolder holder, int position) {
         Trip trip = trips.get(position);
         holder.date.setText(trip.weekDay);
-        holder.achive.setText(trip.lenKm + "  km за " + trip.getDuration() + " min");
-//        holder.tv.setText(gr.name);
-//        holder.tv1.setText(gr.id);
+        holder.achive.setText(trip.lenKm + "  km за " + trip.getTime() + " min");
 
     }
 

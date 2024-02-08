@@ -316,7 +316,7 @@ public class EditRouteFragment extends Fragment implements
                         binding.routeName.setText(t.name);
                         binding.routeComplexity.setText(t.difficultAuto);
                         binding.routeLength.setText(t.lenKm);
-                        renderPolylineNew(t.polylinePoints);
+                        //renderPolylineNew(t.polylinePoints);
                     });
                 });
                 th.start();

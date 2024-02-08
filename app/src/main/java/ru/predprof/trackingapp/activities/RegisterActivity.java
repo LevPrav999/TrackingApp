@@ -91,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
                         "Введите рост трёхзначным числом",
                         Toast.LENGTH_LONG
                 ).show();
-            } else if (binding.registerWeight.length() != 4) {
+            } else if ((binding.registerWeight.length() != 4 || binding.registerWeight.length() != 5) && !binding.registerWeight.getText().toString().contains(".")) {
                 Toast.makeText(getApplicationContext(),
                         "Введите вес в формате XXX.X или XX.X",
                         Toast.LENGTH_LONG

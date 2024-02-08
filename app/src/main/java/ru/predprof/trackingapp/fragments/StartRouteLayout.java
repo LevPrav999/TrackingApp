@@ -128,10 +128,10 @@ public class StartRouteLayout extends Fragment implements
                 getChildFragmentManager().findFragmentById(R.id.google_map);
 
 
-        binding.startButton.setOnClickListener(l->{
-            if(!isError){
+        binding.startButton.setOnClickListener(l -> {
+            if (!isError) {
                 replaceActivity(currentTrip);
-            }else{
+            } else {
                 Toast.makeText(getContext(), "Вы слишком далеко от точки старта", Toast.LENGTH_LONG).show();
             }
         });
@@ -331,7 +331,7 @@ public class StartRouteLayout extends Fragment implements
         getActivity().finish();
     }
 
-    private void toEditFragment(){
+    private void toEditFragment() {
         Fragment fragment = new EditRouteFragment();
         Bundle b = new Bundle();
         b.putString("routeName", currentTrip.name);

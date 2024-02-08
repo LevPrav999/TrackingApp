@@ -1,8 +1,5 @@
 package ru.predprof.trackingapp.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,17 +32,13 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
 import ru.predprof.trackingapp.NoBarActivity;
 import ru.predprof.trackingapp.R;
-import ru.predprof.trackingapp.databinding.ActivityMainBinding;
 import ru.predprof.trackingapp.databinding.ActivityOnRouteBinding;
-import ru.predprof.trackingapp.databinding.FragmentMapBinding;
 import ru.predprof.trackingapp.models.Trip;
 import ru.predprof.trackingapp.sharedpreferences.SharedPreferencesManager;
 import ru.predprof.trackingapp.utils.Counter;
@@ -61,9 +53,9 @@ public class OnRouteActivity extends AppCompatActivity
     Location mLastLocation;
     LocationRequest mLocationRequest;
     double maxToRewrite = 0.3d;
+    int seconds = 0;
     private ActivityOnRouteBinding binding;
     private SharedPreferencesManager sharedPreferencesManager;
-    int seconds = 0;
     private List<LatLng> arrayLatLng;
     private List<LatLng> arrayLatLngNotUsed;
     private String routeName = "Название маршрута не задано";

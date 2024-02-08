@@ -9,14 +9,15 @@
     <TextView
         style="@style/title_fragment"
         android:text="@string/route_end" />
+
     <TextView
+        android:id="@+id/name_of_trip"
+        style="@style/text_for_stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:layout_marginStart="10dp"
-        android:text="Название поездки"
-        style="@style/text_for_stats"
-        android:id="@+id/name_of_trip"/>
+        android:layout_marginTop="40dp"
+        android:text="Название поездки" />
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -121,6 +122,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -148,6 +150,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -175,6 +178,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -203,7 +207,6 @@
                 app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>

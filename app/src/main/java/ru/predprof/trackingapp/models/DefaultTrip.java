@@ -30,8 +30,6 @@ public class DefaultTrip {
     public ArrayList<LatLng> polylinePoints;
 
 
-
-
     public String getDifficultAutoInt() {
         return difficultAutoInt;
     }

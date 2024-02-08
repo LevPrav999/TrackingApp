@@ -31,8 +31,6 @@ import java.util.List;
 import ru.predprof.trackingapp.R;
 import ru.predprof.trackingapp.activities.OnRouteActivity;
 import ru.predprof.trackingapp.databinding.PauseRouteLayoutBinding;
-import ru.predprof.trackingapp.models.Trip;
-import ru.predprof.trackingapp.room.RoomHandler;
 
 public class PauseRouteFragment extends Fragment implements
         OnMapReadyCallback {

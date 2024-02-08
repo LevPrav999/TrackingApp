@@ -98,13 +98,14 @@ public class EditRouteFragment extends Fragment implements
 
         supportMapFragment.getMapAsync(this);
         try {
-            if(getArguments().getString("routeName") != null){
+            if (getArguments().getString("routeName") != null) {
                 binding.routeName.setText(getArguments().getString("routeName"));
                 binding.routeLength.setText(getArguments().getString("routeLength"));
                 binding.routeComplexity.setText(getArguments().getString("routeComplexity"));
                 binding.routeTime.setText(getArguments().getString("routeTime"));
             }
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
 
 
         Handler h = new Handler() {
@@ -117,7 +118,7 @@ public class EditRouteFragment extends Fragment implements
         Thread th = new Thread(() -> {
             List<Trip> t = RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().getAll();
             h.post(() -> {
-                for(Trip trip: t){
+                for (Trip trip : t) {
                     arrTrips.add(trip.getName());
                 }
             });
@@ -125,14 +126,11 @@ public class EditRouteFragment extends Fragment implements
         th.start();
 
 
-
-
         binding.buttonSave.setOnClickListener(l -> {
             if (binding.routeName.getText().toString().length() > 0) {
-                if (arrTrips.contains(binding.routeName.getText().toString().trim())){
+                if (arrTrips.contains(binding.routeName.getText().toString().trim())) {
                     Toast.makeText(getContext(), "Такое название маршрута уже существует", Toast.LENGTH_LONG).show();
-                }
-                else if (binding.routeLength.getText().toString().split(" ").length > 1) {
+                } else if (binding.routeLength.getText().toString().split(" ").length > 1) {
                     String lenKm = binding.routeLength.getText().toString().split(" ")[0];
                     String name = binding.routeName.getText().toString();
                     Trip trip = new Trip();
@@ -151,7 +149,7 @@ public class EditRouteFragment extends Fragment implements
                     trip.setName(name);
                     trip.setPolylinePoints(new ArrayList<>(polylines.get(0).getPoints()));
 
-                    Thread th2 = new Thread(()->{
+                    Thread th2 = new Thread(() -> {
                         RoomHandler.getInstance(getContext()).getAppDatabase().tripDao().insertAll(trip);
                     });
 

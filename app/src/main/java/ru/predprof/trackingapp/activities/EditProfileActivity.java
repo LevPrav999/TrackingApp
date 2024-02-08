@@ -75,19 +75,17 @@ public class EditProfileActivity extends AppCompatActivity {
 
         binding.cancel.setOnClickListener(l -> Replace.replaceActivity(this, new MainActivity(), true));
         binding.sendFormButton.setOnClickListener(listener -> {
-            if(binding.registerPhoneNumber.length() < 12 || binding.registerPhoneNumber.length() > 12){
+            if (binding.registerPhoneNumber.length() < 12 || binding.registerPhoneNumber.length() > 12) {
                 Toast.makeText(getApplicationContext(),
                         "Неверно введён номер телефона",
                         Toast.LENGTH_LONG
                 ).show();
-            }
-            else if(binding.registerName.length() < 3){
+            } else if (binding.registerName.length() < 3) {
                 Toast.makeText(getApplicationContext(),
                         "Введите имя",
                         Toast.LENGTH_LONG
                 ).show();
-            }
-            else if (binding.registerHeight.length() != 3) {
+            } else if (binding.registerHeight.length() != 3) {
                 Toast.makeText(getApplicationContext(),
                         "Введите рост трёхзначным числом",
                         Toast.LENGTH_LONG
@@ -102,14 +100,13 @@ public class EditProfileActivity extends AppCompatActivity {
                         "Вы не выбрали уровень подготовки",
                         Toast.LENGTH_LONG
                 ).show();
-            }
-            else if (healthStatus == -3) {
+            } else if (healthStatus == -3) {
                 Toast.makeText(getApplicationContext(),
                         "Вы не выбрали состояние здоровья",
                         Toast.LENGTH_LONG
                 ).show();
-            }else {
-                try{
+            } else {
+                try {
                     float a = Float.parseFloat(binding.registerHeight.getText().toString());
                     float b = Float.parseFloat(binding.registerWeight.getText().toString());
                     long c = Long.parseLong(binding.registerPhoneNumber.getText().toString().replace("+", "").replace("\"", ""));
@@ -117,7 +114,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     saveToDb();
                     Replace.replaceActivity(this, new MainActivity(), false);
 
-                }catch (Exception e){
+                } catch (Exception e) {
                     Toast.makeText(getApplicationContext(),
                             "Какой-то из параметров введён неверно",
                             Toast.LENGTH_LONG

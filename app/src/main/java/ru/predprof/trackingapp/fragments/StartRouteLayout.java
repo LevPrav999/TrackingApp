@@ -267,7 +267,7 @@ public class StartRouteLayout extends Fragment implements
 
         Bundle b = getArguments();
         if (b != null) {
-            Handler h = new Handler() {
+            @SuppressLint("HandlerLeak") Handler h = new Handler() {
                 @Override
                 public void handleMessage(Message msg) {
                     super.handleMessage(msg);
@@ -307,7 +307,7 @@ public class StartRouteLayout extends Fragment implements
                         renderPolylineNew(currentTrip.getPolylinePoints());
                         addStepPolyline(currentTrip.getStepsPoints());
 
-
+                        binding.routeComplexity.setText(currentTrip.difficultAuto);
 
                     });
                 }
@@ -347,4 +347,6 @@ public class StartRouteLayout extends Fragment implements
         transaction.replace(R.id.map, fragment);
         transaction.commit();
     }
+
+
 }

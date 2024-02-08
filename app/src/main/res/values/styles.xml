@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="title_fragment" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">top|left</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:fontFamily">@font/moscowsansregular</item>
+    </style>
+
+
+    <style name="edit_data" parent="TextAppearance.AppCompat">
+        <item name="android:layout_marginEnd">15dp</item>
+        <item name="android:background">@drawable/very_grey_text</item>
+        <item name="android:fontFamily">@font/moscowsansregular</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/hint_text</item>
+        <item name="android:textSize">15sp</item>
+
+    </style>
+
+
+    <style name="text_for_stats" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">@font/moscowsansregular</item>
+    </style>
+
+
+    <style name="big_orange_button" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/big_orange_button</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_height">150dp</item>
+        <item name="android:fontFamily">@font/moscowsansregular</item>
+    </style>
+
+
+    <style name="orange_button" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/orange_button</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/moscowsansregular</item>
+    </style>
+
+    <style name="grey_button" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/grey_button</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/moscowsansregular</item>
+    </style>
+
+    <style name="BottomNavigation.ActiveItemTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/moscowsansregular</item>
+        <item name="android:width">28dp</item>
+        <item name="android:height">28dp</item>
+        <item name="android:background">@color/dark_orange</item>
+        <item name="android:itemBackground">@color/dark_orange</item>
+        <item name="android:textColor">@color/dark_orange</item>
+    </style>
+
+
+</resources>

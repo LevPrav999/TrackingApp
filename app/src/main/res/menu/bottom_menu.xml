@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/statistic"
+        android:enabled="true"
+        android:fontFamily="@font/moscowsansregular"
+        android:icon="@drawable/assignment_turned_in"
+        android:title="Статистика"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/routes"
+        android:fontFamily="@font/moscowsansregular"
+        android:icon="@drawable/add_circle"
+        android:title="Маршруты"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/prof"
+        android:fontFamily="@font/moscowsansregular"
+        android:icon="@drawable/person"
+        android:title="Профиль"
+        app:showAsAction="ifRoom" />
+
+</menu>

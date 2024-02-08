@@ -1,19 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/back"
+    android:fitsSystemWindows="false"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/qwerty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/map_shape"
+        tools:context=".MapsActivity"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/getter_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:backgroundTint="@color/white"
+        app:itemActiveIndicatorStyle="@style/BottomNavigation.ActiveItemTextAppearance"
+        app:itemIconTint="@color/white"
+        app:itemPaddingBottom="20dp"
+        app:itemRippleColor="@color/white"
+        app:itemTextColor="@color/white"
+        app:menu="@menu/bottom_menu" />
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
